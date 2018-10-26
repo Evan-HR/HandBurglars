@@ -11,7 +11,9 @@ Meeting Topics:
 -Milestone/end of PI
 Friday, Nov 1st
 Need to sync/fix git ignore file
+
 -PoC breakdown
+
 
 -Design Documents
 
