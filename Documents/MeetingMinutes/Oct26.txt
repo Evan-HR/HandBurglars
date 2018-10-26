@@ -13,9 +13,21 @@ Friday, Nov 1st
 Need to sync/fix git ignore file
 
 -PoC breakdown
-
+Shell menus: Start,pause,end game
+Single monster room
+Coop
+Full access to player items
+Canon(controlled by one player)
+Ladders/Platforms
+Spike object
+Monster
+  -Moves(follows)
+  -Attacks
+Relic
 
 -Design Documents
+Main design doc -Dustin
+Level design doc -Danny
 
 -Attitude
 
