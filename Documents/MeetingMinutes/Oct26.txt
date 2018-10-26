@@ -30,5 +30,9 @@ Main design doc -Dustin
 Level design doc -Danny
 
 -Attitude
+Smarten up
 
 -Work flow
+Fill up backlog
+Once you have Trello items - is your responsibility
+
