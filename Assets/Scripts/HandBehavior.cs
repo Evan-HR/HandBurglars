@@ -9,17 +9,17 @@ public class HandBehavior : MonoBehaviour {
 
     private GameObject player;
     private GameObject baseInput;
-    private Vector2 handPos;
-    private Vector2 directionVector;
-    private Vector2 playerPos;
-    private Vector2 mousePos;
+    private Vector2 handPos;//Hand position in screen coordinates
+    private Vector2 directionVector;//Direction hand should point to from the character body
+    private Vector2 playerPos;//Position of player relative to screen coords
+    private Vector2 mousePos;//mouse position relative to screen coords
     private float diff;//for rotation of hand
     private float tempAngle;//for rotation of hand
-    private float bottom_Angle;
-    private float top_Angle;
-    private float currentHandAngle;
-    private float handBodyDistance;
-    private float mouseBodyDistance;
+    private float bottom_Angle;//For rotating hand
+    private float top_Angle;//For rotating hand
+    private float currentHandAngle;//Current rotation of the hand
+    private float handBodyDistance;//distance from hand to player
+    private float mouseBodyDistance;//distance from mouse to player
 
     private float handRadius = 100.0f;
     private float mouseRadRatio;
@@ -31,9 +31,9 @@ public class HandBehavior : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        transform.localPosition = new Vector2(0.0f, 0.0f);
+        transform.localPosition = new Vector2(0.0f, 0.0f);//localPosition - local to the parent(player)
         currentHandAngle = 0.0f;
-        baseInput = GameObject.Find("BaseInputController");
+        //baseInput = GameObject.Find("BaseInputController");
         player = GameObject.FindWithTag("Player");
        
 
@@ -45,13 +45,8 @@ public class HandBehavior : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //position = gameObject.transform.position;
-        //print("Coords" + Input.mousePosition.x +" "+ Input.mousePosition.y);
-        //baseInput.GetComponent<MouseInput>.GetComponent<mouse>
-
-        //handPos = (Vector2)Camera.main.WorldToScreenPoint(gameObject.transform.position);
+       
         handPos = (Vector2)Camera.main.WorldToScreenPoint(gameObject.transform.position);
-
 
         playerPos = (Vector2)Camera.main.WorldToScreenPoint(player.transform.position);
 
@@ -59,63 +54,56 @@ public class HandBehavior : MonoBehaviour {
 
         handBodyDistance = Vector2.Distance(playerPos, handPos);
         mouseBodyDistance = Vector2.Distance(playerPos, mousePos);
-        //print("distance " +mouseBodyDistance);
-        //float xVal = baseInput.GetComponent<MouseInput>().GetHorizontal();
-        //float yVal = baseInput.GetComponent<MouseInput>().GetVertical();
-
-        //Vector2 mousePos = new Vector2(xVal, yVal);
+       
 
         directionVector = mousePos - playerPos;
-
-
-
-
-        //m_Angle = Vector2.Angle(playerPos, mousePos);
-        //print("Angle " + m_Angle);
+       
         float step = speed*Time.deltaTime;
 
-        //Vector2 worldHandPos = Camera.main.ScreenToWorldPoint(handPos);
-        //Vector2 worldPlayerPos = Camera.main.ScreenToWorldPoint(playerPos);
+        //For when hand is outside of player reach
+        if (mouseBodyDistance > handRadius)
+        {
 
-        if (mouseBodyDistance > handRadius) {
+            if (directionVector.magnitude != 0)
+            {
+                mouseRadRatio = handRadius / directionVector.magnitude;
+            }
 
-            mouseRadRatio = handRadius / directionVector.magnitude;
-            //print("Ratio: " +mouseRadRatio);
+
             directionVector = directionVector * mouseRadRatio;
-            /*if (mouseBodyDistance > 100){
-                transform.position = Vector2.MoveTowards(transform.position, (Vector2)player.transform.position + directionVector, step);
-            }*/
 
-            //transform.position = Vector2.MoveTowards(transform.position, (Vector2)player.transform.position + directionVector, step);
-            bottom_Angle = Vector2.Angle(directionVector, new Vector2(0.0f,-1.0f));
+            bottom_Angle = Vector2.Angle(directionVector, new Vector2(0.0f, -1.0f));
             top_Angle = Vector2.Angle(directionVector, new Vector2(0.0f, 1.0f));
 
 
-            tempPoint = Camera.main.ScreenToWorldPoint(playerPos +  directionVector);
+            tempPoint = Camera.main.ScreenToWorldPoint(playerPos + directionVector);
             transform.localPosition = Camera.main.transform.InverseTransformPoint(tempPoint);
 
-            if (bottom_Angle < 0){//To the left of player object
-
-                tempAngle = bottom_Angle;
-                if (currentHandAngle < tempAngle){
+            //Can restructure the if-else tree to reduce it further!!!
+            if (directionVector.x < 0)
+            {
+                tempAngle = -bottom_Angle;
+                if (currentHandAngle < 0)
+                {
                     diff = tempAngle - currentHandAngle;
                     transform.Rotate(0f, 0f, diff);
                     currentHandAngle += diff;
                 }
-                else{
-                    diff = currentHandAngle - tempAngle;
-                    transform.Rotate(0f, 0f, -diff);
-                    currentHandAngle -= diff;
-                }
-
-            }
-            else{
-                tempAngle = bottom_Angle;
-                if (currentHandAngle > tempAngle)
+                else
                 {
-                    diff = currentHandAngle - tempAngle;
-                    transform.Rotate(0f, 0f, -diff);
-                    currentHandAngle -= diff;
+                    diff = tempAngle - currentHandAngle;
+                    transform.Rotate(0f, 0f, diff);
+                    currentHandAngle += diff;
+                }
+            }
+            else
+            {
+                tempAngle = bottom_Angle;
+                if (currentHandAngle < 0)
+                {
+                    diff = tempAngle - currentHandAngle;
+                    transform.Rotate(0f, 0f, diff);
+                    currentHandAngle += diff;
                 }
                 else
                 {
@@ -124,11 +112,12 @@ public class HandBehavior : MonoBehaviour {
                     currentHandAngle += diff;
                 }
 
+             
+
 
             }
-
-
-        } else{
+        }
+        else{
             tempPoint = Camera.main.ScreenToWorldPoint(mousePos);
             transform.localPosition = Camera.main.transform.InverseTransformPoint(tempPoint);
         }
