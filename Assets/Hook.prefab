@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 50000011407619950}
   - component: {fileID: 58000011381285992}
   - component: {fileID: 233000010374877026}
-  - component: {fileID: 114000010978699574}
   - component: {fileID: 120000014128933588}
+  - component: {fileID: 114312769931277038}
   m_Layer: 8
   m_Name: Hook
   m_TagString: Untagged
@@ -80,7 +80,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &114000010978699574
+--- !u!114 &114312769931277038
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,13 +88,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012688847204}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4fb477cd4a4fb4991a133a970b028c, type: 3}
+  m_Script: {fileID: 11500000, guid: 24a47d41bd18a3d4bb1ca0da90e85942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destiny: {x: 0, y: 0}
   speed: 2
   distance: 1
-  nodePrefab: {fileID: 1000014215547198, guid: a02635807ba30044b8200e489d8cbdb9, type: 2}
+  nodePrefab: {fileID: 1000014215547198, guid: aa982543f0b6d64468343c48c01d762e, type: 2}
   player: {fileID: 0}
   lastNode: {fileID: 0}
   lr: {fileID: 0}
@@ -114,7 +114,7 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: adc2ca5a5aafdb04a935d8b8ff9383df, type: 2}
+  - {fileID: 2100000, guid: 87abea4077a0f1446967918907015f60, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
