@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class throwhook : MonoBehaviour {
+public class ThrowHook : MonoBehaviour {
 
 
 	public GameObject hook;

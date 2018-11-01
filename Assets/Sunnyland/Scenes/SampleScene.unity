@@ -256,7 +256,6 @@ GameObject:
   - component: {fileID: 482884955}
   - component: {fileID: 482884961}
   - component: {fileID: 482884962}
-  - component: {fileID: 482884964}
   - component: {fileID: 482884963}
   m_Layer: 0
   m_Name: player-idle-1
@@ -458,19 +457,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcetoAdd: 100
---- !u!114 &482884964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 482884954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba3c3827f496ffb4e868728e9b335f81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hook: {fileID: 1000012688847204, guid: f154caedde7257b4393ed4d3af0219ce, type: 2}
-  ropeActive: 0
 --- !u!1 &587796344
 GameObject:
   m_ObjectHideFlags: 0
