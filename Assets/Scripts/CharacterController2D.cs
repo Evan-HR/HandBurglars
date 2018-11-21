@@ -11,8 +11,10 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_CeilingCheck;							// A position marking where to check for ceilings
 	[SerializeField] private Collider2D m_CrouchDisableCollider;				// A collider that will be disabled when crouching
+    [SerializeField] private SpriteRenderer m_Sprite;
+    [SerializeField] private SpriteRenderer m_HandSprite;
 
-	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+    const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	private Rigidbody2D m_Rigidbody2D;
@@ -32,6 +34,8 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Awake()
 	{
+
+
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
 		if (OnLandEvent == null)
@@ -58,7 +62,8 @@ public class CharacterController2D : MonoBehaviour
 					OnLandEvent.Invoke();
 			}
 		}
-	}
+        //print("mVelocity X: " + m_Velocity.x.ToString() + "\n mVelocity Y: " + m_Velocity.y.ToString());
+    }
 
 
 	public void Move(float move, bool crouch, bool jump)
@@ -138,9 +143,15 @@ public class CharacterController2D : MonoBehaviour
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
 
-		// Multiply the player's x local scale by -1.
-		Vector3 theScale = transform.localScale;
-		theScale.x *= -1;
-		transform.localScale = theScale;
-	}
+        m_Sprite = GetComponent<SpriteRenderer>();
+        m_HandSprite = GameObject.FindGameObjectWithTag("Hand").GetComponent<SpriteRenderer>();
+        // Multiply the player's x local scale by -1.
+        //Vector3 theScale = transform.localScale;
+        //theScale.x *= -1;
+        //transform.localScale = theScale;
+        //hand.transform.localScale *= -1;
+        m_Sprite.flipX = !m_Sprite.flipX;
+        //m_HandSprite.flipX = !m_HandSprite.flipX;
+
+    }
 }
