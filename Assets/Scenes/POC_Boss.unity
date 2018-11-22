@@ -1240,6 +1240,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &884342147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1770194705050878, guid: 130b7eff7e385481c90eac0447731265,
+    type: 2}
+  m_PrefabInternal: {fileID: 2056361909}
+--- !u!114 &884342148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 884342147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4816067651f4409f138e41807744d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &897761001 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265,
@@ -3485,6 +3501,11 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 114617614495485862, guid: 130b7eff7e385481c90eac0447731265,
+        type: 2}
+      propertyPath: m_AirControl
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 130b7eff7e385481c90eac0447731265, type: 2}
   m_IsPrefabAsset: 0
@@ -3823,3 +3844,130 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2056361909
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -18.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685936599841914, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114617614495485862, guid: 130b7eff7e385481c90eac0447731265,
+        type: 2}
+      propertyPath: m_AirControl
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294935642311008, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_Name
+      value: Handit2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294935642311008, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770194705050878, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+      propertyPath: m_TagString
+      value: Hand2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114377912772242022, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+    - {fileID: 114617614495485862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+    - {fileID: 114952302353740898, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+  m_SourcePrefab: {fileID: 100100000, guid: 130b7eff7e385481c90eac0447731265, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1 &2056361910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1294935642311008, guid: 130b7eff7e385481c90eac0447731265,
+    type: 2}
+  m_PrefabInternal: {fileID: 2056361909}
+--- !u!114 &2056361911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2056361910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb3a87af88fa584b9a725c62e4e5bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_JumpForce: 700
+  m_CrouchSpeed: 0.36
+  m_MovementSmoothing: 0.05
+  m_AirControl: 1
+  m_WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_GroundCheck: {fileID: 2056361913}
+  m_CeilingCheck: {fileID: 2056361912}
+  m_CrouchDisableCollider: {fileID: 0}
+  m_Sprite: {fileID: 0}
+  m_HandSprite: {fileID: 0}
+  OnLandEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnCrouchEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Character2Controller2D+BoolEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!4 &2056361912 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4976061839277870, guid: 130b7eff7e385481c90eac0447731265,
+    type: 2}
+  m_PrefabInternal: {fileID: 2056361909}
+--- !u!4 &2056361913 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4792920366261812, guid: 130b7eff7e385481c90eac0447731265,
+    type: 2}
+  m_PrefabInternal: {fileID: 2056361909}
+--- !u!114 &2056361914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2056361910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80b3f47e7366eb44a44c4a6ce655057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 2056361911}
+  runSpeed: 80
