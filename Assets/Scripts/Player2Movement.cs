@@ -2,34 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class Player2Movement : MonoBehaviour
+{
 
-    public CharacterController2D controller;
+    public Character2Controller2D controller;
     public float runSpeed = 40f;
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
-	
-	// Update is called once per frame
-	void Update () {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-        Debug.Log("Player1 move :" + horizontalMove);
+    // Update is called once per frame
+    void Update()
+    {
+        horizontalMove = Input.GetAxisRaw("Horizontal2") * runSpeed;
+        Debug.Log("Player2 move :" + horizontalMove);
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump2"))
         {
             jump = true;
         }
 
-        if (Input.GetButtonDown("Crouch"))
+        if (Input.GetButtonDown("Crouch2"))
         {
             crouch = true;
-        } else if (Input.GetButtonUp("Crouch"))
+        }
+        else if (Input.GetButtonUp("Crouch2"))
         {
             crouch = false;
         }
 
-	}
+    }
 
     void FixedUpdate()
     {
