@@ -12,9 +12,12 @@ public class HandBehavior : MonoBehaviour {
     private GameObject baseInput;
     private GameObject chosenObject;
     private Vector2 handPos;//Hand position in screen coordinates
+    private Vector2 handPosLocal;
     private Vector2 directionVector;//Direction hand should point to from the character body
     private Vector2 playerPos;//Position of player relative to screen coords
+    private Vector2 playerPosLocal;
     private Vector2 mousePos;//mouse position relative to screen coords
+    private Vector2 mousePosLocal;
     private float diff;//for rotation of hand
     private float tempAngle;//for rotation of hand
     private float bottom_Angle;//For rotating hand
@@ -31,7 +34,7 @@ public class HandBehavior : MonoBehaviour {
 
     private Transform tempTransform;//For grabbing objects and making them children of hand object
 
-    private float handRadius = 100.0f;
+    private float handRadius = 2.5f;
     private float mouseRadRatio;
 
     private Vector2 tempPoint;
@@ -144,12 +147,15 @@ public class HandBehavior : MonoBehaviour {
 
 
 
-        handPos = (Vector2)Camera.main.WorldToScreenPoint(gameObject.transform.position);
+        handPos = (Vector2)gameObject.transform.position;
+        handPosLocal = (Vector2)gameObject.transform.localPosition;
 
-        playerPos = (Vector2)Camera.main.WorldToScreenPoint(player.transform.position);
+        playerPos = (Vector2)player.transform.position;
 
-        mousePos = (Vector2)Input.mousePosition;
 
+        mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosLocal = mousePos - playerPos;
+        print("Mouse Position: " + mousePos.ToString());
         handBodyDistance = Vector2.Distance(playerPos, handPos);
         mouseBodyDistance = Vector2.Distance(playerPos, mousePos);
        
@@ -159,7 +165,7 @@ public class HandBehavior : MonoBehaviour {
         float step = speed*Time.deltaTime;
 
         //For when hand is outside of player reach
-        if (mouseBodyDistance > handRadius)
+        if (mousePosLocal.magnitude > handRadius)
         {
 
             if (directionVector.magnitude != 0)
@@ -174,8 +180,8 @@ public class HandBehavior : MonoBehaviour {
             top_Angle = Vector2.Angle(directionVector, new Vector2(0.0f, 1.0f));
 
 
-            tempPoint = Camera.main.ScreenToWorldPoint(playerPos + directionVector);
-            transform.localPosition = Camera.main.transform.InverseTransformPoint(tempPoint);
+            //tempPoint = playerPos + directionVector;
+            transform.localPosition = directionVector;
 
             //Can restructure the if-else tree to reduce it further!!!
             if (directionVector.x < 0)
@@ -219,8 +225,8 @@ public class HandBehavior : MonoBehaviour {
             bottom_Angle = Vector2.Angle(directionVector, new Vector2(0.0f, -1.0f));
             top_Angle = Vector2.Angle(directionVector, new Vector2(0.0f, 1.0f));
 
-            tempPoint = Camera.main.ScreenToWorldPoint(mousePos);
-            transform.localPosition = Camera.main.transform.InverseTransformPoint(tempPoint);
+            //tempPoint = Camera.main.ScreenToWorldPoint(mousePos);
+            transform.localPosition = directionVector;
 
             if (directionVector.x < 0)
             {
