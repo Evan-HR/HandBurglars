@@ -8,6 +8,8 @@ TagManager:
   - Dangerous
   - Hand2
   - Player2
+  - BossGroundBox
+  - BossSmashHand
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Hand
   - Environment
   - PlayerBody
-  - 
+  - Boss
   - 
   - 
   - 
@@ -47,6 +49,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Boss
+    uniqueID: 1817603011
     locked: 0
   - name: Foreground
     uniqueID: 3132110553
