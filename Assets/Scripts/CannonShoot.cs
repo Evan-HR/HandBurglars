@@ -14,6 +14,6 @@ public class CannonShoot : MonoBehaviour {
     public void ShootCannon()
     {
         GameObject thisCannonBall = Instantiate(cannonBall, transform.position, transform.rotation);
-        thisCannonBall.GetComponent<Rigidbody2D>().AddRelativeForce(Vector3.back*firePower);
+        thisCannonBall.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.right*firePower,ForceMode2D.Impulse);
     }
 }
