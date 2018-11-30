@@ -10,6 +10,8 @@ TagManager:
   - Player2
   - BossGroundBox
   - BossSmashHand
+  - BossBody
+  - BossSidewayBox
   layers:
   - Default
   - TransparentFX
