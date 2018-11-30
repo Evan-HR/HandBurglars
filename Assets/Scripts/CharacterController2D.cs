@@ -38,6 +38,8 @@ public class CharacterController2D : MonoBehaviour
 
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
+		m_Sprite = GetComponent<SpriteRenderer>();
+
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
 
@@ -53,10 +55,10 @@ public class CharacterController2D : MonoBehaviour
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
-        print("Environment Layer is " + LayerMask.GetMask("Environment") + "\n");
-        print("PlayerBody Layer is " + LayerMask.GetMask("PlayerBody") + "\n");
-        print("Hand Layer is " + LayerMask.GetMask("Hand") + "\n");
-        print("HandObjects Layer is " + LayerMask.GetMask("HandObjects") + "\n");
+        //print("Environment Layer is " + LayerMask.GetMask("Environment") + "\n");
+        //print("PlayerBody Layer is " + LayerMask.GetMask("PlayerBody") + "\n");
+        //print("Hand Layer is " + LayerMask.GetMask("Hand") + "\n");
+        //print("HandObjects Layer is " + LayerMask.GetMask("HandObjects") + "\n");
         for (int i = 0; i < colliders.Length; i++)
 		{
             //print("GroundItem " + colliders[i].ToString());
@@ -121,16 +123,18 @@ public class CharacterController2D : MonoBehaviour
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
 			// If the input is moving the player right and the player is facing left...
-			if (move > 0 && !m_FacingRight)
+			if (move > 0 && m_Sprite.flipX)
 			{
 				// ... flip the player.
-				Flip();
+				//Flip();
+				m_Sprite.flipX = !m_Sprite.flipX;
 			}
 			// Otherwise if the input is moving the player left and the player is facing right...
-			else if (move < 0 && m_FacingRight)
+			else if (move < 0 && !m_Sprite.flipX)
 			{
 				// ... flip the player.
-				Flip();
+				//Flip();
+				m_Sprite.flipX = !m_Sprite.flipX;
 			}
 		}
 		// If the player should jump...
@@ -141,22 +145,4 @@ public class CharacterController2D : MonoBehaviour
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 	}
-
-
-	private void Flip()
-	{
-		// Switch the way the player is labelled as facing.
-		m_FacingRight = !m_FacingRight;
-
-        m_Sprite = GetComponent<SpriteRenderer>();
-        m_HandSprite = GameObject.FindGameObjectWithTag("Hand").GetComponent<SpriteRenderer>();
-        // Multiply the player's x local scale by -1.
-        //Vector3 theScale = transform.localScale;
-        //theScale.x *= -1;
-        //transform.localScale = theScale;
-        //hand.transform.localScale *= -1;
-        m_Sprite.flipX = !m_Sprite.flipX;
-        //m_HandSprite.flipX = !m_HandSprite.flipX;
-
-    }
 }

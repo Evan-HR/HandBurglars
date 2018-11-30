@@ -6,10 +6,12 @@ public class PlayerMovement : MonoBehaviour {
 
     public CharacterController2D controller;
     public float runSpeed = 40f;
+
+    public float climbSpeed = 10f;
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
-    public float inputVertical;
+    float verticalMove;
     //used to adjust gravity when climbing ladder
     public Rigidbody2D rb;
 
@@ -18,7 +20,9 @@ public class PlayerMovement : MonoBehaviour {
     public LayerMask whatIsLadder;
     private bool isClimbing;
 
-
+    void Start () {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+    }
     // Update is called once per frame
     void Update () {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
@@ -54,24 +58,20 @@ public class PlayerMovement : MonoBehaviour {
                 isClimbing = true;
               
             }
-            else
+            else if ((Input.GetButtonDown("Jump")) || (hitInfo.collider == null))
             {
                 isClimbing = false;
-            }
-
-            if(isClimbing == true)
-            {
-                inputVertical = Input.GetAxisRaw("Vertical");
-                rb.velocity = new Vector2(0, inputVertical * runSpeed);
-
-                //doesn't fall down when on ladder
-                rb.gravityScale = 0;
-                
-            }
-            else
-            {
-                //will fall, set gravity back to normal  
                 rb.gravityScale = 3;
+            }
+
+            if(isClimbing)
+            {
+                verticalMove = Input.GetAxisRaw("Vertical");
+                rb.velocity = new Vector2(rb.velocity.x, verticalMove * climbSpeed);
+
+                
+                rb.gravityScale = 0;   //so the player doesn't fall down when on ladder
+                rb.velocity.Set(rb.velocity.x, 0); // gets rid of residual effects from gravity 
             }
         }
     }
