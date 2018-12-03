@@ -1288,7 +1288,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 38.3
       objectReference: {fileID: 0}
     - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1381,6 +1381,16 @@ Prefab:
         type: 2}
       propertyPath: whatIsLadder.m_Bits
       value: 8192
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835094233780490, guid: 130b7eff7e385481c90eac0447731265,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114347945345600000, guid: 130b7eff7e385481c90eac0447731265,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 130b7eff7e385481c90eac0447731265, type: 2}
