@@ -3,32 +3,31 @@
 public class CameraFollow : MonoBehaviour
 {
 
-    public GameObject player1;       //Public variable to store a reference to the player game object
+    public GameObject player1;       //PLayer1 
 
-    public GameObject player2;
+    public GameObject player2;       //Player2
 
-    private Vector3 offset;         //Private variable to store the offset distance between the player and camera
+    private float distance;         //Distance between two players
 
-    private float distance;
+    private float positionx;        //New Camera Center x position
+    private float positiony;        //New Camera Center y position
+    private static float positionz = -10f;
+    private Vector3 oldCameraCenter;
+    private Vector3 newCameraCenter;
 
-    private float zoomSpeed = 1;
+    private float zoomSpeed = 1.5f; //Combined with zoomCoef, decide the new camera size
+    private float cameraCenterMovingSpeed = 2.5f;
+    private float smoothSpeed = 3.0f;
 
-    private float targetOrtho;
+    private float targetOrtho;      //New camera size
+    private float zoomCoef = 2.0f;  
 
-    private float smoothSpeed = 2.0f;
-
-    private float zoomCoef = 2.0f;
-
-    private float minOrtho = 15.0f;
-    private float maxOrtho = 23.0f;
+    private float minOrtho = 15.0f; //The minimum camera size
+    private float maxOrtho = 26.0f; //The maximum camera size
 
     // Use this for initialization
     void Start()
     {
-        distance = Vector2.Distance(player1.transform.position, player2.transform.position);
-        //Calculate and store the offset value by getting the distance between the player's position and camera's position.
-        offset = transform.position - player1.transform.position;
-        //Debug.Log("The distance between two player is: " + distance);
         targetOrtho = Camera.main.orthographicSize;
 
         Debug.Log("Original Ortho at start step: " + targetOrtho);
@@ -37,13 +36,26 @@ public class CameraFollow : MonoBehaviour
     // LateUpdate is called after Update each frame
     void LateUpdate()
     {
-        // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
-        transform.position = player1.transform.position + offset;
+        // Set the position of the camera's transform to be the center of two players
+        positionx = (player1.transform.position.x + player2.transform.position.x) / 2;
+
+        positiony = (player1.transform.position.y + player2.transform.position.y) / 2;
+
+        newCameraCenter = new Vector3(positionx, positiony, positionz);
+
+        oldCameraCenter = transform.position;
+
+        float distCovered = Time.deltaTime * cameraCenterMovingSpeed;
+
+        float distanceBetweenTwoCenters = Vector3.Distance(transform.position, newCameraCenter);
+
+        transform.position = Vector3.Lerp(oldCameraCenter, newCameraCenter, distCovered / distanceBetweenTwoCenters);
     }
 
     void Update()
     {
-        distance = Vector2.Distance(player1.transform.position, player2.transform.position);
+        //Change camera size based on two players distance
+        distance = Vector3.Distance(player1.transform.position, player2.transform.position);
         Debug.Log("Please let me know the distance between two players: " + distance);
 
         if (distance > 16)
@@ -55,7 +67,5 @@ public class CameraFollow : MonoBehaviour
         }
         targetOrtho = Mathf.Clamp(targetOrtho, minOrtho, maxOrtho);
         Camera.main.orthographicSize = Mathf.MoveTowards(Camera.main.orthographicSize, targetOrtho, smoothSpeed * Time.deltaTime);
-
-
     }
 }
