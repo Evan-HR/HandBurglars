@@ -72,7 +72,8 @@ public class BossFollow : MonoBehaviour {
         bossHandStateTime -= Time.deltaTime;
         Debug.Log("bossHandStateTime: " + bossHandStateTime);
         Debug.Log("playerContains: " + bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2));
-        if (bossHandStateTime < 0 && !isHandAttacking && (bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2)))
+        //if (bossHandStateTime < 0 && !isHandAttacking && (bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2)))
+        if (bossHandStateTime < 0 && !isHandAttacking)
         {
             Debug.Log("Set HandState to Follow");
             isHandAttacking = true;
