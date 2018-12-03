@@ -41,7 +41,6 @@ public class BossFollow : MonoBehaviour {
         bossHandBehaviourScript = bossSmashHandGameObject.GetComponent<BossHandSmashBehaviour>();
         handSmashState = bossHandBehaviourScript.GetHandState();
         bossGroundBoxGameObject = GameObject.FindGameObjectWithTag("BossGroundBox");
-        bossGroundRigidBody2D = bossGroundBoxGameObject.GetComponent<Rigidbody2D>();
         bossGroundBoxBoxCollider2D = bossGroundBoxGameObject.GetComponent<BoxCollider2D>();
         player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         player2Transform = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
@@ -68,10 +67,13 @@ public class BossFollow : MonoBehaviour {
             targetPlayerVector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
         }
 
+
         //timer to initiate bossSmashHand to attack
         bossHandStateTime -= Time.deltaTime;
         Debug.Log("bossHandStateTime: " + bossHandStateTime);
-        if (bossHandStateTime < 0 && !isHandAttacking && (bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2)))
+        Debug.Log("playerContains: " + bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2));
+        //if (bossHandStateTime < 0 && !isHandAttacking && (bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2)))
+        if (bossHandStateTime < 0 && !isHandAttacking)
         {
             Debug.Log("Set HandState to Follow");
             isHandAttacking = true;
