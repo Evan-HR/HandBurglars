@@ -12,6 +12,7 @@ TagManager:
   - BossSmashHand
   - BossBody
   - BossSidewayBox
+  - LadderTop
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - PlayerBody
   - Boss
   - Ladder
-  - 
+  - LadderTop
   - 
   - 
   - 
