@@ -15,14 +15,14 @@ public class LadderTop : MonoBehaviour {
     void Update() {
         if (Input.GetKeyUp(KeyCode.S))
         {
-            waitTime = 0.5f;
+            waitTime = 0.1f;
         }
         if (Input.GetKey(KeyCode.S))
         {
             if (waitTime <= 0)
             {
                 effector.rotationalOffset = 180f;
-                waitTime = 0.5f;
+                waitTime = 0.1f;
             }
             else
             {

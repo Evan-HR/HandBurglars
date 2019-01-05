@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController2D controller;
     public float runSpeed = 40f;
-
     public float climbSpeed = 10f;
+
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-        Debug.Log("Player1 move :" + horizontalMove);
+       // Debug.Log("Player1 move :" + horizontalMove);
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -90,7 +90,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Debug.Log("climbing is: " + isClimbing);
-            rb.gravityScale = 3;
+            //hardcoded
+            rb.gravityScale = 8;
             Debug.Log("gravity is:" + rb.gravityScale);
         }
     }
