@@ -32,7 +32,15 @@ public class BossFollow : MonoBehaviour {
     private BoxCollider2D bossGroundBoxBoxCollider2D;
     private BossHandSmashBehaviour bossHandBehaviourScript;
     private BossHandSmashBehaviour.HandState handSmashState;
-    private bool isHandAttacking = false;
+    private HandStage handStage = HandStage.DISABLED;
+    //private bool isHandAttacking = false;
+
+    public enum HandStage
+    {
+        DISABLED,
+        SMASH,
+        SWIPE,
+    }
 
     // Use this for initialization
     void Start () {
@@ -73,17 +81,22 @@ public class BossFollow : MonoBehaviour {
         Debug.Log("bossHandStateTime: " + bossHandStateTime);
         Debug.Log("playerContains: " + bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2));
         //if (bossHandStateTime < 0 && !isHandAttacking && (bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2)))
-        if (bossHandStateTime < 0 && !isHandAttacking)
+        //if (bossHandStateTime < 0 && !isHandAttacking && handStage == HandStage.DISABLED)
+        if (bossHandStateTime < 0 && handStage == HandStage.DISABLED)
         {
             Debug.Log("Set HandState to Follow");
-            isHandAttacking = true;
+            //isHandAttacking = true;
             bossHandStateTime = 5;
             handSmashState = BossHandSmashBehaviour.HandState.FOLLOW;
             bossHandBehaviourScript.SetHandState(handSmashState);
+            handStage = HandStage.SMASH;
         }
-        else if (isHandAttacking)
+        else if (bossHandStateTime < 0 && handStage == HandStage.SMASH)
         {
-
+            bossHandStateTime = 5;
+            handSmashState = BossHandSmashBehaviour.HandState.DISABLED;
+            bossHandBehaviourScript.SetHandState(handSmashState);
+            handStage = HandStage.DISABLED;
         }
 
     }

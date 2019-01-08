@@ -57,18 +57,18 @@ public class BossHandSmashBehaviour : MonoBehaviour {
         handRecoverVector2 = new Vector2(transform.position.x, smashHandInitYPos);
 
 
-        if (handState != HandState.DISABLED)
-        {
-            bossSmashHandStateTime -= Time.deltaTime;
-            Debug.Log("bossSmashHandStateTime: " + bossSmashHandStateTime);
+        //if (handState != HandState.DISABLED)
+        //{
+        //    bossSmashHandStateTime -= Time.deltaTime;
+        //    Debug.Log("bossSmashHandStateTime: " + bossSmashHandStateTime);
 
 
-            if (bossSmashHandStateTime < 0)
-            {
-                handState = HandState.DISABLED;
-                bossSmashHandStateTime = 5;
-            }
-        }
+        //    if (bossSmashHandStateTime < 0)
+        //    {
+        //        handState = HandState.DISABLED;
+        //        bossSmashHandStateTime = 5;
+        //    }
+        //}
 
         if (handState == HandState.DISABLED)
         {
