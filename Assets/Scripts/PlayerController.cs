@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    //Player moving speed
     public float speed;
+
     private float moveInput;
 
     private Rigidbody2D rb;
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     public float checkRadius;
     public LayerMask whatIsGround;
 
+    //Player can dash horizontally
     //dash speed
     public float dashSpeed;
     //how long dash lasts
@@ -39,6 +42,14 @@ public class PlayerController : MonoBehaviour {
     private bool isClimbing;
     public float climbSpeed = 10f;
     public float gravity;
+
+    //The variable to flag player is hiding or not
+    private bool hide = true;
+
+    public bool getHideStatus()
+    {
+        return hide;
+    }
 
     //used to get position of character for the ghost effect
     private static PlayerController instance;
@@ -75,6 +86,7 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate () {
+
         //isGrounded means you are on ground, or ladder, or top of ladder, thus will reset your # of jumps
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,whatIsGround);
         isLadder = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadder);
