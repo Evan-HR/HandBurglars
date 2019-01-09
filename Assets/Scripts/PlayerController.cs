@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class PlayerController : MonoBehaviour {
 
     //Player moving speed
@@ -43,6 +45,13 @@ public class PlayerController : MonoBehaviour {
     public float climbSpeed = 10f;
     public float gravity;
 
+    //hittable variables
+    public bool canBeHit = true;
+    private static Health PlayerHealth;
+    private float hitCooldown;
+    public float startHitTime;
+
+
     //The variable to flag player is hiding or not
     private bool hide = true;
 
@@ -50,6 +59,10 @@ public class PlayerController : MonoBehaviour {
     {
         return hide;
     }
+
+    //camera shaking
+    public float camShakeAmt = 0.1f;
+    CameraShake camShake;
 
     //used to get position of character for the ghost effect
     private static PlayerController instance;
@@ -72,16 +85,48 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake()
     {
+        PlayerHealth = GameObject.FindObjectOfType<Health>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         rb = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
+        //set hitTime cooldown to adjust in inspector
+        hitCooldown = startHitTime;
         //get sprite for ghost effect
         playerSprite = GetComponent<SpriteRenderer>();
-	}
+
+        //camera shaker
+        camShake = GetComponent<CameraShake>();
+            }
+
+    //collision with monster hand 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health > 1)
+        {
+
+            camShake.Shake(camShakeAmt, 0.2f);
+            PlayerHealth.health--;
+                canBeHit = false;
+                Invoke("getHit", hitCooldown);
+
+        }
+        else if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health == 1)
+        {
+           
+            PlayerHealth.health--;
+            canBeHit = false;
+            //placeholder "death" by freezing 
+            //set Z axis to off, then freeze X and Y
+            rb.constraints = RigidbodyConstraints2D.None;
+       
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+
+        }
+    }
 
 
     // Update is called once per frame
@@ -166,6 +211,11 @@ public class PlayerController : MonoBehaviour {
     void DashCooldown()
     {
         canDash = true;
+    }
+
+    void getHit()
+    {
+        canBeHit = true;
     }
 
 }
