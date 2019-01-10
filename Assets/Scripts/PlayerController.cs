@@ -51,13 +51,26 @@ public class PlayerController : MonoBehaviour {
     private float hitCooldown;
     public float startHitTime;
 
-
     //The variable to flag player is hiding or not
-    private bool hide = true;
+    private bool hide = false;
+    private float hideCoolDown = 2.0f;
+    private bool moving = true;
+    private int HIDING_LAYER_ORDER = -1;
+    private int EXPOSING_LAYER_ORDER = 5;
 
     public bool getHideStatus()
     {
         return hide;
+    }
+
+    public void setHideStatusTrue()
+    {
+        hide = true;
+    }
+
+    public void setHideStatusFalse()
+    {
+        hide = false;
     }
 
     //camera shaking
@@ -137,10 +150,45 @@ public class PlayerController : MonoBehaviour {
         isLadder = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadder);
         isLadderTop = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadderTop);
 
+        if (moving)
+        {
+            moveInput = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        }
 
-        moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        //Player has the ability to hide themselves
+        //If player is not hidden and then the button is pressed
+        if (getHideStatus() == false && Input.GetKeyDown(KeyCode.H))
+        {
+            setHideStatusTrue();
+            //Player can't move when they hide
+            moving = false;
 
+            //Change the layer of player to hide from bushes
+            if (mySpriteRenderer)
+            {
+                mySpriteRenderer.sortingOrder = HIDING_LAYER_ORDER;
+            }
+
+            //Debug.Log("1, hidden status of player now is " + getHideStatus());
+
+
+        }
+        //After hide button is released, player can move again
+        else if (getHideStatus() == true && Input.GetKeyUp(KeyCode.H))
+        {
+            setHideStatusFalse();
+            moving = true;
+
+            //Chnage the layer of plyaer here
+            if (mySpriteRenderer)
+            {
+                mySpriteRenderer.sortingOrder = EXPOSING_LAYER_ORDER;
+            }
+
+            //Debug.Log("2, hidden status of player now is " + getHideStatus());
+
+        }
 
         if (facingRight == false && moveInput > 0)
         {
@@ -152,42 +200,44 @@ public class PlayerController : MonoBehaviour {
         }
         //ladder stuff
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
-        if (hitInfo.collider != null) // means we're on/in the ladder hitbox
+        if (moving)
         {
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+            if (hitInfo.collider != null) // means we're on/in the ladder hitbox
             {
-                isClimbing = true;
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+                {
+                    isClimbing = true;
 
+                }
+                else if ((Input.GetButtonDown("Jump")))
+                {
+                    isClimbing = false;
+                }
             }
-            else if ((Input.GetButtonDown("Jump")))
+            else
             {
                 isClimbing = false;
             }
-        }
-        else
-        {
-            isClimbing = false;
-        }
 
-        if (isClimbing)
-        {
+            if (isClimbing)
+            {
 
-            verticalMove = Input.GetAxisRaw("Vertical");
-            rb.velocity = new Vector2(rb.velocity.x, verticalMove * climbSpeed);
-            rb.gravityScale = 0;   //so the player doesn't fall down when on ladder
-            rb.velocity.Set(rb.velocity.x, 0); // gets rid of residual effects from gravity 
-        }
-        else
-        {
-            //if not climbing, set gravity to normal (via inspector)
-            rb.gravityScale = gravity;
+                verticalMove = Input.GetAxisRaw("Vertical");
+                rb.velocity = new Vector2(rb.velocity.x, verticalMove * climbSpeed);
+                rb.gravityScale = 0;   //so the player doesn't fall down when on ladder
+                rb.velocity.Set(rb.velocity.x, 0); // gets rid of residual effects from gravity 
+            }
+            else
+            {
+                //if not climbing, set gravity to normal (via inspector)
+                rb.gravityScale = gravity;
 
-        }
+            }
 
 
 
-        //dashing
-        if (dashTime <= 0)
+            //dashing
+            if (dashTime <= 0)
             {
                 dashTime = startDashTime;
                 rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
@@ -197,15 +247,15 @@ public class PlayerController : MonoBehaviour {
                 dashTime -= Time.deltaTime;
                 if (Input.GetKeyDown(KeyCode.F) && canDash == true)
                 {
-                GameObject dashEffect = Instantiate(PlayerGhost, transform.position, transform.rotation);
+                    GameObject dashEffect = Instantiate(PlayerGhost, transform.position, transform.rotation);
                     rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
-                canDash = false;
-                Invoke("DashCooldown", dashCooldown);
+                    canDash = false;
+                    Invoke("DashCooldown", dashCooldown);
 
                 }
 
             }
-
+        }
 
 	}
     void DashCooldown()
