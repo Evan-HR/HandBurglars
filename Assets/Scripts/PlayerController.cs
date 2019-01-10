@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour {
         {
             moveInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+            //Debug.Log("The move input2 when player is not hide is: " + moveInput);
         }
 
         //Player has the ability to hide themselves
@@ -161,8 +162,11 @@ public class PlayerController : MonoBehaviour {
         if (getHideStatus() == false && Input.GetKeyDown(KeyCode.H))
         {
             setHideStatusTrue();
-            //Player can't move when they hide
+            //Player can't move when they hide(works in later frame check condition)
             moving = false;
+            //Velocity need to set zero to overwrite velocity
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = 0f;
 
             //Change the layer of player to hide from bushes
             if (mySpriteRenderer)
@@ -222,6 +226,7 @@ public class PlayerController : MonoBehaviour {
             if (isClimbing)
             {
 
+                //Debug.Log("123123123123123123");
                 verticalMove = Input.GetAxisRaw("Vertical");
                 rb.velocity = new Vector2(rb.velocity.x, verticalMove * climbSpeed);
                 rb.gravityScale = 0;   //so the player doesn't fall down when on ladder
@@ -240,7 +245,7 @@ public class PlayerController : MonoBehaviour {
             if (dashTime <= 0)
             {
                 dashTime = startDashTime;
-                rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+                //rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
             }
             else
             {
@@ -248,7 +253,7 @@ public class PlayerController : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.F) && canDash == true)
                 {
                     GameObject dashEffect = Instantiate(PlayerGhost, transform.position, transform.rotation);
-                    rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
+                    //rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
                     canDash = false;
                     Invoke("DashCooldown", dashCooldown);
 
