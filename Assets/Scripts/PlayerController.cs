@@ -145,14 +145,16 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate () {
 
+        //Debug.Log("Status of hiding: " + getHideStatus() + " and key H press down:" + Input.GetKeyDown(KeyCode.H));
+
         //isGrounded means you are on ground, or ladder, or top of ladder, thus will reset your # of jumps
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,whatIsGround);
         isLadder = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadder);
         isLadderTop = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadderTop);
 
+        moveInput = Input.GetAxisRaw("Horizontal");
         if (moving)
-        {
-            moveInput = Input.GetAxisRaw("Horizontal");
+        {  
             rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
             //Debug.Log("The move input2 when player is not hide is: " + moveInput);
         }
@@ -245,7 +247,7 @@ public class PlayerController : MonoBehaviour {
             if (dashTime <= 0)
             {
                 dashTime = startDashTime;
-                //rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+                rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
             }
             else
             {
@@ -253,7 +255,7 @@ public class PlayerController : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.F) && canDash == true)
                 {
                     GameObject dashEffect = Instantiate(PlayerGhost, transform.position, transform.rotation);
-                    //rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
+                    rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
                     canDash = false;
                     Invoke("DashCooldown", dashCooldown);
 
