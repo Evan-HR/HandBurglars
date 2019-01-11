@@ -227,8 +227,6 @@ public class PlayerController : MonoBehaviour {
 
             if (isClimbing)
             {
-
-                //Debug.Log("123123123123123123");
                 verticalMove = Input.GetAxisRaw("Vertical");
                 rb.velocity = new Vector2(rb.velocity.x, verticalMove * climbSpeed);
                 rb.gravityScale = 0;   //so the player doesn't fall down when on ladder
