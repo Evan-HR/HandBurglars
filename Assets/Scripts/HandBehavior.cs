@@ -136,11 +136,14 @@ public class HandBehavior : MonoBehaviour {
                     tempTransform = chosenObject.transform.parent;
                     chosenObject.transform.parent = gameObject.transform;
                     chosenObject.GetComponent<Rigidbody2D>().isKinematic = true;
-                    chosenObject.layer = LayerMask.NameToLayer("Hand");
-                    //gameObject.GetComponent<SpriteRenderer>().sprite = grabbingHand;
+
+                //UNCOMMENT "chosenObject.layer = LayerMask.NameToLayer("Hand");" when FIXED!
+                //chosenObject.layer = LayerMask.NameToLayer("Hand");
+
+                //gameObject.GetComponent<SpriteRenderer>().sprite = grabbingHand;
 
 
-                    isHolding = true;
+                isHolding = true;
                 }
                
             }

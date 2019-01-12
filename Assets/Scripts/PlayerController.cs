@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health == 1)
         {
-           
+            camShake.Shake(camShakeAmt, 0.2f);
             PlayerHealth.health--;
             canBeHit = false;
             //placeholder "death" by freezing 
