@@ -679,10 +679,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2.78
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2.12
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -874,7 +874,6 @@ GameObject:
   m_Component:
   - component: {fileID: 394016209}
   - component: {fileID: 394016208}
-  - component: {fileID: 394016207}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -882,13 +881,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &394016207
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 394016206}
-  m_Enabled: 1
 --- !u!20 &394016208
 Camera:
   m_ObjectHideFlags: 0
@@ -1526,7 +1518,8 @@ MonoBehaviour:
   gravity: 7.09
   canBeHit: 1
   startHitTime: 1
-  camShakeAmt: 0.1
+  crouchSpeedAdjust: 6.95
+  camShakeAmt: 0.21
   PlayerGhost: {fileID: 1496269851466636, guid: 9107aa1a90fb9434f9043f9d5fd8991f,
     type: 2}
 --- !u!58 &580999138
@@ -1688,7 +1681,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 580999135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.94, y: 2.21, z: 0}
+  m_LocalPosition: {x: 39.3, y: 13.6, z: 0}
   m_LocalScale: {x: 1.8250215, y: 1.883036, z: 1.5433456}
   m_Children:
   - {fileID: 115961915}
@@ -1855,7 +1848,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &622100552
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1890,7 +1883,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9aa1e6199d4bb3847853d2feadb19ecf, type: 3}
   m_Color: {r: 0.049394805, g: 0.2830189, b: 0.08053975, a: 1}
   m_FlipX: 0
@@ -2114,6 +2107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 580999135}
   player2: {fileID: 2056361910}
+  zoomSpeedAdjust: 3.63
+  cameraCenterMovingSpeedAdjust: 4.78
+  smoothSpeedAdjust: 6
 --- !u!1 &884342147 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1770194705050878, guid: 130b7eff7e385481c90eac0447731265,
@@ -4131,7 +4127,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: db69197a1d9084445acd6e50a12e7aac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5613,7 +5609,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 82974602809ce7c42a3d0ea2cd382ac0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -5976,7 +5972,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 2baff037f8893604db453769a96291fa, type: 3}
   m_Color: {r: 0.2158197, g: 0.14057496, b: 0.764151, a: 1}
   m_FlipX: 0

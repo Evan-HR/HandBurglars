@@ -58,6 +58,11 @@ public class PlayerController : MonoBehaviour {
     private int HIDING_LAYER_ORDER = -1;
     private int EXPOSING_LAYER_ORDER = 5;
 
+    //crouch
+    private bool crouch = false;
+    private float crouchSpeed;
+    public float crouchSpeedAdjust;
+
     public bool getHideStatus()
     {
         return hide;
@@ -110,6 +115,7 @@ public class PlayerController : MonoBehaviour {
         hitCooldown = startHitTime;
         //get sprite for ghost effect
         playerSprite = GetComponent<SpriteRenderer>();
+        crouchSpeed = crouchSpeedAdjust;
 
         //camera shaker
         camShake = GetComponent<CameraShake>();
@@ -153,15 +159,20 @@ public class PlayerController : MonoBehaviour {
         isLadderTop = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadderTop);
 
         moveInput = Input.GetAxisRaw("Horizontal");
-        if (moving)
+        //crouching C, slow speed by crouchSpeed (adjust in inspector)
+        if (moving && Input.GetKey(KeyCode.C))
         {  
-            rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+            rb.velocity = new Vector2(moveInput * crouchSpeed, rb.velocity.y);
             //Debug.Log("The move input2 when player is not hide is: " + moveInput);
+        }
+        else if (moving)
+        {
+            rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
         }
 
         //Player has the ability to hide themselves
         //If player is not hidden and then the button is pressed
-        if (getHideStatus() == false && Input.GetKeyDown(KeyCode.H))
+            if (getHideStatus() == false && Input.GetKeyDown(KeyCode.H))
         {
             setHideStatusTrue();
             //Player can't move when they hide(works in later frame check condition)

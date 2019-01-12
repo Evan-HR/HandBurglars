@@ -15,9 +15,12 @@ public class CameraFollow : MonoBehaviour
     private Vector3 oldCameraCenter;
     private Vector3 newCameraCenter;
 
-    private float zoomSpeed = 1.5f; //Combined with zoomCoef, decide the new camera size
-    private float cameraCenterMovingSpeed = 2.5f;
-    private float smoothSpeed = 3.0f;
+    private float zoomSpeed; //Combined with zoomCoef, decide the new camera size
+    private float cameraCenterMovingSpeed;
+    private float smoothSpeed;
+    public float zoomSpeedAdjust; //Combined with zoomCoef, decide the new camera size
+    public float cameraCenterMovingSpeedAdjust;
+    public float smoothSpeedAdjust;
 
     private float targetOrtho;      //New camera size
     private float zoomCoef = 2.0f;  
@@ -28,7 +31,12 @@ public class CameraFollow : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        targetOrtho = Camera.main.orthographicSize;
+
+            zoomSpeed = zoomSpeedAdjust; 
+    cameraCenterMovingSpeed = cameraCenterMovingSpeedAdjust;
+    smoothSpeed = smoothSpeedAdjust;
+
+    targetOrtho = Camera.main.orthographicSize;
 
         Debug.Log("Original Ortho at start step: " + targetOrtho);
     }
