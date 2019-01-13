@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2677f6eb489d4a746aa8a373f77dcda9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ghostEffectLength: 0.2
 --- !u!212 &212606116955446648
 SpriteRenderer:
   m_ObjectHideFlags: 1

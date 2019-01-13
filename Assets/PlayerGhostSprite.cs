@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerGhostSprite : MonoBehaviour {
     SpriteRenderer sprite;
-    float timer = 0.2f;
+    private float timer;
+    public float ghostEffectLength;
 
 	// Use this for initialization
 	void Start () {
+        timer = ghostEffectLength;
         //link sprite to sprite renderer
         sprite = GetComponent<SpriteRenderer>();
 
@@ -19,7 +21,7 @@ public class PlayerGhostSprite : MonoBehaviour {
         //set sprite of the ghost equal to player sprite 
         sprite.sprite = PlayerController.Instance.playerSprite.sprite;
         //change color of ghost
-        sprite.color = new Vector4(50, 50, 50, 0.2f);
+        sprite.color = Color.cyan;
 		
 	}
 	

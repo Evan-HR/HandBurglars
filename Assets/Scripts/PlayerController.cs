@@ -263,6 +263,7 @@ public class PlayerController : MonoBehaviour {
                 dashTime -= Time.deltaTime;
                 if (Input.GetKeyDown(KeyCode.F) && canDash == true)
                 {
+                    soundManagerScript.PlaySound("dash");
                     GameObject dashEffect = Instantiate(PlayerGhost, transform.position, transform.rotation);
                     rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
                     canDash = false;

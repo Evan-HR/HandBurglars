@@ -27,12 +27,16 @@ public class BushFire : MonoBehaviour
 
             yield return new WaitForSeconds(1);
 
-            //MUST destroy smoke before destroying the otherGlobal (bush)!
-            Destroy(smoke);
-            Destroy(otherGlobal);
+            //hide, dont destroy
+            other.gameObject.SetActive(false);
+
+
+
             Destroy(fire1);
             Destroy(fire2);
             Destroy(fire3);
+            Destroy(smoke);
+
     
             
             
