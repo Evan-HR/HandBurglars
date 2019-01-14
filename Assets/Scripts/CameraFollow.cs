@@ -38,7 +38,7 @@ public class CameraFollow : MonoBehaviour
 
     targetOrtho = Camera.main.orthographicSize;
 
-        Debug.Log("Original Ortho at start step: " + targetOrtho);
+        //Debug.Log("Original Ortho at start step: " + targetOrtho);
     }
 
     // LateUpdate is called after Update each frame
@@ -64,7 +64,7 @@ public class CameraFollow : MonoBehaviour
     {
         //Change camera size based on two players distance
         distance = Vector3.Distance(player1.transform.position, player2.transform.position);
-        Debug.Log("Please let me know the distance between two players: " + distance);
+        //Debug.Log("Please let me know the distance between two players: " + distance);
 
         if (distance > 16)
         {

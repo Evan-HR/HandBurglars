@@ -62,7 +62,7 @@ public class Hand2Behavior : MonoBehaviour
             tempAngle = -bottom_Angle;
             if (currentHandAngle < 0)
             {
-                Debug.Log("1");
+                //Debug.Log("1");
                 diff = tempAngle - currentHandAngle;
                 transform.Rotate(0f, 0f, diff);
                 currentHandAngle += diff;
@@ -70,7 +70,7 @@ public class Hand2Behavior : MonoBehaviour
             }
             else
             {
-                Debug.Log("2");
+                //Debug.Log("2");
                 diff = tempAngle - currentHandAngle;
                 transform.Rotate(0f, 0f, diff);
                 currentHandAngle += diff;
@@ -81,14 +81,14 @@ public class Hand2Behavior : MonoBehaviour
             tempAngle = bottom_Angle;
             if (currentHandAngle < 0)
             {
-                Debug.Log("3");
+                //Debug.Log("3");
                 diff = tempAngle - currentHandAngle;
                 transform.Rotate(0f, 0f, diff);
                 currentHandAngle += diff;
             }
             else
             {
-                Debug.Log("4");
+                //Debug.Log("4");
                 diff = tempAngle - currentHandAngle;
                 transform.Rotate(0f, 0f, diff);
                 currentHandAngle += diff;

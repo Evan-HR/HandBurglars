@@ -72,7 +72,7 @@ public class BossHandSmashBehaviour : MonoBehaviour {
 
         if (handState == HandState.DISABLED)
         {
-            Debug.Log("HandState = DISABLED");
+            //Debug.Log("HandState = DISABLED");
             bossSmashHandGameObject.GetComponent<Renderer>().enabled = false;
 
         }
@@ -89,20 +89,20 @@ public class BossHandSmashBehaviour : MonoBehaviour {
             if (Vector2.Distance(transform.position, player1Vector2) >= Vector2.Distance(transform.position, player2Vector2))
             {
                 target = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
-                Debug.Log("target Player2");
+                //Debug.Log("target Player2");
 
             }
             else
             {
                 target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-                Debug.Log("target Player1");
+                //Debug.Log("target Player1");
 
             }
 
             targetVector2XPos = new Vector2(target.position.x, 0);
             targetVector2 = new Vector2(target.position.x, smashHandInitYPos);
             transform.position = Vector2.MoveTowards(transform.position, targetVector2, speed * Time.deltaTime);
-            Debug.Log("HandState FOLLOW position: " + Vector2.Distance(handVector2XPos, targetVector2XPos));
+            //Debug.Log("HandState FOLLOW position: " + Vector2.Distance(handVector2XPos, targetVector2XPos));
 
             if (Vector2.Distance(handVector2XPos, targetVector2XPos) <= 0.5)
             {
@@ -112,10 +112,10 @@ public class BossHandSmashBehaviour : MonoBehaviour {
         else if ((Vector2.Distance(transform.position, handVector2XPos) == 0) || handState == HandState.RECOVER)
         //else if (handState == HandState.RECOVER)
         {
-            Debug.Log("HandState = RECOVER");
+            //Debug.Log("HandState = RECOVER");
             handState = HandState.RECOVER;
             transform.position = Vector2.MoveTowards(transform.position, handRecoverVector2, speed * Time.deltaTime);
-            Debug.Log(Vector2.Distance(transform.position, handRecoverVector2));
+            //Debug.Log(Vector2.Distance(transform.position, handRecoverVector2));
 
             if (Vector2.Distance(transform.position, handRecoverVector2) == 0)
             {
@@ -125,11 +125,11 @@ public class BossHandSmashBehaviour : MonoBehaviour {
         else if (((Vector2.Distance(handVector2XPos, targetVector2XPos) <= 5) && (Vector2.Distance(handVector2XPos, targetVector2XPos) >= 0)) || handState == HandState.SMASH)
         //else if (handState == HandState.SMASH)
         {
-            Debug.Log("HandState = SMASH");
+            //Debug.Log("HandState = SMASH");
             handState = HandState.SMASH;
             handSmashVector2 = new Vector2(transform.position.x, 0);
             transform.position = Vector2.MoveTowards(transform.position, handSmashVector2, speed * Time.deltaTime);
-            Debug.Log("HandState SMASH position: " + Vector2.Distance(transform.position, handVector2XPos));
+           // Debug.Log("HandState SMASH position: " + Vector2.Distance(transform.position, handVector2XPos));
         }
     }
 

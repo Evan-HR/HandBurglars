@@ -33,13 +33,13 @@ public class Jump : MonoBehaviour {
         
         if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0)
         {
-            soundManagerScript.PlaySound("jump");
+            FindObjectOfType<AudioManager>().Play("jump");
             rb.velocity = Vector2.up * jumpVelocity;
             extraJumps--;
         }
         else if (Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && (player.isGrounded == true || player.isLadder || player.isLadderTop))
         {
-            soundManagerScript.PlaySound("jump");
+            FindObjectOfType<AudioManager>().Play("jump");
             rb.velocity = Vector2.up * jumpVelocity;
         }
        

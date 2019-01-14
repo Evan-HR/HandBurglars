@@ -5,6 +5,8 @@ using UnityEngine;
 
 
 public class PlayerController : MonoBehaviour {
+    //import gameManager
+    public gameManager gameManager;
 
     //Player moving speed
     public float speed;
@@ -126,15 +128,21 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health > 1)
         {
-
+            FindObjectOfType<AudioManager>().Play("smash");
             camShake.Shake(camShakeAmt, 0.2f);
+
+            FindObjectOfType<AudioManager>().Play("lostHealth");
             PlayerHealth.health--;
-                canBeHit = false;
+            
+            canBeHit = false;
                 Invoke("getHit", hitCooldown);
 
         }
+        //last hit and death condition
         else if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health == 1)
         {
+            FindObjectOfType<AudioManager>().Play("lostHealth");
+            FindObjectOfType<AudioManager>().Play("smash");
             camShake.Shake(camShakeAmt, 0.2f);
             PlayerHealth.health--;
             canBeHit = false;
@@ -143,6 +151,8 @@ public class PlayerController : MonoBehaviour {
             rb.constraints = RigidbodyConstraints2D.None;
        
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            gameManager.EndGame();
+            
 
         }
     }
@@ -263,8 +273,9 @@ public class PlayerController : MonoBehaviour {
                 dashTime -= Time.deltaTime;
                 if (Input.GetKeyDown(KeyCode.F) && canDash == true)
                 {
-                    soundManagerScript.PlaySound("dash");
+                   
                     GameObject dashEffect = Instantiate(PlayerGhost, transform.position, transform.rotation);
+                    FindObjectOfType<AudioManager>().Play("dash");
                     rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
                     canDash = false;
                     Invoke("DashCooldown", dashCooldown);

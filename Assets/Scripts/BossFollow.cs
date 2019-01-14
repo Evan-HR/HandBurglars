@@ -78,13 +78,13 @@ public class BossFollow : MonoBehaviour {
 
         //timer to initiate bossSmashHand to attack
         bossHandStateTime -= Time.deltaTime;
-        Debug.Log("bossHandStateTime: " + bossHandStateTime);
-        Debug.Log("playerContains: " + bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2));
+        //Debug.Log("bossHandStateTime: " + bossHandStateTime);
+        //Debug.Log("playerContains: " + bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2));
         //if (bossHandStateTime < 0 && !isHandAttacking && (bossGroundBoxBoxCollider2D.bounds.Contains(targetPlayerVector2)))
         //if (bossHandStateTime < 0 && !isHandAttacking && handStage == HandStage.DISABLED)
         if (bossHandStateTime < 0 && handStage == HandStage.DISABLED)
         {
-            Debug.Log("Set HandState to Follow");
+            //Debug.Log("Set HandState to Follow");
             //isHandAttacking = true;
             bossHandStateTime = 5;
             handSmashState = BossHandSmashBehaviour.HandState.FOLLOW;

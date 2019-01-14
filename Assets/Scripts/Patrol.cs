@@ -34,7 +34,7 @@ public class Patrol : MonoBehaviour {
         {
             RaycastHit2D detectionRaycast = Physics2D.Raycast(transform.position, transform.right, distance, playerHandLayer);
 
-            Debug.Log("HandState = DISABLED");
+            //Debug.Log("HandState = DISABLED");
             //controls direction of raycast based on which MoveSpot Critter is moving towards
             if (randomSpot == 1)
             {
@@ -48,13 +48,13 @@ public class Patrol : MonoBehaviour {
 
             if (detectionRaycast.collider != null)
             {
-                Debug.DrawLine(transform.position, detectionRaycast.point, Color.red);
+                //Debug.DrawLine(transform.position, detectionRaycast.point, Color.red);
                 playerPosition = detectionRaycast.collider.gameObject.transform.position;
                 transform.position = Vector2.MoveTowards(transform.position, playerPosition, enemyDetectionSpeed * Time.deltaTime);
             }
             else
             {
-                Debug.DrawLine(transform.position, transform.position + transform.right * distance, Color.green);
+                //Debug.DrawLine(transform.position, transform.position + transform.right * distance, Color.green);
 
             }
         }

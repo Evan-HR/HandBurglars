@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class soundManagerScript : MonoBehaviour {
-    public static AudioClip fireWhoosh, dash,smoke, jump, lostHealth, discovery, monsterSmash;
+    public static AudioClip smoke, jump, lostHealth, smash, dash, fireWhoosh, discovery;
+    static AudioSource fireSrc;
+    static AudioSource discoverySrc;
     static AudioSource audiosrc;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         dash = Resources.Load<AudioClip>("dash");
         fireWhoosh = Resources.Load<AudioClip>("fireWhoosh");
         smoke = Resources.Load<AudioClip>("smoke");
         jump = Resources.Load<AudioClip>("jump");
         lostHealth = Resources.Load<AudioClip>("lostHealth");
         discovery = Resources.Load<AudioClip>("discovery");
-        monsterSmash = Resources.Load<AudioClip>("smash");
-
+        smash = Resources.Load<AudioClip>("smash");
         audiosrc = GetComponent<AudioSource>();
+        discoverySrc = GetComponent<AudioSource>();
+        fireSrc = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -28,7 +31,7 @@ public class soundManagerScript : MonoBehaviour {
         switch (clip)
         {
             case "fireWhoosh":
-                audiosrc.PlayOneShot(fireWhoosh);
+                fireSrc.PlayOneShot(fireWhoosh);
                 break;
             case "smoke":
                 audiosrc.PlayOneShot(smoke);
@@ -39,11 +42,15 @@ public class soundManagerScript : MonoBehaviour {
             case "lostHealth":
                 audiosrc.PlayOneShot(lostHealth);
                 break;
-            case "monsterSmash":
-                audiosrc.PlayOneShot(monsterSmash);
+            case "smash":
+                audiosrc.PlayOneShot(smash);
                 break;
             case "dash":
                 audiosrc.PlayOneShot(dash);
+                break;
+            case "discovery":
+                discoverySrc.volume = 0.1f;
+                discoverySrc.PlayOneShot(discovery);
                 break;
         }
     }

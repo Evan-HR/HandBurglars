@@ -46,18 +46,18 @@ public class HandBehavior : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (grabbableObjects.Contains(other.gameObject)){
-            print("Same Object within reach");
+            //print("Same Object within reach");
         }
             else{
             grabbableObjects.Add(other.gameObject);
             numOfTouchingObjects++;
-            print("Object within reach");
+            //print("Object within reach");
         }
         
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        print("Staying");
+        //print("Staying");
     }
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -158,7 +158,7 @@ public class HandBehavior : MonoBehaviour {
 
         mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosLocal = mousePos - playerPos;
-        print("Mouse Position: " + mousePos.ToString());
+        //print("Mouse Position: " + mousePos.ToString());
         handBodyDistance = Vector2.Distance(playerPos, handPos);
         mouseBodyDistance = Vector2.Distance(playerPos, mousePos);
        
