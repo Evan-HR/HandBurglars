@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 
 
-public class gameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour {
     bool gameHasEnded = false;
 	public void EndGame()
     {
