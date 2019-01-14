@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     //import gameManager
-    public gameManager gameManager;
+    public GameManager gameManager;
 
     //Player moving speed
     public float speed;

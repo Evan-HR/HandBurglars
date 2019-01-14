@@ -11,13 +11,20 @@ public class GameManager : MonoBehaviour {
             gameHasEnded = true;
             Debug.Log("Game OVER");
             //restart game, call the restart method
-            Restart();
+            GameOver();
         }
         
     }
 
-    void Restart()
+    public void GameOver()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //death condition
+        Initiate.Fade("GameOver", Color.black, 0.6f);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void StartGame()
+    {
+        Initiate.Fade("POC_Boss", Color.white, 0.6f);
     }
 }

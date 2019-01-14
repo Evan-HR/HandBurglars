@@ -118,7 +118,7 @@ public class HandBehavior : MonoBehaviour {
         if (isShiftDown)
             {
                 if(grabbableObjects.Count ==0){
-                    print("Nothing to Grab");
+                    //print("Nothing to Grab");
                 }
                 else{
                     float minDistance = gameObject.GetComponent<CircleCollider2D>().radius;
