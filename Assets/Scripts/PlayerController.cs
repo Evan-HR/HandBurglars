@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     //import gameManager
     public GameManager gameManager;
+    
 
     //Player moving speed
     public float speed;
@@ -111,6 +112,7 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+FindObjectOfType<AudioManager>().Play("bossBattle");
         rb = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
         //set hitTime cooldown to adjust in inspector

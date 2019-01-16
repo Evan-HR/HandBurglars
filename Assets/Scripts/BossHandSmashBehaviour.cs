@@ -2,9 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossHandSmashBehaviour : MonoBehaviour {
+public class BossHandSmashBehaviour : MonoBehaviour
+{
 
     public float speed;
+    public float recoverSpeed;
+    public float smashSpeed;
+    public float holdTimer;
+    public float shakeTimer;
+    public float shakeSpeed;
+    public float shakeMagnitude;
+    private Vector2 shakeSpot;
+    public float sitTimer;
+    private float waitTime;
+
     private Transform player1Transform;
     private Transform player2Transform;
     private Vector2 player1Vector2;
@@ -21,12 +32,17 @@ public class BossHandSmashBehaviour : MonoBehaviour {
     private float distanceToTargetYPos;
     private float smashHandInitYPos;
     private float bossSmashHandStateTime = 5;
+
+    // Desired behaviour is follow, shake, smash, sit, recover, hold
     public enum HandState
     {
         DISABLED,
         FOLLOW,
+        SHAKE,
         SMASH,
-        RECOVER
+        SIT,
+        RECOVER,
+        HOLD
     }
 
     private HandState handState = HandState.DISABLED;
@@ -34,6 +50,9 @@ public class BossHandSmashBehaviour : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+
+
+
         smashHandInitYPos = transform.position.y;
         bossSmashHandGameObject = GameObject.FindGameObjectWithTag("BossSmashHand");
         player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -72,7 +91,7 @@ public class BossHandSmashBehaviour : MonoBehaviour {
 
         if (handState == HandState.DISABLED)
         {
-            //Debug.Log("HandState = DISABLED");
+            Debug.Log("HandState = DISABLED");
             bossSmashHandGameObject.GetComponent<Renderer>().enabled = false;
 
         }
@@ -89,37 +108,52 @@ public class BossHandSmashBehaviour : MonoBehaviour {
             if (Vector2.Distance(transform.position, player1Vector2) >= Vector2.Distance(transform.position, player2Vector2))
             {
                 target = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
-                //Debug.Log("target Player2");
+                Debug.Log("target Player2");
 
             }
             else
             {
                 target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-                //Debug.Log("target Player1");
+                Debug.Log("target Player1");
 
             }
 
             targetVector2XPos = new Vector2(target.position.x, 0);
             targetVector2 = new Vector2(target.position.x, smashHandInitYPos);
             transform.position = Vector2.MoveTowards(transform.position, targetVector2, speed * Time.deltaTime);
-            //Debug.Log("HandState FOLLOW position: " + Vector2.Distance(handVector2XPos, targetVector2XPos));
+            Debug.Log("HandState FOLLOW position: " + Vector2.Distance(handVector2XPos, targetVector2XPos));
 
             if (Vector2.Distance(handVector2XPos, targetVector2XPos) <= 0.5)
             {
-                handState = HandState.SMASH;
+                handState = HandState.SHAKE;
+                waitTime = shakeTimer;
+                shakeSpot = transform.position;
             }
         }
+        // ------------------------------------------------ RECOVER
         else if ((Vector2.Distance(transform.position, handVector2XPos) == 0) || handState == HandState.RECOVER)
         //else if (handState == HandState.RECOVER)
         {
             //Debug.Log("HandState = RECOVER");
             handState = HandState.RECOVER;
-            transform.position = Vector2.MoveTowards(transform.position, handRecoverVector2, speed * Time.deltaTime);
-            //Debug.Log(Vector2.Distance(transform.position, handRecoverVector2));
+            transform.position = Vector2.MoveTowards(transform.position, handRecoverVector2, recoverSpeed * Time.deltaTime);
+            Debug.Log(Vector2.Distance(transform.position, handRecoverVector2));
 
             if (Vector2.Distance(transform.position, handRecoverVector2) == 0)
             {
                 handState = HandState.FOLLOW;
+            }
+        }
+        // ------------------------------------------------ SHAKE
+        else if (handState == HandState.SHAKE)
+        {
+            transform.position = new Vector2(shakeSpot.x + Mathf.Sin(Time.time * shakeSpeed) * shakeMagnitude, shakeSpot.y);
+
+            waitTime -= Time.deltaTime;
+            if (waitTime <= 0)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, shakeSpot, smashSpeed * Time.deltaTime);
+                handState = HandState.SMASH;
             }
         }
         else if (((Vector2.Distance(handVector2XPos, targetVector2XPos) <= 5) && (Vector2.Distance(handVector2XPos, targetVector2XPos) >= 0)) || handState == HandState.SMASH)
@@ -128,9 +162,10 @@ public class BossHandSmashBehaviour : MonoBehaviour {
             //Debug.Log("HandState = SMASH");
             handState = HandState.SMASH;
             handSmashVector2 = new Vector2(transform.position.x, 0);
-            transform.position = Vector2.MoveTowards(transform.position, handSmashVector2, speed * Time.deltaTime);
-           // Debug.Log("HandState SMASH position: " + Vector2.Distance(transform.position, handVector2XPos));
+            transform.position = Vector2.MoveTowards(transform.position, handSmashVector2, smashSpeed * Time.deltaTime);
+            Debug.Log("HandState SMASH position: " + Vector2.Distance(transform.position, handVector2XPos));
         }
+        //else if {}
     }
 
     public void SetHandState(HandState handState)

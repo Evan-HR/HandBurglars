@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour {
 
     public void GameOver()
     {
+        FindObjectOfType<AudioManager>().Stop("bossBattle");
+        //losing music
+        FindObjectOfType<AudioManager>().Play("defeat");
         //death condition
         Initiate.Fade("GameOver", Color.black, 0.6f);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -25,6 +28,8 @@ public class GameManager : MonoBehaviour {
 
     public void StartGame()
     {
+        FindObjectOfType<AudioManager>().Play("playAgain");
         Initiate.Fade("POC_Boss", Color.white, 0.6f);
+        //FindObjectOfType<AudioManager>().Play("bossBattle");
     }
 }
