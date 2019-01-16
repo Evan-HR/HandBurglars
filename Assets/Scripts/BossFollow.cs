@@ -33,6 +33,13 @@ public class BossFollow : MonoBehaviour {
     private BossHandSmashBehaviour bossHandBehaviourScript;
     private BossHandSmashBehaviour.HandState handSmashState;
     private HandStage handStage = HandStage.DISABLED;
+    private bool isDuck = false;
+    private float duckMaxScale = 0.1f;
+    private Vector3 bossBodyScaleOriginalVector3;
+    private float bossBodyYScale;
+    private float bossBodyYScaleOriginal;
+
+
     //private bool isHandAttacking = false;
 
     public enum HandStage
@@ -44,6 +51,9 @@ public class BossFollow : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        bossBodyScaleOriginalVector3 = transform.localScale;
+        bossBodyYScaleOriginal = transform.localScale.y;
+        bossBodyYScale = bossBodyYScaleOriginal;
         bossStartYPos = transform.position.y;
         bossSmashHandGameObject = GameObject.FindGameObjectWithTag("BossSmashHand");
         bossHandBehaviourScript = bossSmashHandGameObject.GetComponent<BossHandSmashBehaviour>();
@@ -61,12 +71,30 @@ public class BossFollow : MonoBehaviour {
         player1Vector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
         player2Vector2 = new Vector2(player2Transform.position.x, player2Transform.position.y);
         bossCurrentVector2 = new Vector2(transform.position.x, transform.position.y);
+        //Vector3 v3Scale = transform.localScale;
+        //if CannonShoots and BossHand is not on Spike, BossBody will duck
+        if (isDuck && (bossBodyYScale >= duckMaxScale))
+        {
+            Debug.Log("Boss Duck");
+            bossBodyYScale -= 0.3f;
+            transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
+        } 
+        else if (isDuck && (bossBodyYScale < duckMaxScale))
+        {
+            isDuck = false;
+        }
+        else if(!isDuck && (bossBodyYScale <= bossBodyYScaleOriginal))
+        {
+            bossBodyYScale += 0.3f;
+            transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
+        }
 
+        //BossBody will follow the closest player from it's position
         if (Vector2.Distance(bossCurrentVector2, player1Vector2) >= Vector2.Distance(bossCurrentVector2, player2Vector2))
         {
             bossMoveVector2 = new Vector2(player2Transform.position.x, bossStartYPos);
             transform.position = Vector2.MoveTowards(transform.position, bossMoveVector2, speed * Time.deltaTime);
-            targetPlayerVector2 = new Vector2(player2Transform.position.x, player2Transform.position.y);
+            targetPlayerVector2 = new Vector2(player2Transform.position.x, player2Transform.position.y); 
         }
         else
         {
@@ -99,6 +127,12 @@ public class BossFollow : MonoBehaviour {
             handStage = HandStage.DISABLED;
         }
 
+
+
     }
 
+    public void CanDuck()
+    {
+        isDuck = true;
+    }
 }

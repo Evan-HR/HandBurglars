@@ -5,15 +5,31 @@ using UnityEngine;
 public class CannonShoot : MonoBehaviour {
     public GameObject cannonBall;
     public float firePower;
+    private BossFollow bossFollow;
 
-	// Update is called once per frame
-	void Update () {
+    private void Start()
+    {
+        bossFollow = GameObject.FindObjectOfType<BossFollow>();
+    }
+
+    // Update is called once per frame
+    void Update ()
+    {
 		
 	}
 
     public void ShootCannon()
     {
-        GameObject thisCannonBall = Instantiate(cannonBall, transform.position, transform.rotation);
-        thisCannonBall.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.right*firePower,ForceMode2D.Impulse);
+        cannonBall = Instantiate(cannonBall, transform.position, transform.rotation);
+        cannonBall.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.right*firePower,ForceMode2D.Impulse);
+        bossFollow.CanDuck();
+        Debug.Log("ShootCannon");
+
     }
+
+    public GameObject getCannonballGameObject()
+    {
+        return cannonBall;
+    }
+
 }
