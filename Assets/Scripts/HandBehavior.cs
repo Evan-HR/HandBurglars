@@ -78,8 +78,6 @@ public class HandBehavior : MonoBehaviour {
 
         grabbingHand = Resources.Load("hand04", typeof(Sprite)) as Sprite;
 
-
-
     }
 
 
