@@ -16,6 +16,7 @@ TagManager:
   - GrabTorch
   - cannonBush
   - cannon
+  - Ground
   layers:
   - Default
   - TransparentFX

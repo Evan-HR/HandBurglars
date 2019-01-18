@@ -1419,7 +1419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb28215f3fc0130418228de210543367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  extraJumpsValue: 1
+  extraJumpsValue: 0
   jumpVelocity: 27.55
 --- !u!58 &580999140
 CircleCollider2D:
@@ -1551,7 +1551,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 580999135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.74, y: 13.27, z: 0}
+  m_LocalPosition: {x: 14.7, y: 36.2, z: 0}
   m_LocalScale: {x: 1.8250215, y: 1.883036, z: 1.5433456}
   m_Children:
   - {fileID: 115961915}
@@ -1718,7 +1718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &622100552
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2847,6 +2847,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1126639730}
+  - component: {fileID: 1126639731}
+  - component: {fileID: 1126639732}
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -2862,12 +2864,39 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1126639729}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.049999952, y: -1.071, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.049999952, y: -1.45, z: 0}
+  m_LocalScale: {x: 1, y: -0.16, z: 1}
   m_Children: []
   m_Father: {fileID: 580999145}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1126639731
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1126639729}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -3.26}
+  serializedVersion: 2
+  m_Radius: 0.17
+--- !u!114 &1126639732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1126639729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4831c09259ed71b4181c46ad5ac0a999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dustCloud: {fileID: 1831642673936676, guid: 6cbaba69956e22640899b0280dfa991a, type: 2}
 --- !u!1 &1130171396
 GameObject:
   m_ObjectHideFlags: 0
@@ -4385,9 +4414,10 @@ GameObject:
   - component: {fileID: 1329017567}
   - component: {fileID: 1329017566}
   - component: {fileID: 1329017568}
+  - component: {fileID: 1329017569}
   m_Layer: 15
   m_Name: BridgeCollider
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4463,7 +4493,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.7618055, y: -0.008341268}
+  m_Offset: {x: -2.7618055, y: -0.015736856}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4474,8 +4504,28 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.523611, y: 0.14756474}
+  m_Size: {x: 8.523611, y: 0.13277356}
   m_EdgeRadius: 0
+--- !u!50 &1329017569
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1329017565}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &1345206218
 GameObject:
   m_ObjectHideFlags: 0
