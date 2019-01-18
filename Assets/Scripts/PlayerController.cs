@@ -66,6 +66,9 @@ public class PlayerController : MonoBehaviour {
     private float crouchSpeed;
     public float crouchSpeedAdjust;
 
+    //blood
+    public GameObject blood;
+
     public bool getHideStatus()
     {
         return hide;
@@ -130,12 +133,14 @@ FindObjectOfType<AudioManager>().Play("bossBattle");
     {
         if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health > 1)
         {
+            Instantiate(blood, transform.position, Quaternion.identity);
             FindObjectOfType<AudioManager>().Play("smash");
             camShake.Shake(camShakeAmt, 0.2f);
 
             FindObjectOfType<AudioManager>().Play("lostHealth");
             PlayerHealth.health--;
             
+            //hit cooldown
             canBeHit = false;
                 Invoke("getHit", hitCooldown);
 

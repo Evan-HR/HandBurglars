@@ -1328,8 +1328,8 @@ GameObject:
   - component: {fileID: 580999140}
   - component: {fileID: 580999138}
   - component: {fileID: 580999136}
-  - component: {fileID: 580999144}
   - component: {fileID: 580999147}
+  - component: {fileID: 580999144}
   m_Layer: 11
   m_Name: Handit1 (1)
   m_TagString: Player
@@ -1389,6 +1389,7 @@ MonoBehaviour:
   canBeHit: 1
   startHitTime: 1
   crouchSpeedAdjust: 6.95
+  blood: {fileID: 1095365503009858, guid: 396c9e085a30eb0489bdba8bb18d9dff, type: 2}
   camShakeAmt: 0.21
   PlayerGhost: {fileID: 1496269851466636, guid: 9107aa1a90fb9434f9043f9d5fd8991f,
     type: 2}
@@ -1551,7 +1552,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 580999135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.7, y: 36.2, z: 0}
+  m_LocalPosition: {x: -9.1, y: 1.9, z: 0}
   m_LocalScale: {x: 1.8250215, y: 1.883036, z: 1.5433456}
   m_Children:
   - {fileID: 115961915}
