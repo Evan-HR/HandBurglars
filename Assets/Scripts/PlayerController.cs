@@ -148,6 +148,7 @@ FindObjectOfType<AudioManager>().Play("bossBattle");
         //last hit and death condition
         else if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health == 1)
         {
+            Instantiate(blood, transform.position, Quaternion.identity);
             FindObjectOfType<AudioManager>().Play("lostHealth");
             FindObjectOfType<AudioManager>().Play("smash");
             camShake.Shake(camShakeAmt, 0.2f);
@@ -226,11 +227,17 @@ FindObjectOfType<AudioManager>().Play("bossBattle");
 
         if (facingRight == false && moveInput > 0)
         {
-            mySpriteRenderer.flipX = true;
+            mySpriteRenderer.flipX = false;
+            facingRight = true;
+            
         }
         else if(facingRight == true && moveInput < 0)
         {
+          
             mySpriteRenderer.flipX = true;
+            facingRight = false; 
+
+
         }
         //ladder stuff
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
