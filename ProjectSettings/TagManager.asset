@@ -17,6 +17,7 @@ TagManager:
   - cannonBush
   - cannon
   - Ground
+  - Background
   layers:
   - Default
   - TransparentFX
