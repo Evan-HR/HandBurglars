@@ -7,7 +7,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     //import gameManager
     public GameManager gameManager;
-    
+
+    //input Time used for button
+    private float inputTime;
 
     //Player moving speed
     public float speed;
@@ -93,6 +95,7 @@ public class PlayerController : MonoBehaviour {
     //gameObject named ghost
     [SerializeField]
     GameObject PlayerGhost;
+    CannonShoot cannonShoot;
 
     public static PlayerController Instance{ 
         get
@@ -115,7 +118,7 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-FindObjectOfType<AudioManager>().Play("bossBattle");
+        FindObjectOfType<AudioManager>().Play("bossBattle");
         rb = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
         //set hitTime cooldown to adjust in inspector
@@ -126,7 +129,10 @@ FindObjectOfType<AudioManager>().Play("bossBattle");
 
         //camera shaker
         camShake = GetComponent<CameraShake>();
-            }
+
+        //get CannonShoot
+        cannonShoot = GameObject.FindObjectOfType<CannonShoot>();
+    }
 
     //collision with monster hand 
     void OnCollisionEnter2D(Collision2D collision)
@@ -296,6 +302,16 @@ FindObjectOfType<AudioManager>().Play("bossBattle");
 
                 }
 
+            }
+
+            //if (Input.GetKeyDown(KeyCode.M) && (inputTime == Time.time)){
+            //    inputTime = Time.time;
+            //    cannonShoot.ShootCannon();
+            //}
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                cannonShoot.ShootCannon();
             }
         }
 

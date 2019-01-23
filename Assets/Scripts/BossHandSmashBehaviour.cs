@@ -32,6 +32,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
     private float distanceToTargetYPos;
     private float smashHandInitYPos;
     private float bossSmashHandStateTime = 5;
+    private BossFollow bossFollow;
 
     // Desired behaviour is follow, shake, smash, sit, recover, hold
     public enum HandState
@@ -52,7 +53,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
     {
 
 
-
+        bossFollow = GameObject.FindObjectOfType<BossFollow>();
         smashHandInitYPos = transform.position.y;
         bossSmashHandGameObject = GameObject.FindGameObjectWithTag("BossSmashHand");
         player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -176,5 +177,17 @@ public class BossHandSmashBehaviour : MonoBehaviour
     public HandState GetHandState()
     {
         return handState;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Collider.name " + other.name);
+
+        if (other.name == "Spike")
+        {
+            bossFollow.SetIsDuck(false);
+            //Destroy(other.gameObject);
+
+        }
     }
 }

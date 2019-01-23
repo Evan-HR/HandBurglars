@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossFollow : MonoBehaviour {
 
     public float speed;
+    public float bossDuckSpeed;
 
     private Transform player1Transform;
     private Transform player2Transform;
@@ -36,8 +37,13 @@ public class BossFollow : MonoBehaviour {
     private bool isDuck = false;
     private float duckMaxScale = 0.1f;
     private Vector3 bossBodyScaleOriginalVector3;
+    private Vector3 bossBodyPosOrignalVector3;
     private float bossBodyYScale;
     private float bossBodyYScaleOriginal;
+    private float bossBodyXPosOriginal;
+    private float bossBodyYPosOriginal;
+    private float bossBodyZPosOriginal;
+    private float bossBodyYPos;
 
 
     //private bool isHandAttacking = false;
@@ -51,10 +57,15 @@ public class BossFollow : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        bossBodyPosOrignalVector3 = transform.position;
+        bossBodyXPosOriginal = bossBodyPosOrignalVector3.x;
+        bossBodyYPosOriginal = bossBodyPosOrignalVector3.y;
+        bossBodyZPosOriginal = bossBodyPosOrignalVector3.z;
+
         bossBodyScaleOriginalVector3 = transform.localScale;
         bossBodyYScaleOriginal = transform.localScale.y;
         bossBodyYScale = bossBodyYScaleOriginal;
-        bossStartYPos = transform.position.y;
+        //bossStartYPos = transform.position.y;
         bossSmashHandGameObject = GameObject.FindGameObjectWithTag("BossSmashHand");
         bossHandBehaviourScript = bossSmashHandGameObject.GetComponent<BossHandSmashBehaviour>();
         handSmashState = bossHandBehaviourScript.GetHandState();
@@ -77,6 +88,8 @@ public class BossFollow : MonoBehaviour {
         {
             Debug.Log("Boss Duck");
             bossBodyYScale -= 0.3f;
+            bossBodyYPos = -10;
+            transform.position = Vector2.MoveTowards(transform.position, new Vector3(targetPlayerVector2.x, bossBodyYPos, 0), bossDuckSpeed * Time.deltaTime);
             transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
         } 
         else if (isDuck && (bossBodyYScale < duckMaxScale))
@@ -86,19 +99,23 @@ public class BossFollow : MonoBehaviour {
         else if(!isDuck && (bossBodyYScale <= bossBodyYScaleOriginal))
         {
             bossBodyYScale += 0.3f;
+            bossBodyYPos = bossBodyYPosOriginal;
+            transform.position = Vector2.MoveTowards(transform.position, new Vector3(targetPlayerVector2.x, bossBodyYPos, 0), bossDuckSpeed * Time.deltaTime);
             transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
         }
 
         //BossBody will follow the closest player from it's position
         if (Vector2.Distance(bossCurrentVector2, player1Vector2) >= Vector2.Distance(bossCurrentVector2, player2Vector2))
         {
-            bossMoveVector2 = new Vector2(player2Transform.position.x, bossStartYPos);
+            //bossMoveVector2 = new Vector2(player2Transform.position.x, bossStartYPos);
+            bossMoveVector2 = new Vector2(player2Transform.position.x, bossBodyYPosOriginal);
             transform.position = Vector2.MoveTowards(transform.position, bossMoveVector2, speed * Time.deltaTime);
             targetPlayerVector2 = new Vector2(player2Transform.position.x, player2Transform.position.y); 
         }
         else
         {
-            bossMoveVector2 = new Vector2(player1Transform.position.x, bossStartYPos);
+            //bossMoveVector2 = new Vector2(player1Transform.position.x, bossStartYPos);
+            bossMoveVector2 = new Vector2(player1Transform.position.x, bossBodyYPosOriginal);
             transform.position = Vector2.MoveTowards(transform.position, bossMoveVector2, speed * Time.deltaTime);
             targetPlayerVector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
         }
@@ -134,5 +151,10 @@ public class BossFollow : MonoBehaviour {
     public void CanDuck()
     {
         isDuck = true;
+    }
+
+    public void SetIsDuck(bool isDuck)
+    {
+        this.isDuck = isDuck;
     }
 }
