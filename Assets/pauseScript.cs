@@ -21,14 +21,18 @@ public GameObject pauseMenuUI;
 
 	public void Resume(){
 		pauseMenuUI.SetActive(false);
-		Time.timeScale = 1f;
+        FindObjectOfType<AudioManager>().Volume("bossBattle", 0.26f);
+        Time.timeScale = 1f;
 		GameIsPaused = false;
 
 	}
 	void Pause(){
 		pauseMenuUI.SetActive(true);
-		//freeze game
-		Time.timeScale = 0f;
+
+        //lower music volume
+        FindObjectOfType<AudioManager>().Volume("bossBattle", 0.06f);
+        //freeze game
+        Time.timeScale = 0f;
 		GameIsPaused = true;
 		
 	}
