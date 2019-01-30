@@ -22,7 +22,8 @@ public class Health : MonoBehaviour {
 
 void Start(){
 sharedLivesHearts = sharedLivesHeartsInspector;
-}
+        sharedLives = 3;
+    }
      void Update()
     {
         if(health > numOfHearts)
@@ -35,6 +36,7 @@ sharedLivesHearts = sharedLivesHeartsInspector;
             if (i < health)
             {
                 hearts[i].sprite = fullHeart;
+        
             }
             else
             {
@@ -51,32 +53,36 @@ sharedLivesHearts = sharedLivesHeartsInspector;
             }
         }
         if(death){
-            sharedLives -= 1;
-            health = numOfHearts;
-            death = false;
-
-            for (int i = 0; i < sharedLivesHearts.Length; i++)
+            sharedLives--;
+            if(sharedLives == 2)
             {
-                if (i < health)
-                {
-                    sharedLivesHearts[i].sprite = fullHeart;
-                }
-                else
-                {
-                    sharedLivesHearts[i].sprite = emptyHeart;
-                }
+                FullHealth();
+                print("after fullHealth function, player health is: " + health);
+                sharedLivesHearts[2].sprite = emptyHeart;
 
-                if (i < numOfSharedHearts)
-                {
-                    sharedLivesHearts[i].enabled = true;
-                }
-                else
-                {
-                    sharedLivesHearts[i].enabled = false;
-                }
+            }else if(sharedLives == 1)
+            {
+                FullHealth();
+                sharedLivesHearts[1].sprite = emptyHeart;
+                //death, restart level
+            }else if (sharedLives == 0)
+            {
+                sharedLivesHearts[0].sprite = emptyHeart;
             }
-
+            
+            
+            //health = numOfHearts;
+            death = false;
         }
+    }
+
+    //call this to set fullhealth
+    void FullHealth()
+    {
+        health = 3;
+        hearts[2].sprite = fullHeart;
+        hearts[1].sprite = fullHeart;
+        hearts[0].sprite = fullHeart;
     }
 
 }

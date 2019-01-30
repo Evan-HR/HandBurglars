@@ -127,6 +127,8 @@ public class PlayerController : MonoBehaviour {
 
         //get CannonShoot
         cannonShoot = GameObject.FindObjectOfType<CannonShoot>();
+        print("at the start, the global health is:" +Health.sharedLives);
+        print("at the start, player health is " + PlayerHealth.health);
     }
 
     //collision with monster hand 
@@ -139,9 +141,12 @@ public class PlayerController : MonoBehaviour {
             camShake.Shake(camShakeAmt, 0.2f);
 
             FindObjectOfType<AudioManager>().Play("lostHealth");
+           
             PlayerHealth.health--;
-            Health.sharedLives--;
-            
+            print("ouch! player just got hit, player health is: " + PlayerHealth.health);
+
+
+
             //hit cooldown
             canBeHit = false;
                 Invoke("getHit", hitCooldown);
@@ -155,16 +160,19 @@ public class PlayerController : MonoBehaviour {
             FindObjectOfType<AudioManager>().Play("smash");
             camShake.Shake(camShakeAmt, 0.2f);
             PlayerHealth.health--;
+            print("ouch! player just DIED! health is: " + PlayerHealth.health);
             canBeHit = false;
             //placeholder "death" by freezing 
             //set Z axis to off, then freeze X and Y
             rb.constraints = RigidbodyConstraints2D.None;
-       
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-            Health.sharedLives--;
-            Health.death = true;
+            //Health.sharedLives--;
             
-            if(Health.sharedLives == 0){
+            Health.death = true;
+            print("after player death, the global health is: " + Health.sharedLives);
+            print("after death, player health is: " + PlayerHealth.health);
+
+            if (Health.sharedLives == 0){
                 gameManager.EndGame();
             }
             
