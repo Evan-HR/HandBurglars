@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour {
     public int health;
 
-    public static bool death;
+    //public static bool death;
 
     public static int sharedLives;
     public int numOfHearts;
@@ -19,18 +19,23 @@ public class Health : MonoBehaviour {
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    private GameManager healthGameManager;
 
-void Start(){
-sharedLivesHearts = sharedLivesHeartsInspector;
+
+    void Start(){
+        healthGameManager = GetComponent<GameManager>();
+        sharedLivesHearts = sharedLivesHeartsInspector;
         sharedLives = 3;
     }
      void Update()
     {
+        //EDGE CASE TEST 
         if(health > numOfHearts)
         {
             health = numOfHearts;
         }
 
+        //UI STUFF WITH IMAGE FILES 
         for (int i = 0; i < hearts.Length; i++)
         {
             if (i < health)
@@ -52,28 +57,7 @@ sharedLivesHearts = sharedLivesHeartsInspector;
                 hearts[i].enabled = false;
             }
         }
-        if(death){
-            sharedLives--;
-            if(sharedLives == 2)
-            {
-                FullHealth();
-                print("after fullHealth function, player health is: " + health);
-                sharedLivesHearts[2].sprite = emptyHeart;
 
-            }else if(sharedLives == 1)
-            {
-                FullHealth();
-                sharedLivesHearts[1].sprite = emptyHeart;
-                //death, restart level
-            }else if (sharedLives == 0)
-            {
-                sharedLivesHearts[0].sprite = emptyHeart;
-            }
-            
-            
-            //health = numOfHearts;
-            death = false;
-        }
     }
 
     //call this to set fullhealth
@@ -83,6 +67,36 @@ sharedLivesHearts = sharedLivesHeartsInspector;
         hearts[2].sprite = fullHeart;
         hearts[1].sprite = fullHeart;
         hearts[0].sprite = fullHeart;
+    }
+
+   public void Death()
+    {
+        sharedLives--;
+        if (sharedLives == 2)
+        {
+            print("1 DEATH: PLAYER HEALTH BEFORE FNC = " + health);
+            FullHealth();
+            print("1 DEATH: PLAYER HEALTH AFTER FNC = " + health);
+            print("1 DEATH: SHARED LIVES = " + sharedLives);
+            sharedLivesHearts[2].sprite = emptyHeart;
+
+        }
+        else if (sharedLives == 1)
+        {
+
+            FullHealth();
+            print("2 DEATH: PLAYER HEALTH AFTER FNC = " + health);
+            print("2 DEATH: SHARED LIVES = " + sharedLives);
+            sharedLivesHearts[1].sprite = emptyHeart;
+
+        }
+        else if (sharedLives == 0)
+        {
+            sharedLivesHearts[0].sprite = emptyHeart;
+            GameManager.GameOver();
+            
+        }
+
     }
 
 }

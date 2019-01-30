@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        
         PlayerHealth = GetComponent<Health>();
         FindObjectOfType<AudioManager>().Play("bossBattle");
         rb = GetComponent<Rigidbody2D>();
@@ -143,7 +144,7 @@ public class PlayerController : MonoBehaviour {
             FindObjectOfType<AudioManager>().Play("lostHealth");
            
             PlayerHealth.health--;
-            print("ouch! player just got hit, player health is: " + PlayerHealth.health);
+        
 
 
 
@@ -160,22 +161,14 @@ public class PlayerController : MonoBehaviour {
             FindObjectOfType<AudioManager>().Play("smash");
             camShake.Shake(camShakeAmt, 0.2f);
             PlayerHealth.health--;
-            print("ouch! player just DIED! health is: " + PlayerHealth.health);
+       
             canBeHit = false;
-            //placeholder "death" by freezing 
-            //set Z axis to off, then freeze X and Y
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-            //Health.sharedLives--;
-            
-            Health.death = true;
-            print("after player death, the global health is: " + Health.sharedLives);
-            print("after death, player health is: " + PlayerHealth.health);
+            Invoke("getHit", hitCooldown);
 
-            if (Health.sharedLives == 0){
-                gameManager.EndGame();
-            }
-            
+           
+            print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);
+            //decrement global health
+            PlayerHealth.Death();
             
 
         }

@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour {
-    bool gameHasEnded = false;
     public Scene scene;
 
     private void Awake()
@@ -18,19 +17,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void EndGame()
-    {
-        if(gameHasEnded == false)
-        {
-            gameHasEnded = true;
-            Debug.Log("Game OVER");
-            //restart game, call the restart method
-            GameOver();
-        }
-        
-    }
 
-    public void GameOver()
+    public static void GameOver()
     {
 
         FindObjectOfType<AudioManager>().Stop("bossBattle");
