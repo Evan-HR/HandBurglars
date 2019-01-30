@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour {
     public bool canDash = true;
     public float dashCooldown;
 
-    public SpriteRenderer playerSprite;
 
     //ladder variables
     float verticalMove;
@@ -52,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 
     //hittable variables
     public bool canBeHit = true;
-    private static Health PlayerHealth;
+    private  Health PlayerHealth;
     private float hitCooldown;
     public float startHitTime;
 
@@ -90,14 +89,11 @@ public class PlayerController : MonoBehaviour {
     public float camShakeAmt = 0.1f;
     CameraShake camShake;
 
-    //used to get position of character for the ghost effect
-    private static PlayerController instance;
-    //gameObject named ghost
-    [SerializeField]
-    GameObject PlayerGhost;
+    private  PlayerController instance;
+
     CannonShoot cannonShoot;
 
-    public static PlayerController Instance{ 
+    public  PlayerController Instance{ 
         get
         {
             if (instance == null)
@@ -112,19 +108,18 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake()
     {
-        PlayerHealth = GameObject.FindObjectOfType<Health>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Use this for initialization
     void Start() {
+        PlayerHealth = GetComponent<Health>();
         FindObjectOfType<AudioManager>().Play("bossBattle");
         rb = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
         //set hitTime cooldown to adjust in inspector
         hitCooldown = startHitTime;
-        //get sprite for ghost effect
-        playerSprite = GetComponent<SpriteRenderer>();
+ 
         crouchSpeed = crouchSpeedAdjust;
 
         //camera shaker
@@ -145,6 +140,7 @@ public class PlayerController : MonoBehaviour {
 
             FindObjectOfType<AudioManager>().Play("lostHealth");
             PlayerHealth.health--;
+            Health.sharedLives--;
             
             //hit cooldown
             canBeHit = false;
@@ -165,7 +161,13 @@ public class PlayerController : MonoBehaviour {
             rb.constraints = RigidbodyConstraints2D.None;
        
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-            gameManager.EndGame();
+            Health.sharedLives--;
+            Health.death = true;
+            
+            if(Health.sharedLives == 0){
+                gameManager.EndGame();
+            }
+            
             
 
         }
@@ -294,7 +296,7 @@ public class PlayerController : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.F) && canDash == true)
                 {
                    
-                    GameObject dashEffect = Instantiate(PlayerGhost, transform.position, transform.rotation);
+                    
                     FindObjectOfType<AudioManager>().Play("dash");
                     rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
                     canDash = false;
