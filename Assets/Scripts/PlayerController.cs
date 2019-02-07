@@ -70,6 +70,12 @@ public class PlayerController : MonoBehaviour {
     //blood
     public GameObject blood;
 
+    //cannon
+    CannonShoot cannonShoot;
+    bool isShootCannon = false;
+
+
+
     public bool getHideStatus()
     {
         return hide;
@@ -90,8 +96,6 @@ public class PlayerController : MonoBehaviour {
     CameraShake camShake;
 
     private  PlayerController instance;
-
-    CannonShoot cannonShoot;
 
     public  PlayerController Instance{ 
         get
@@ -311,10 +315,13 @@ public class PlayerController : MonoBehaviour {
             //    inputTime = Time.time;
             //    cannonShoot.ShootCannon();
             //}
-
-            if (Input.GetKeyDown(KeyCode.M))
+            //Cannon Shoots when M is pressed, isShootCannon prevents cannon from shooting more than once
+            if (Input.GetKeyDown(KeyCode.M) && !isShootCannon)
             {
+                isShootCannon = true;
                 cannonShoot.ShootCannon();
+            } else if (Input.GetKeyUp(KeyCode.M) && isShootCannon){
+                isShootCannon = false;
             }
         }
 
