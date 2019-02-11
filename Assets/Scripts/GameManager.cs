@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
 
     public void StartGame()
     {
-        if (scene.name == "Menu")
+        if (scene.name == "SelectCharacter")
         {
             FindObjectOfType<AudioManager>().Stop("birds");
             FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
@@ -40,6 +40,14 @@ public class GameManager : MonoBehaviour {
 
         FindObjectOfType<AudioManager>().Play("playAgain");
         Initiate.Fade("POC_Boss", Color.white, 0.6f);
+        //FindObjectOfType<AudioManager>().Play("bossBattle");
+    }
+
+    public void CharacterScene()
+    {
+
+        FindObjectOfType<AudioManager>().Play("playAgain");
+        Initiate.Fade("SelectCharacter", Color.white, 0.3f);
         //FindObjectOfType<AudioManager>().Play("bossBattle");
     }
 }
