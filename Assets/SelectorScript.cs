@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class SelectorScript : MonoBehaviour {
 
+    public class CharacterSelect
+    {
+        public string PlayerName;
+        public string ControllerType;
+        public int PlayerNum;
+
+        public CharacterSelect(string name, string control, int num){
+                PlayerName = name;
+                ControllerType = control;
+                PlayerNum = num;
+        }
+    }
+
     public GameObject Bru;
     public GameObject Jotun;
     private Vector3 CharacterPosition;
@@ -11,6 +24,15 @@ public class SelectorScript : MonoBehaviour {
     private int CharacterInt = 1;
     //gets the component, does it once upon start 
     private SpriteRenderer JotunRender, BruRender;
+    
+    private CharacterSelect[] characterInfo;
+
+
+    //characterInfo[0] = CharacterSelect("Bru", "Controller", 1);
+    //characterInfo[1] = CharacterSelect("Jotun", "Keyboard", 2);
+    
+
+
 
     private void Awake()
     {
@@ -18,6 +40,7 @@ public class SelectorScript : MonoBehaviour {
         OffScreen = Jotun.transform.position;
         JotunRender = Jotun.GetComponent<SpriteRenderer>();
         BruRender = Bru.GetComponent<SpriteRenderer>();
+        //public TileData[] tiles;
     }
     public void NextCharacter()
     {
@@ -29,6 +52,7 @@ public class SelectorScript : MonoBehaviour {
                 Jotun.transform.position = CharacterPosition;
                 JotunRender.enabled = true;
                 CharacterInt++;
+                
                 break;
             case 2:
                 JotunRender.enabled = false;
