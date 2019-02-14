@@ -20,9 +20,8 @@ public class SelectorScript : MonoBehaviour {
 
     public GameObject Bru;
     public GameObject Jotun;
-    private Vector3 CharacterPosition;
-    private Vector3 OffScreen;
-    private int CharacterInt = 1;
+    
+    private int SelectorInt = 1;
     //gets the component, does it once upon start 
     private SpriteRenderer JotunRender, BruRender, keyboardRender, controllerRender;
     public GameObject ControllerIcon;
@@ -33,27 +32,34 @@ public class SelectorScript : MonoBehaviour {
     
 	public int changeTextCounter = 0;
 	public GameObject topText;
+    //TRUE if on player select, false if on CONTROLLER select
+    public bool playerSelectBool = true;
 	
 
 //this controls visuals of keyboard/gamepad icons too 
-	public void textChange(){
+//pass in variables
+	public void selectButton(){
 		if(changeTextCounter == 0){
+            displayKeyboard();
+            playerSelectBool = false;
 			topText.GetComponent<Text>().text = "Player 1\nSelect Controller";
 			changeTextCounter++;
-            
 		}
 		else if (changeTextCounter == 1)
 		{
-			topText.GetComponent<Text>().text = "Player 2\nSelect Character";
+            displayBru();
+            playerSelectBool = true;
+            topText.GetComponent<Text>().text = "Player 2\nSelect Character";
 				changeTextCounter++;
 		}
 		else if (changeTextCounter == 2)
 		{
-			topText.GetComponent<Text>().text = "Player 2\nSelect Controller";
+            displayKeyboard();
+            playerSelectBool = false;
+            topText.GetComponent<Text>().text = "Player 2\nSelect Controller";
 			changeTextCounter++;
 		}
 			
-		
 	}
 
   
@@ -63,40 +69,53 @@ public class SelectorScript : MonoBehaviour {
     //characterInfo[1] = CharacterSelect("Jotun", "Keyboard", 2);
 
 
-    
-
-
-
     private void Awake()
     {
-        CharacterPosition = Bru.transform.position;
-        OffScreen = Jotun.transform.position;
+        
         JotunRender = Jotun.GetComponent<SpriteRenderer>();
         BruRender = Bru.GetComponent<SpriteRenderer>();
         keyboardRender = KeyboardIcon.GetComponent<SpriteRenderer>();
         controllerRender = ControllerIcon.GetComponent<SpriteRenderer>();
+        displayBru();
         //public TileData[] tiles;
     }
 
-    public void NextCharacter()
+
+
+    public void NextButton()
     {
-        switch (CharacterInt)
+        switch (SelectorInt)
         {
             case 1:
-                BruRender.enabled = false;
-                Bru.transform.position = OffScreen;
-                Jotun.transform.position = CharacterPosition;
-                JotunRender.enabled = true;
-                CharacterInt++;
-                
+                if (playerSelectBool == true)
+                {
+                    displayJotun();
+                    SelectorInt++;
+                    
+                }
+                else
+                {
+                    displayKeyboard();
+                    SelectorInt++;
+                }
+
                 break;
+
+
             case 2:
-                JotunRender.enabled = false;
-                Jotun.transform.position = OffScreen;
-                Bru.transform.position = CharacterPosition;
-                BruRender.enabled = true;
-                CharacterInt++;
-                ResetInteger();
+                if(playerSelectBool == true)
+                {
+                    displayBru();
+                    SelectorInt++;
+                    ResetInteger();
+                    
+                }
+                else
+                {
+                    displayController();
+                    SelectorInt++;
+                    ResetInteger();
+                }
                 break;
             default:
                 ResetInteger();
@@ -106,41 +125,87 @@ public class SelectorScript : MonoBehaviour {
     }
 
 
-    public void PreviousCharacter()
+    public void PreviousButton()
     {
-        switch (CharacterInt)
+        switch (SelectorInt)
         {
             case 1:
-                BruRender.enabled = false;
-                Bru.transform.position = OffScreen;
-                Jotun.transform.position = CharacterPosition;
-                JotunRender.enabled = true;
-                CharacterInt--;
-                ResetInteger();
+                if(playerSelectBool == true)
+                {
+                    displayJotun();
+                    SelectorInt--;
+                    ResetInteger();
+                }
+                else
+                {
+                    displayKeyboard();
+                    SelectorInt--;
+                    ResetInteger();
+                }
+
                 break;
             case 2:
-                JotunRender.enabled = false;
-                Jotun.transform.position = OffScreen;
-                Bru.transform.position = CharacterPosition;
-                BruRender.enabled = true;
-                CharacterInt--;
+                if (playerSelectBool == true)
+                {
+                    displayBru();
+                    SelectorInt--;
+                }
+                else
+                {
+                    displayController();
+                    SelectorInt--;
+                }
+
                 
                 break;
             default:
                 ResetInteger();
                 break;
         }
+    }
+
+
+    private void displayBru()
+    {
+        JotunRender.enabled = false;
+        BruRender.enabled = true;
+        controllerRender.enabled = false;
+        keyboardRender.enabled = false;
+    }
+    private void displayJotun()
+    {
+        BruRender.enabled = false;
+        JotunRender.enabled = true;
+        controllerRender.enabled = false;
+        keyboardRender.enabled = false;
+    }
+
+    private void displayKeyboard()
+    {
+        JotunRender.enabled = false;
+        BruRender.enabled = false;
+        controllerRender.enabled = false;
+        keyboardRender.enabled = true;
+
+    }
+
+    private void displayController()
+    {
+        JotunRender.enabled = false;
+        BruRender.enabled = false;
+        keyboardRender.enabled = false;
+        controllerRender.enabled = true;
     }
 
     private void ResetInteger()
     {
-        if (CharacterInt >= 2)
+        if (SelectorInt >= 2)
         {
-            CharacterInt = 1;
+            SelectorInt = 1;
         }
         else
         {
-            CharacterInt = 2;
+            SelectorInt = 2;
         }
     }
 

@@ -532,6 +532,7 @@ MonoBehaviour:
   KeyboardIcon: {fileID: 2143896900}
   changeTextCounter: 0
   topText: {fileID: 294783716}
+  playerSelectBool: 1
 --- !u!224 &806907931
 RectTransform:
   m_ObjectHideFlags: 0
@@ -627,7 +628,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 806907930}
-        m_MethodName: NextCharacter
+        m_MethodName: NextButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -696,7 +697,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1219247563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.63, y: 1.2, z: 1.5834175}
+  m_LocalPosition: {x: -2.18, y: 1.23, z: 1.5834175}
   m_LocalScale: {x: 1.503848, y: 1.503848, z: 1.503848}
   m_Children: []
   m_Father: {fileID: 1844319761}
@@ -825,7 +826,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 806907930}
-        m_MethodName: textChange
+        m_MethodName: selectButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1025,7 +1026,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 806907930}
-        m_MethodName: PreviousCharacter
+        m_MethodName: PreviousButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1164,7 +1165,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1601653672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -0.17, z: 0}
+  m_LocalPosition: {x: 12.29, y: -0.27, z: 0}
   m_LocalScale: {x: 1.182, y: 1.182, z: 1.182}
   m_Children: []
   m_Father: {fileID: 1474143824}
