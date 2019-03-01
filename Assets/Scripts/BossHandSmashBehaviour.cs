@@ -16,6 +16,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
     public float sitTimer;
     private float waitTime;
 
+
     private Transform player1Transform;
     private Transform player2Transform;
     private Transform bossBodyTransform;
@@ -62,9 +63,6 @@ public class BossHandSmashBehaviour : MonoBehaviour
         player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         player2Transform = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
         bossBodyTransform = GameObject.FindGameObjectWithTag("BossBody").GetComponent<Transform>();
-        player1Vector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
-        player2Vector2 = new Vector2(player2Transform.position.x, player2Transform.position.y);
-        bossBodyVector2 = new Vector2(bossBodyTransform.position.x, bossBodyTransform.position.y);
 
 
         if (handState == HandState.START)
@@ -77,6 +75,9 @@ public class BossHandSmashBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bossBodyVector2 = new Vector2(bossBodyTransform.position.x, bossBodyTransform.position.y);
+        player1Vector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
+        player2Vector2 = new Vector2(player2Transform.position.x, player2Transform.position.y);
         handVector2XPos = new Vector2(transform.position.x, 0);
         //playerVector2XPos = new Vector2(target.position.x, 0);
         handRecoverVector2 = new Vector2(transform.position.x, smashHandInitYPos);
