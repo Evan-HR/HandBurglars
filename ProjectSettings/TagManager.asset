@@ -19,6 +19,7 @@ TagManager:
   - Ground
   - Background
   - Draggable
+  - Critter
   layers:
   - Default
   - TransparentFX
@@ -40,9 +41,9 @@ TagManager:
   - Background
   - BossSpike
   - BossHand
-  - 
-  - 
-  - 
+  - Critter
+  - HiddenPlayerBody
+  - Cover
   - 
   - 
   - 

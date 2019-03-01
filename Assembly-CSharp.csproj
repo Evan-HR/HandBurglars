@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\BGSoundScript.cs" />
      <Compile Include="Assets\Scripts\BossFollow.cs" />
      <Compile Include="Assets\Scripts\BossHandSmashBehaviour.cs" />
+     <Compile Include="Assets\Scripts\BossSpikeScript.cs" />
      <Compile Include="Assets\Scripts\BushFire.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\CameraShake.cs" />
@@ -73,6 +74,7 @@
      <Compile Include="Assets\Scripts\Destroy.cs" />
      <Compile Include="Assets\Scripts\DestroyBlood.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GrabCannon.cs" />
      <Compile Include="Assets\Scripts\GroundCheck.cs" />
      <Compile Include="Assets\Scripts\Hand2Behavior.cs" />
      <Compile Include="Assets\Scripts\HandBehavior.cs" />
@@ -98,7 +100,6 @@
      <Compile Include="Assets\Scripts\scrollingMenuBG.cs" />
      <Compile Include="Assets\Scripts\Sound.cs" />
      <Compile Include="Assets\Scripts\soundManagerScript.cs" />
-     <Compile Include="Assets\Scripts\SpikeScript.cs" />
      <Compile Include="Assets\Scripts\ThrowHook.cs" />
      <Compile Include="Assets\SelectorScript.cs" />
      <Compile Include="Assets\Simple Scene Fade Load System\Scripts\Fader.cs" />

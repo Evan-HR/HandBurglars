@@ -1272,7 +1272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 499755082}
   - component: {fileID: 499755081}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: bush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2463,7 +2463,7 @@ GameObject:
   - component: {fileID: 622100552}
   - component: {fileID: 622100555}
   - component: {fileID: 622100554}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: cannonBush
   m_TagString: cannonBush
   m_Icon: {fileID: 0}
@@ -2600,7 +2600,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1429152667722822, guid: 5c5442a27c25642438e014181cb93d85, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1112173282079754, guid: 5c5442a27c25642438e014181cb93d85, type: 3}
       propertyPath: m_Name
@@ -5746,7 +5746,7 @@ GameObject:
   - component: {fileID: 1441484935}
   - component: {fileID: 1441484936}
   - component: {fileID: 1441484937}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: boss_down_smash_hand
   m_TagString: BossSmashHand
   m_Icon: {fileID: 0}
@@ -5929,7 +5929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1472188781}
   - component: {fileID: 1472188780}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: bush (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6826,7 +6826,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684410222}
   m_BodyType: 0
-  m_Simulated: 1
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -7309,9 +7309,11 @@ GameObject:
   - component: {fileID: 1928395739}
   - component: {fileID: 1928395738}
   - component: {fileID: 1928395737}
-  m_Layer: 0
+  - component: {fileID: 1928395740}
+  - component: {fileID: 1928395741}
+  m_Layer: 20
   m_Name: Critter
-  m_TagString: Untagged
+  m_TagString: Critter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7336,6 +7338,7 @@ MonoBehaviour:
   - {fileID: 2018755053}
   - {fileID: 1880707822}
   playerHandLayer: 0
+  detectionState: 0
 --- !u!212 &1928395738
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7373,7 +7376,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 407fe15971cbd0c44b2aa20971750759, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7393,11 +7396,51 @@ Transform:
   m_GameObject: {fileID: 1928395736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.1, y: 36.3, z: -1.5546875}
-  m_LocalScale: {x: 25.407026, y: 25.407026, z: 25.407026}
+  m_LocalScale: {x: 4, y: 4, z: 25.407026}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1928395740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928395736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad201b86a8e9fa442ada624272733a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idle: {fileID: 21300000, guid: 407fe15971cbd0c44b2aa20971750759, type: 3}
+  attack: {fileID: 21300000, guid: 81bf234700de9bc4195aaa3f73a41072, type: 3}
+--- !u!61 &1928395741
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928395736}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.028374523, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.44, y: 1.8}
+    newSize: {x: 0.2, y: 0.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5887733, y: 1.8}
+  m_EdgeRadius: 0
 --- !u!1 &1939917020
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,313 @@
+[1mdiff --cc Assets/Scenes/POC_Boss.unity[m
+[1mindex b74073a,85b7d68..0000000[m
+[1mdeleted file mode 100644,100644[m
+[1m--- a/Assets/Scenes/POC_Boss.unity[m
+[1m+++ /dev/null[m
+[1mdiff --cc Assets/Scripts/BossFollow.cs[m
+[1mindex a31aefb,7f08337..0000000[m
+[1m--- a/Assets/Scripts/BossFollow.cs[m
+[1m+++ b/Assets/Scripts/BossFollow.cs[m
+[36m@@@ -73,7 -73,9 +77,13 @@@[m [mpublic class BossFollow : MonoBehaviou[m
+          bossGroundBoxBoxCollider2D = bossGroundBoxGameObject.GetComponent<BoxCollider2D>();[m
+          player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();[m
+          player2Transform = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();[m
+[32m++<<<<<<< HEAD[m
+[32m +        bossHeight = m_SpriteRenderer.sprite.rect.height;[m
+[32m++=======[m
+[32m+         isVulnerable = false;//Only vulnerable if hand is stuck[m
+[32m+         health = 3;[m
+[32m+         myBossHand = GameObject.FindWithTag("BossSmashHand");[m
+[32m++>>>>>>> f2b359af0590507cd75f85a32ad6f922db9c3213[m
+      }[m
+  [m
+      // Update is called once per frame[m
+[1mdiff --cc ProjectSettings/TagManager.asset[m
+[1mindex 241a977,f5829e1..0000000[m
+[1m--- a/ProjectSettings/TagManager.asset[m
+[1m+++ b/ProjectSettings/TagManager.asset[m
+[36m@@@ -18,8 -18,7 +18,12 @@@[m [mTagManager[m
+    - cannon[m
+    - Ground[m
+    - Background[m
+[32m++<<<<<<< HEAD[m
+[32m +  - Critter[m
+[32m +  - CannonBall[m
+[32m++=======[m
+[32m+   - Draggable[m
+[32m++>>>>>>> f2b359af0590507cd75f85a32ad6f922db9c3213[m
+    layers:[m
+    - Default[m
+    - TransparentFX[m
+[36m@@@ -39,8 -38,8 +43,13 @@@[m
+    - Ground[m
+    - Cannon[m
+    - Background[m
+[32m++<<<<<<< HEAD[m
+[32m +  - CannonBall[m
+[32m +  - [m
+[32m++=======[m
+[32m+   - BossSpike[m
+[32m+   - BossHand[m
+[32m++>>>>>>> f2b359af0590507cd75f85a32ad6f922db9c3213[m
+    - [m
+    - [m
+    - [m
+[1mdiff --git a/Assets/Scripts/CritterSpriteController.cs b/Assets/Scripts/CritterSpriteController.cs[m
+[1mindex dd3f952..9c1f803 100644[m
+[1m--- a/Assets/Scripts/CritterSpriteController.cs[m
+[1m+++ b/Assets/Scripts/CritterSpriteController.cs[m
+[36m@@ -8,6 +8,7 @@[m [mpublic class CritterSpriteController : MonoBehaviour[m
+     public Sprite idle;[m
+     public Sprite attack;[m
+     private bool attacking;[m
+[32m+[m[32m    private bool flip;[m
+     private Patrol patrol;[m
+ [m
+     // Start is called before the first frame update[m
+[36m@@ -29,6 +30,5 @@[m [mpublic class CritterSpriteController : MonoBehaviour[m
+             attacking = false;[m
+             m_SpriteRenderer.sprite = idle;[m
+         }[m
+[31m-        print(patrol.HasDetected() + ", " + attacking);[m
+     }[m
+ }[m
+[1mdiff --git a/Assets/Scripts/Patrol.cs b/Assets/Scripts/Patrol.cs[m
+[1mindex a1425eb..4efb0e7 100644[m
+[1m--- a/Assets/Scripts/Patrol.cs[m
+[1m+++ b/Assets/Scripts/Patrol.cs[m
+[36m@@ -21,7 +21,7 @@[m [mpublic class Patrol : MonoBehaviour {[m
+ [m
+ 	// Use this for initialization[m
+ 	void Start () {[m
+[31m-        playerHandLayer = ~(LayerMask.GetMask("Hand"));[m
+[32m+[m[32m        playerHandLayer = (LayerMask.GetMask("PlayerBody"));[m
+         playerController = GameObject.FindObjectOfType<PlayerController>();[m
+         waitTime = startWaitTime;[m
+         randomSpot = 0;[m
+[1mdiff --git a/Assets/Scripts/PlayerController.cs b/Assets/Scripts/PlayerController.cs[m
+[1mindex b54d984..4e90093 100644[m
+[1m--- a/Assets/Scripts/PlayerController.cs[m
+[1m+++ b/Assets/Scripts/PlayerController.cs[m
+[36m@@ -139,43 +139,40 @@[m [mpublic class PlayerController : MonoBehaviour {[m
+     //collision with monster hand [m
+     void OnCollisionEnter2D(Collision2D collision)[m
+     {[m
+[31m-        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health > 1)[m
+[32m+[m[32m        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health >= 1)[m
+         {[m
+             Instantiate(blood, transform.position, Quaternion.identity);[m
+[32m+[m[32m            FindObjectOfType<AudioManager>().Play("lostHealth");[m
+             FindObjectOfType<AudioManager>().Play("smash");[m
+             camShake.Shake(camShakeAmt, 0.2f);[m
+ [m
+[31m-            FindObjectOfType<AudioManager>().Play("lostHealth");[m
+[31m-           [m
+             PlayerHealth.health--;[m
+[31m-        [m
+[31m-[m
+[31m-[m
+ [m
+             //hit cooldown[m
+             canBeHit = false;[m
+[31m-                Invoke("getHit", hitCooldown);[m
+[31m-[m
+[31m-        }[m
+[31m-        //last hit and death condition[m
+[31m-        else if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health == 1)[m
+[32m+[m[32m            Invoke("getHit", hitCooldown);[m
+[32m+[m[32m            if (PlayerHealth.health == 0){[m
+[32m+[m[32m                print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);[m
+[32m+[m[32m                //decrement global health[m
+[32m+[m[32m                PlayerHealth.Death();[m
+[32m+[m[32m            }[m
+[32m+[m[32m        } else if (collision.gameObject.tag.Equals("Critter") && canBeHit == true && PlayerHealth.health >= 1)[m
+         {[m
+             Instantiate(blood, transform.position, Quaternion.identity);[m
+             FindObjectOfType<AudioManager>().Play("lostHealth");[m
+[31m-            FindObjectOfType<AudioManager>().Play("smash");[m
+[31m-            camShake.Shake(camShakeAmt, 0.2f);[m
+             PlayerHealth.health--;[m
+[31m-       [m
+[32m+[m
+[32m+[m[32m            //hit cooldown[m
+             canBeHit = false;[m
+             Invoke("getHit", hitCooldown);[m
+[31m-[m
+[31m-           [m
+[31m-            print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);[m
+[31m-            //decrement global health[m
+[31m-            PlayerHealth.Death();[m
+[31m-            [m
+[31m-[m
+         }[m
+[32m+[m
+[32m+[m[32m        // Death Condition[m
+[32m+[m[32m        if (PlayerHealth.health == 0){[m
+[32m+[m[32m                print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);[m
+[32m+[m[32m                //decrement global health[m
+[32m+[m[32m                PlayerHealth.Death();[m
+[32m+[m[32m            }[m
+     }[m
+ [m
+ [m
+[36m@@ -206,6 +203,7 @@[m [mpublic class PlayerController : MonoBehaviour {[m
+             if (getHideStatus() == false && Input.GetKeyDown(KeyCode.H))[m
+         {[m
+             setHideStatusTrue();[m
+[32m+[m[32m            gameObject.layer = LayerMask.NameToLayer("HiddenPlayerBody");[m
+             //Player can't move when they hide(works in later frame check condition)[m
+             moving = false;[m
+             //Velocity need to set zero to overwrite velocity[m
+[36m@@ -226,6 +224,7 @@[m [mpublic class PlayerController : MonoBehaviour {[m
+         else if (getHideStatus() == true && Input.GetKeyUp(KeyCode.H))[m
+         {[m
+             setHideStatusFalse();[m
+[32m+[m[32m            gameObject.layer = LayerMask.NameToLayer("PlayerBody");[m
+             moving = true;[m
+ [m
+             //Chnage the layer of plyaer here[m
+[1mdiff --git a/Assets/Scripts/PlayerController2.cs b/Assets/Scripts/PlayerController2.cs[m
+[1mindex 85758e2..30e970b 100644[m
+[1m--- a/Assets/Scripts/PlayerController2.cs[m
+[1m+++ b/Assets/Scripts/PlayerController2.cs[m
+[36m@@ -136,7 +136,7 @@[m [mpublic class PlayerController2 : MonoBehaviour[m
+     //collision with monster hand[m
+     void OnCollisionEnter2D(Collision2D collision)[m
+     {[m
+[31m-        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health > 1)[m
+[32m+[m[32m        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true)[m
+         {[m
+             Instantiate(blood, transform.position, Quaternion.identity);[m
+             FindObjectOfType<AudioManager>().Play("smash");[m
+[36m@@ -150,25 +150,23 @@[m [mpublic class PlayerController2 : MonoBehaviour[m
+             canBeHit = false;[m
+             Invoke("getHit", hitCooldown);[m
+ [m
+[31m-        }[m
+[31m-        //last hit and death condition[m
+[31m-        else if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health == 1)[m
+[32m+[m[32m        } else if (collision.gameObject.tag.Equals("Critter") && canBeHit == true && PlayerHealth.health >= 1)[m
+         {[m
+             Instantiate(blood, transform.position, Quaternion.identity);[m
+             FindObjectOfType<AudioManager>().Play("lostHealth");[m
+[31m-            FindObjectOfType<AudioManager>().Play("smash");[m
+[31m-            camShake.Shake(camShakeAmt, 0.2f);[m
+             PlayerHealth.health--;[m
+ [m
+[32m+[m[32m            //hit cooldown[m
+             canBeHit = false;[m
+             Invoke("getHit", hitCooldown);[m
+[32m+[m[32m        }[m
+ [m
+[31m-[m
+[32m+[m[32m        // Death Condition[m
+[32m+[m[32m        if (PlayerHealth.health == 0)[m
+[32m+[m[32m        {[m
+             print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);[m
+             //decrement global health[m
+             PlayerHealth.Death();[m
+[31m-[m
+[31m-[m
+         }[m
+     }[m
+ [m
+[36m@@ -211,6 +209,7 @@[m [mpublic class PlayerController2 : MonoBehaviour[m
+         if (getHideStatus() == false && Input.GetKeyDown(KeyCode.Joystick1Button2))[m
+         {[m
+             setHideStatusTrue();[m
+[32m+[m[32m            gameObject.layer = LayerMask.NameToLayer("HiddenPlayerBody");[m
+             //Player can't move when they hide(works in later frame check condition)[m
+             moving = false;[m
+             //Velocity need to set zero to overwrite velocity[m
+[36m@@ -231,6 +230,7 @@[m [mpublic class PlayerController2 : MonoBehaviour[m
+         else if (getHideStatus() == true && Input.GetKeyUp(KeyCode.Joystick1Button2))[m
+         {[m
+             setHideStatusFalse();[m
+[32m+[m[32m            gameObject.layer = LayerMask.NameToLayer("PlayerBody");[m
+             moving = true;[m
+ [m
+             //Chnage the layer of plyaer here[m
+[1mdiff --git a/Assets/Scripts/PlayerScript.cs b/Assets/Scripts/PlayerScript.cs[m
+[1mindex 84a6d27..045dc1e 100644[m
+[1m--- a/Assets/Scripts/PlayerScript.cs[m
+[1m+++ b/Assets/Scripts/PlayerScript.cs[m
+[36m@@ -12,11 +12,11 @@[m [mpublic class PlayerScript : MonoBehaviour {[m
+ [m
+     private void OnTriggerEnter2D(Collider2D other)[m
+     {[m
+[31m-        if(other.gameObject.CompareTag("Dangerous")){[m
+[32m+[m[32m        if(other.gameObject.CompareTag("Critter")){[m
+ [m
+             playerDamaged(10);[m
+             print("Health" + health.ToString());[m
+[31m-            GetComponent<Rigidbody2D>().velocity = new Vector2(-20, 20);[m
+[32m+[m[32m            GetComponent<Rigidbody2D>().velocity += new Vector2(-20, 20);[m
+         }[m
+ [m
+     }[m
+[1mdiff --git a/Library/InspectorExpandedItems.asset b/Library/InspectorExpandedItems.asset[m
+[1mindex bb72f90..396c35b 100644[m
+Binary files a/Library/InspectorExpandedItems.asset and b/Library/InspectorExpandedItems.asset differ
+[1mdiff --git a/Library/ScriptAssemblies/Assembly-CSharp.dll b/Library/ScriptAssemblies/Assembly-CSharp.dll[m
+[1mindex 5f22e53..0b8d860 100644[m
+Binary files a/Library/ScriptAssemblies/Assembly-CSharp.dll and b/Library/ScriptAssemblies/Assembly-CSharp.dll differ
+[1mdiff --git a/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb b/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb[m
+[1mindex 58239ec..233358b 100644[m
+Binary files a/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb and b/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb differ
+[1mdiff --git a/Library/StateCache/Hierarchy/c4689c-mainStage.json b/Library/StateCache/Hierarchy/c4689c-mainStage.json[m
+[1mindex 4461fa5..a9cac67 100644[m
+[1m--- a/Library/StateCache/Hierarchy/c4689c-mainStage.json[m
+[1m+++ b/Library/StateCache/Hierarchy/c4689c-mainStage.json[m
+[36m@@ -1 +1 @@[m
+[31m-﻿{"m_ExpandedPrefabGameObjectFileIDs":[],"m_ExpandedSceneGameObjectInstanceIDs":[],"m_ScrollY":0.0,"m_LastClickedFileID":0,"m_LastClickedInstanceID":0}[m
+\ No newline at end of file[m
+[32m+[m[32m﻿{"m_ExpandedPrefabGameObjectFileIDs":[],"m_ExpandedSceneGameObjectInstanceIDs":[-1078,12124,12194],"m_ScrollY":195.0,"m_LastClickedFileID":0,"m_LastClickedInstanceID":11872}[m
+\ No newline at end of file[m
+[1mdiff --git a/Library/StateCache/SceneView/f3c3a3-mainStage.json b/Library/StateCache/SceneView/f3c3a3-mainStage.json[m
+[1mindex bac3657..94fcd2f 100644[m
+[1m--- a/Library/StateCache/SceneView/f3c3a3-mainStage.json[m
+[1m+++ b/Library/StateCache/SceneView/f3c3a3-mainStage.json[m
+[36m@@ -1 +1 @@[m
+[31m-﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":9.078750610351563,"y":17.8076114654541,"z":-0.8967125415802002},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":79.73686218261719,"orthographic":true}[m
+\ No newline at end of file[m
+[32m+[m[32m﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":-2.1912548542022707,"y":18.432552337646486,"z":-0.6451133489608765},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":54.72213363647461,"orthographic":true}[m
+\ No newline at end of file[m
+[1mdiff --git a/Library/assetDatabase3 b/Library/assetDatabase3[m
+[1mindex f57dfb0..dd78f84 100644[m
+Binary files a/Library/assetDatabase3 and b/Library/assetDatabase3 differ
+[1mdiff --git a/Library/metadata/31/315474f09e4d58241be8f8d596406c32 b/Library/metadata/31/315474f09e4d58241be8f8d596406c32[m
+[1mindex 15b9d63..16a005d 100644[m
+Binary files a/Library/metadata/31/315474f09e4d58241be8f8d596406c32 and b/Library/metadata/31/315474f09e4d58241be8f8d596406c32 differ
+[1mdiff --git a/Library/metadata/4d/4de1edbd4ad8979489a0ecf09c435692 b/Library/metadata/4d/4de1edbd4ad8979489a0ecf09c435692[m
+[1mindex b4bd77f..26adc97 100644[m
+Binary files a/Library/metadata/4d/4de1edbd4ad8979489a0ecf09c435692 and b/Library/metadata/4d/4de1edbd4ad8979489a0ecf09c435692 differ
+[1mdiff --git a/Library/metadata/7f/7f1abfa42902ba44690a782fa1ed3cfe b/Library/metadata/7f/7f1abfa42902ba44690a782fa1ed3cfe[m
+[1mindex 3da4d9b..1fc3e49 100644[m
+Binary files a/Library/metadata/7f/7f1abfa42902ba44690a782fa1ed3cfe and b/Library/metadata/7f/7f1abfa42902ba44690a782fa1ed3cfe differ
+[1mdiff --git a/Library/metadata/ad/ad201b86a8e9fa442ada624272733a42 b/Library/metadata/ad/ad201b86a8e9fa442ada624272733a42[m
+[1mindex 0b07c93..75de08c 100644[m
+Binary files a/Library/metadata/ad/ad201b86a8e9fa442ada624272733a42 and b/Library/metadata/ad/ad201b86a8e9fa442ada624272733a42 differ
+[1mdiff --git a/Library/metadata/df/dfe1e7dbd6a189849935e268de7ec56b b/Library/metadata/df/dfe1e7dbd6a189849935e268de7ec56b[m
+[1mindex ee1680a..2829878 100644[m
+Binary files a/Library/metadata/df/dfe1e7dbd6a189849935e268de7ec56b and b/Library/metadata/df/dfe1e7dbd6a189849935e268de7ec56b differ
+[1mdiff --git a/Library/shadercompiler-UnityShaderCompiler.exe0.log b/Library/shadercompiler-UnityShaderCompiler.exe0.log[m
+[1mindex 6f59866..04af16a 100644[m
+[1m--- a/Library/shadercompiler-UnityShaderCompiler.exe0.log[m
+[1m+++ b/Library/shadercompiler-UnityShaderCompiler.exe0.log[m
+[36m@@ -6,3 +6,16 @@[m [mCmd: initializeCompiler[m
+ Cmd: initializeCompiler[m
+ Cmd: initializeCompiler[m
+ Cmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
+[32m+[m[32mCmd: initializeCompiler[m
