@@ -25,6 +25,14 @@ public class CannonBall : MonoBehaviour
     //    }
     //}
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+    }
+
+         
+
+
     void OnCollisionStay2D(Collision2D col)
     {
         Debug.Log("Collider.name " + col.gameObject.tag);

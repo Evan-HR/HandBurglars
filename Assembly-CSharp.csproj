@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\CameraShake.cs" />
     <Compile Include="Assets\Scripts\CannonBall.cs" />
+    <Compile Include="Assets\Scripts\CannonBallScript.cs" />
     <Compile Include="Assets\Scripts\CannonRotate.cs" />
     <Compile Include="Assets\Scripts\CannonShoot.cs" />
     <Compile Include="Assets\Scripts\Character2Controller2D.cs" />
