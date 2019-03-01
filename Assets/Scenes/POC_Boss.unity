@@ -2140,7 +2140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580999135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.8, y: 15.2, z: -0.0013554}
+  m_LocalPosition: {x: -19.7, y: 35.5, z: -0.0013554}
   m_LocalScale: {x: 1.9496704, y: 2.0116475, z: 1.648756}
   m_Children:
   - {fileID: 115961915}
@@ -7131,7 +7131,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: bossBattle
-    clip: {fileID: 8300000, guid: a7440c5f07c130d48b8db9166b71c8cf, type: 3}
+    clip: {fileID: 8300000, guid: 2f62382e440cdc64a9841a1e78b94a27, type: 3}
     volume: 0.26
     volumeVariance: 0
     pitch: 1

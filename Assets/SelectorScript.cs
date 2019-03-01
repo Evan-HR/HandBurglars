@@ -40,6 +40,7 @@ public class SelectorScript : MonoBehaviour {
 //pass in variables
 	public void selectButton(){
 		if(changeTextCounter == 0){
+            FindObjectOfType<AudioManager>().Play("tick");
             displayKeyboard();
             playerSelectBool = false;
 			topText.GetComponent<Text>().text = "Player 1\nSelect Controller";
@@ -47,6 +48,7 @@ public class SelectorScript : MonoBehaviour {
 		}
 		else if (changeTextCounter == 1)
 		{
+            FindObjectOfType<AudioManager>().Play("tick");
             displayBru();
             playerSelectBool = true;
             topText.GetComponent<Text>().text = "Player 2\nSelect Character";
@@ -54,6 +56,7 @@ public class SelectorScript : MonoBehaviour {
 		}
 		else if (changeTextCounter == 2)
 		{
+            FindObjectOfType<AudioManager>().Play("tick");
             displayKeyboard();
             playerSelectBool = false;
             topText.GetComponent<Text>().text = "Player 2\nSelect Controller";

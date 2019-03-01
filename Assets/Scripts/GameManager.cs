@@ -35,12 +35,22 @@ public class GameManager : MonoBehaviour {
         if (scene.name == "SelectCharacter")
         {
             FindObjectOfType<AudioManager>().Stop("birds");
+            FindObjectOfType<AudioManager>().Play("playAgain");
+            Initiate.Fade("POC_Boss", Color.white, 0.6f);
+        }
+        else if(scene.name == "Menu")
+        {
             FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
+            FindObjectOfType<AudioManager>().Play("playAgain");
+            Initiate.Fade("SelectCharacter", Color.white, 1.0f);
+
+        }
+        else
+        {
+            Initiate.Fade("POC_Boss", Color.white, 0.6f);
         }
 
-        FindObjectOfType<AudioManager>().Play("playAgain");
-        Initiate.Fade("POC_Boss", Color.white, 0.6f);
-        //FindObjectOfType<AudioManager>().Play("bossBattle");
+
     }
 
     public void CharacterScene()
