@@ -7,6 +7,9 @@ public class BossFollow : MonoBehaviour {
     public float speed;
     public float bossDuckSpeed;
 
+    public bool Stunned;
+    private float bossHeight;
+    private SpriteRenderer m_SpriteRenderer;
     private Transform player1Transform;
     private Transform player2Transform;
     private Vector2 player1Vector2X;
@@ -57,6 +60,7 @@ public class BossFollow : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
         bossBodyScaleOriginalVector3 = transform.localScale;
         bossBodyYScaleOriginal = transform.localScale.y;
         bossBodyYScale = bossBodyYScaleOriginal;
@@ -69,6 +73,7 @@ public class BossFollow : MonoBehaviour {
         bossGroundBoxBoxCollider2D = bossGroundBoxGameObject.GetComponent<BoxCollider2D>();
         player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         player2Transform = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
+        bossHeight = m_SpriteRenderer.sprite.rect.height;
     }
 
     // Update is called once per frame
@@ -80,12 +85,16 @@ public class BossFollow : MonoBehaviour {
         bossCurrentVector2 = new Vector2(transform.position.x, transform.position.y);
         //Vector3 v3Scale = transform.localScale;
         //if CannonShoots and BossHand is not on Spike, BossBody will duck
+        float h, previous_h;
+        print(bossHeight * bossBodyYScale);
         if (isDuck && (bossBodyYScale >= duckMaxScale))
         {
-            Debug.Log("Boss Duck");
+            previous_h = transform.localScale.y;
             bossBodyYScale -= 0.3f;
-            bossBodyYPos -= 5f;
+            h = transform.localScale.y;
+            bossBodyYPos -= bossHeight * (0.15f);
             transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
+            transform.Translate(new Vector3(0, -0.15f, 0));
         } 
         else if (isDuck && (bossBodyYScale < duckMaxScale))
         {
@@ -93,9 +102,12 @@ public class BossFollow : MonoBehaviour {
         }
         else if(!isDuck && (bossBodyYScale <= bossBodyYScaleOriginal))
         {
+            previous_h = transform.localScale.y;
             bossBodyYScale += 0.3f;
-            bossBodyYPos += 5f;
+             h = transform.localScale.y;
+            bossBodyYPos += bossHeight * (0.15f);
             transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
+            transform.Translate(new Vector3(0, +0.15f, 0));
         }
         else if (!isDuck && (bossBodyYScale > bossBodyYScaleOriginal))
         {

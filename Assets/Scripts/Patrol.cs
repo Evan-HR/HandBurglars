@@ -17,7 +17,7 @@ public class Patrol : MonoBehaviour {
         NOT_DETECTED,
         DETECTED
     }
-    private DetectionState detectionState = DetectionState.NOT_DETECTED;
+    public DetectionState detectionState = DetectionState.NOT_DETECTED;
 
 	// Use this for initialization
 	void Start () {
@@ -49,22 +49,36 @@ public class Patrol : MonoBehaviour {
             if (detectionRaycast.collider != null)
             {
                 //Debug.DrawLine(transform.position, detectionRaycast.point, Color.red);
+                detectionState = DetectionState.DETECTED;
                 playerPosition = detectionRaycast.collider.gameObject.transform.position;
                 transform.position = Vector2.MoveTowards(transform.position, playerPosition, enemyDetectionSpeed * Time.deltaTime);
             }
             else
             {
+                detectionState = DetectionState.NOT_DETECTED;
                 //Debug.DrawLine(transform.position, transform.position + transform.right * distance, Color.green);
 
             }
+        } else {
+            detectionState = DetectionState.NOT_DETECTED;
         }
+        
 
         MoveToMoveSpot();    
     }
 
+    public bool HasDetected()
+    {
+        if (detectionState == DetectionState.NOT_DETECTED){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     private void MoveToMoveSpot()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, (moveSpots[randomSpot].position), speed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f)
         {

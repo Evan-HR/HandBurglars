@@ -18,6 +18,8 @@ TagManager:
   - cannon
   - Ground
   - Background
+  - Critter
+  - CannonBall
   layers:
   - Default
   - TransparentFX
@@ -37,7 +39,7 @@ TagManager:
   - Ground
   - Cannon
   - Background
-  - 
+  - CannonBall
   - 
   - 
   - 
