@@ -47,7 +47,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
         SIT,
         RECOVER,
         HOLD,
-        STUCK
+		HIT_SPIKE
     }
 
     private HandState handState = HandState.START;
@@ -197,8 +197,18 @@ public class BossHandSmashBehaviour : MonoBehaviour
             }
         }
  
-        else if (handState == HandState.STUCK){
-            print("Stuck biitch");
+	    else if (handState == HandState.HIT_SPIKE)
+        {
+            transform.position = new Vector2(transform.position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeMagnitude, transform.position.y);
+            //Debug.Log("HandState SHAKE position: " + Vector2.Distance(bossBodyVector2, handRecoverVector2));
+
+            waitTime -= Time.deltaTime;
+            //Debug.Log("WaitTime: " + waitTime);
+            if (waitTime <= 0)
+            {
+                handState = HandState.FOLLOW;
+                bossFollow.SetCanDuck(true);
+            }
         }
     }
 
@@ -207,15 +217,39 @@ public class BossHandSmashBehaviour : MonoBehaviour
         this.handState = handState;
     }
 
-    public void SetStuck()
-    {
-        this.handState = HandState.STUCK;
-    }
-
     public HandState GetHandState()
     {
         return handState;
     }
 
+	    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    Debug.Log("Collider.name " + other.name);
+
+    //    if (other.name == "Spike")
+    //    {
+    //        bossFollow.SetIsDuck(false);
+    //        //Destroy(other.gameObject);
+
+    //    }
+    //}
+
+    void OnCollisionStay2D(Collision2D col)
+
+    {
+        Debug.Log("Collider.name " + col.gameObject.name);
+
+        if (col.gameObject.name == "bossSpike")
+        {
+            //Destroy(other.gameObject);
+            if (handState == HandState.SMASH)
+            {
+                handState = HandState.HIT_SPIKE;
+                waitTime = 5;
+                bossFollow.SetCanDuck(false);
+            }
+        }
+
+    }
    
 }

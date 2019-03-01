@@ -35,7 +35,8 @@ public class BossFollow : MonoBehaviour {
     private BossHandSmashBehaviour bossHandBehaviourScript;
     private BossHandSmashBehaviour.HandState handSmashState;
     private HandStage handStage = HandStage.START;
-    private bool isDuck = false;
+    private bool isDucking = false;
+    private bool canDuck = true;
     private float duckMaxScale = 0.1f;
     private Vector3 bossBodyScaleOriginalVector3;
     private Vector3 bossBodyPosOrignalVector3;
@@ -44,10 +45,7 @@ public class BossFollow : MonoBehaviour {
     private float bossBodyXPosOriginal;
     private float bossBodyYPosOriginal;
     private float bossBodyZPosOriginal;
-
-    private bool isVulnerable;//For when hand gets stuck
-    private int health;
-    private GameObject myBossHand;
+    private int bossHealth = 3;
 
     //private bool isHandAttacking = false;
 
@@ -73,45 +71,43 @@ public class BossFollow : MonoBehaviour {
         bossGroundBoxBoxCollider2D = bossGroundBoxGameObject.GetComponent<BoxCollider2D>();
         player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         player2Transform = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
-        isVulnerable = false;//Only vulnerable if hand is stuck
-        health = 3;
-        myBossHand = GameObject.FindWithTag("BossSmashHand");
+
     }
 
     // Update is called once per frame
     void Update () {
-        if(isVulnerable){
-
-        }
-
-        player1Vector2X = new Vector2(player1Transform.position.x, 0);
+		player1Vector2X = new Vector2(player1Transform.position.x, 0);
         player2Vector2X = new Vector2(player2Transform.position.x, 0);
         player1Vector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
         player2Vector2 = new Vector2(player2Transform.position.x, player2Transform.position.y);
         bossCurrentVector2 = new Vector2(transform.position.x, transform.position.y);
         //Vector3 v3Scale = transform.localScale;
         //if CannonShoots and BossHand is not on Spike, BossBody will duck
-        if (isDuck && (bossBodyYScale >= duckMaxScale))
+
+        if (canDuck)
         {
-            Debug.Log("Boss Duck");
-            bossBodyYScale -= 0.3f;
-            bossBodyYPos -= 5f;
-            transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
-        } 
-        else if (isDuck && (bossBodyYScale < duckMaxScale))
-        {
-            isDuck = false;
-        }
-        else if(!isDuck && (bossBodyYScale <= bossBodyYScaleOriginal))
-        {
-            bossBodyYScale += 0.3f;
-            bossBodyYPos += 5f;
-            transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
-        }
-        else if (!isDuck && (bossBodyYScale > bossBodyYScaleOriginal))
-        {
-            bossBodyYPos = bossBodyStartYPos;
-            transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScaleOriginal, bossBodyScaleOriginalVector3.z);
+            if (isDucking && (bossBodyYScale >= duckMaxScale))
+            {
+                Debug.Log("Boss Duck");
+                bossBodyYScale -= 0.3f;
+                bossBodyYPos -= 5f;
+                transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
+            }
+            else if (isDucking && (bossBodyYScale < duckMaxScale))
+            {
+                isDucking = false;
+            }
+            else if (!isDucking && (bossBodyYScale <= bossBodyYScaleOriginal))
+            {
+                bossBodyYScale += 0.3f;
+                bossBodyYPos += 5f;
+                transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScale, bossBodyScaleOriginalVector3.z);
+            }
+            else if (!isDucking && (bossBodyYScale > bossBodyYScaleOriginal))
+            {
+                bossBodyYPos = bossBodyStartYPos;
+                transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScaleOriginal, bossBodyScaleOriginalVector3.z);
+            }
         }
 
         //BossBody will follow the closest player from it's position
@@ -144,10 +140,7 @@ public class BossFollow : MonoBehaviour {
             bossHandBehaviourScript.SetHandState(handSmashState);
             handStage = HandStage.SMASH;
         }
-        //********************************ADDED BY DANNY THE DAY BEFORE SMITH POC MEETING***************************************
-        else if (bossHandStateTime > 0 && handStage == HandStage.STUCK){
 
-        }
        // else if (bossHandStateTime < 0 && handStage == HandStage.SMASH)
        // {
 
@@ -161,36 +154,19 @@ public class BossFollow : MonoBehaviour {
 
     }
 
-    public void SetState(HandStage handstage){
-        this.handStage = handstage;
-    }
-
-    public void SetStuck()
+    
+    public void Duck()
     {
-        handStage = HandStage.STUCK;
-        isVulnerable = true;
-        gameObject.layer = LayerMask.NameToLayer("BossVulnerable");
-    }
-
-    public void CanDuck()
-    {
-        isDuck = true;
-    }
-
-    public void SetIsDuck(bool isDuck)
-    {
-        this.isDuck = isDuck;
-    }
-
-    public void hitWithCannonBall(){
-        health--;
-        if(health == 0){
-            print("You Win");
+        if (canDuck)
+        {
+            isDucking = true;
         }
-        else{
-            SetState(HandStage.START);
-            gameObject.layer = LayerMask.NameToLayer("TransparentFX");
-            myBossHand.SendMessage("SetHandState", "RECOVER");
-        }
+    }
+
+    public void SetCanDuck(bool canDuck)
+    {
+        this.canDuck = canDuck;
+        Debug.Log("BossFollow canDuck: " + this.canDuck);
+
     }
 }

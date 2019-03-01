@@ -22,7 +22,7 @@ public class CannonShoot : MonoBehaviour {
     {
         cannonBall = Instantiate(cannonBall, transform.position, transform.rotation);
         cannonBall.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.right*firePower,ForceMode2D.Impulse);
-        bossFollow.CanDuck();
+        bossFollow.Duck();
         Debug.Log("ShootCannon");
 
     }

@@ -20,6 +20,7 @@ TagManager:
   - Background
   - Draggable
   - Critter
+  - Floor
   layers:
   - Default
   - TransparentFX
