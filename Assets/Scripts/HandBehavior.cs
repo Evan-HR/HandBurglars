@@ -3,7 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class HandBehavior : MonoBehaviour {
+public class HandBehavior : MonoBehaviour
+{
+    //Player States
+    //Walking
+    //Idle
+    //Jumping
+    //Climbing
+    //Hurt(maybe)
+    //Dead(disable hand)
+    //Disabled
+
+
+
+
+    //Hand States
+    //Free
+    //Holding
+    //Disabled(can't grab)
+
+    SpringJoint2D mySpringJoint;
+    GameObject handle;
+
+
 
     //public Transform hand;
 
@@ -27,10 +49,11 @@ public class HandBehavior : MonoBehaviour {
     private float mouseBodyDistance;//distance from mouse to player
     private bool toggleGrabMode = false; //Toggle for if hand is grabbing or not; 0 -open hand, 1-grab mode
     private bool isHolding = false;
-    private List<GameObject> grabbableObjects; 
+    private List<GameObject> grabbableObjects;
     private int numOfTouchingObjects;
 
     Sprite grabbingHand;
+    bool dragging;
 
     private Transform tempTransform;//For grabbing objects and making them children of hand object
 
@@ -45,15 +68,31 @@ public class HandBehavior : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (grabbableObjects.Contains(other.gameObject)){
+
+        //If other is a child object, ref their root parent in this
+        GameObject objectBody;
+        //check if collider is on a child object
+        if (other.transform.root != other.transform)
+        {
+            objectBody = other.transform.root.gameObject;
+
+
+        }
+        else
+        {
+            objectBody = other.transform.gameObject;
+        }
+        if (grabbableObjects.Contains(objectBody))
+        {
             //print("Same Object within reach");
         }
-            else{
-            grabbableObjects.Add(other.gameObject);
+        else
+        {
+            grabbableObjects.Add(objectBody);
             numOfTouchingObjects++;
             //print("Object within reach");
         }
-        
+
     }
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -64,9 +103,11 @@ public class HandBehavior : MonoBehaviour {
         grabbableObjects.Remove(other.gameObject);
         numOfTouchingObjects--;
     }
-   
 
-    void Start () {
+
+    void Start()
+    {
+        dragging = false;
         grabbableObjects = new List<GameObject>();
         chosenObject = null;
         numOfTouchingObjects = 0;
@@ -80,14 +121,8 @@ public class HandBehavior : MonoBehaviour {
 
     }
 
-
-
-    // Update is called once per frame
-    void Update()
+    void checkGrab()
     {
-       
-
-
         bool isShiftDown = Input.GetKeyDown(KeyCode.LeftShift);
         bool isShiftUp = Input.GetKeyUp(KeyCode.LeftShift);
         int indexOfMin = 0;
@@ -97,54 +132,126 @@ public class HandBehavior : MonoBehaviour {
             if (isShiftUp)
             {
 
-
+                if (chosenObject.CompareTag("cannon"))
+                {
+                    chosenObject.SendMessage("disconnectHand");
+                }
 
                 //drop current object and open hand
 
 
+                else
+                {
+                    chosenObject.transform.parent = tempTransform;
+                    chosenObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                    chosenObject.layer = LayerMask.NameToLayer("HandObjects");
+                    chosenObject.GetComponent<BossSpikeScript>().isAttached = false;
 
-                chosenObject.transform.parent = tempTransform;
-                chosenObject.GetComponent<Rigidbody2D>().isKinematic = false;
-                chosenObject.layer = LayerMask.NameToLayer("HandObjects");
+                    toggleGrabMode = false;
+                }
                 chosenObject = null;
                 isHolding = false;
-                toggleGrabMode = false;
-
+                dragging = false;
             }
         }
 
         if (isShiftDown)
+        {
+            if (grabbableObjects.Count == 0)
             {
-                if(grabbableObjects.Count ==0){
-                    //print("Nothing to Grab");
-                }
-                else{
-                    float minDistance = gameObject.GetComponent<CircleCollider2D>().radius;
-                   
-                    for (int i = 0; i < numOfTouchingObjects; i++)
+                //print("Nothing to Grab");
+            }
+            else
+            {
+                float minDistance = gameObject.GetComponent<CircleCollider2D>().radius;
+
+                for (int i = 0; i < numOfTouchingObjects; i++)
+                {
+                    objectDistance = Vector2.Distance(player.transform.position, (Vector2)grabbableObjects[i].transform.position);
+                    if (objectDistance < minDistance)
                     {
-                        objectDistance = Vector2.Distance(player.transform.position, (Vector2)grabbableObjects[i].transform.position);
-                        if (objectDistance < minDistance){
-                            indexOfMin = i;
-                            minDistance = objectDistance;
-                        }
+                        indexOfMin = i;
+                        minDistance = objectDistance;
                     }
-                    chosenObject =grabbableObjects[indexOfMin];
-                    grabbableObjects.Clear();
+                }
+                chosenObject = grabbableObjects[indexOfMin];
+                grabbableObjects.Clear();
+
+
+
+                if (chosenObject.CompareTag("Draggable"))
+                {
+
+                    //handle = chosenObject.transform.Find("RChainEnd").gameObject;
+
+                    //Add the spring joint to hand. It attaches to the end of the draggable chain
+
+                    //chosenObject.GetComponent<bossSpikeScript>().isAttached = true;
+
+                    chosenObject.SendMessage("SetPlayer", gameObject.transform.parent.gameObject);
+                    chosenObject.SendMessage("SetPlayerHand", gameObject);
+                    chosenObject.SendMessage("SetIsAttached", true);
+                    chosenObject.SendMessage("SetHasHandle", true);
+                    chosenObject.SendMessage("AddHandle");
+
+                    dragging = true;
+                    isHolding = true;
+
+                }
+                else if (chosenObject.CompareTag("cannon"))
+                {
+                    chosenObject.SendMessage("SetPlayer", gameObject.transform.parent.gameObject);
+                    chosenObject.SendMessage("SetPlayerHand", gameObject);
+                    chosenObject.SendMessage("SetIsAttached", true);
+
+                    chosenObject.SendMessage("ConnectHand");
+
+                    isHolding = true;
+                }
+                else
+                {
+
                     tempTransform = chosenObject.transform.parent;
                     chosenObject.transform.parent = gameObject.transform;
                     chosenObject.GetComponent<Rigidbody2D>().isKinematic = true;
 
-                //UNCOMMENT "chosenObject.layer = LayerMask.NameToLayer("Hand");" when FIXED!
-                //chosenObject.layer = LayerMask.NameToLayer("Hand");
+                    //UNCOMMENT "chosenObject.layer = LayerMask.NameToLayer("Hand");" when FIXED!
+                    //chosenObject.layer = LayerMask.NameToLayer("Hand");
 
-                //gameObject.GetComponent<SpriteRenderer>().sprite = grabbingHand;
+                    //gameObject.GetComponent<SpriteRenderer>().sprite = grabbingHand;
 
 
-                isHolding = true;
+                    isHolding = true;
                 }
-               
+
             }
+
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //#TODO restructure the handbehaviour file to this format 
+
+        //Get state of player
+        // if player is dead, hand state is set to disabled.
+
+        //Get state of hand
+        //IF NOT HOLDING
+        //if shift key is down, checkGrab(), and if object match, set hand to holding and attach object to hand
+        //we'll need to update isHolding to true, and either isGrabbing isDragging etc.
+        //IF GRABBING
+        //update position of grabbable with reference to hand, do other shit
+        //if shiftUp then set to NOT HOLDING, release obj.
+        //IF DRAGGING
+        // update anchor position of draggable or whatever
+        //if shiftUp then set to NOT HOLDING, release obj.
+
+
+
+        checkGrab();
+
 
 
 
@@ -156,14 +263,14 @@ public class HandBehavior : MonoBehaviour {
 
         mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosLocal = mousePos - playerPos;
-        //print("Mouse Position: " + mousePos.ToString());
+
         handBodyDistance = Vector2.Distance(playerPos, handPos);
         mouseBodyDistance = Vector2.Distance(playerPos, mousePos);
-       
+
 
         directionVector = mousePos - playerPos;
-       
-        float step = speed*Time.deltaTime;
+
+        float step = speed * Time.deltaTime;
 
         //For when hand is outside of player reach
         if (mousePosLocal.magnitude > handRadius)
@@ -217,12 +324,13 @@ public class HandBehavior : MonoBehaviour {
                     currentHandAngle += diff;
                 }
 
-             
+
 
 
             }
         }
-        else{
+        else
+        {
             bottom_Angle = Vector2.Angle(directionVector, new Vector2(0.0f, -1.0f));
             top_Angle = Vector2.Angle(directionVector, new Vector2(0.0f, 1.0f));
 

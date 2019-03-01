@@ -45,7 +45,8 @@ public class BossHandSmashBehaviour : MonoBehaviour
         SMASH,
         SIT,
         RECOVER,
-        HOLD
+        HOLD,
+        STUCK
     }
 
     private HandState handState = HandState.START;
@@ -195,7 +196,9 @@ public class BossHandSmashBehaviour : MonoBehaviour
             }
         }
  
-        //else if {}
+        else if (handState == HandState.STUCK){
+            print("Stuck biitch");
+        }
     }
 
     public void SetHandState(HandState handState)
@@ -203,20 +206,15 @@ public class BossHandSmashBehaviour : MonoBehaviour
         this.handState = handState;
     }
 
+    public void SetStuck()
+    {
+        this.handState = HandState.STUCK;
+    }
+
     public HandState GetHandState()
     {
         return handState;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        //Debug.Log("Collider.name " + other.name);
-
-        if (other.name == "Spike")
-        {
-            bossFollow.SetIsDuck(false);
-            //Destroy(other.gameObject);
-
-        }
-    }
+   
 }

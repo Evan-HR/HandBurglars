@@ -45,6 +45,9 @@ public class BossFollow : MonoBehaviour {
     private float bossBodyYPosOriginal;
     private float bossBodyZPosOriginal;
 
+    private bool isVulnerable;//For when hand gets stuck
+    private int health;
+    private GameObject myBossHand;
 
     //private bool isHandAttacking = false;
 
@@ -53,6 +56,7 @@ public class BossFollow : MonoBehaviour {
 		START,
         SMASH,
         SWIPE,
+        STUCK
     }
 
     // Use this for initialization
@@ -69,10 +73,17 @@ public class BossFollow : MonoBehaviour {
         bossGroundBoxBoxCollider2D = bossGroundBoxGameObject.GetComponent<BoxCollider2D>();
         player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         player2Transform = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
+        isVulnerable = false;//Only vulnerable if hand is stuck
+        health = 3;
+        myBossHand = GameObject.FindWithTag("BossSmashHand");
     }
 
     // Update is called once per frame
     void Update () {
+        if(isVulnerable){
+
+        }
+
         player1Vector2X = new Vector2(player1Transform.position.x, 0);
         player2Vector2X = new Vector2(player2Transform.position.x, 0);
         player1Vector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
@@ -133,18 +144,32 @@ public class BossFollow : MonoBehaviour {
             bossHandBehaviourScript.SetHandState(handSmashState);
             handStage = HandStage.SMASH;
         }
+        //********************************ADDED BY DANNY THE DAY BEFORE SMITH POC MEETING***************************************
+        else if (bossHandStateTime > 0 && handStage == HandStage.STUCK){
+
+        }
        // else if (bossHandStateTime < 0 && handStage == HandStage.SMASH)
        // {
 
-       //     bossHandStateTime = 5;
-       //     handSmashState = BossHandSmashBehaviour.HandState.START;
-        //    bossHandBehaviourScript.SetHandState(handSmashState);
-        //    handStage = HandStage.START;
-       // }
-
-	   
+            //     bossHandStateTime = 5;
+            //     handSmashState = BossHandSmashBehaviour.HandState.START;
+            //    bossHandBehaviourScript.SetHandState(handSmashState);
+            //    handStage = HandStage.START;
+            // }
 
 
+
+    }
+
+    public void SetState(HandStage handstage){
+        this.handStage = handstage;
+    }
+
+    public void SetStuck()
+    {
+        handStage = HandStage.STUCK;
+        isVulnerable = true;
+        gameObject.layer = LayerMask.NameToLayer("BossVulnerable");
     }
 
     public void CanDuck()
@@ -155,5 +180,17 @@ public class BossFollow : MonoBehaviour {
     public void SetIsDuck(bool isDuck)
     {
         this.isDuck = isDuck;
+    }
+
+    public void hitWithCannonBall(){
+        health--;
+        if(health == 0){
+            print("You Win");
+        }
+        else{
+            SetState(HandStage.START);
+            gameObject.layer = LayerMask.NameToLayer("TransparentFX");
+            myBossHand.SendMessage("SetHandState", "RECOVER");
+        }
     }
 }
