@@ -156,7 +156,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 400
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -191,7 +191,7 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.010451794, y: 5.8274307}
@@ -220,7 +220,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.4698336}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -231,7 +231,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.05, y: 5.12}
+  m_Size: {x: 5.05, y: 6.059667}
   m_EdgeRadius: 0
 --- !u!1 &115961914
 GameObject:
@@ -422,7 +422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -45.299805, y: -15.900024}
+  m_AnchoredPosition: {x: -45.299805, y: -15.899902}
   m_SizeDelta: {x: 24.419983, y: 22.49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &135067051
@@ -481,7 +481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1472937913989654, guid: 8740347d8003b4fdf80d9ac868850cc0, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4990815823572198, guid: 8740347d8003b4fdf80d9ac868850cc0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -529,11 +529,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1209392499128042, guid: 8740347d8003b4fdf80d9ac868850cc0, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1785350606694686, guid: 8740347d8003b4fdf80d9ac868850cc0, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8740347d8003b4fdf80d9ac868850cc0, type: 3}
@@ -776,7 +776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 237968984}
   - component: {fileID: 237968985}
-  m_Layer: 8
+  m_Layer: 16
   m_Name: cannonEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2166,7 +2166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580999135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.03, y: 3.08, z: -0.0013554}
+  m_LocalPosition: {x: 36.1, y: 14.4, z: -0.0013554}
   m_LocalScale: {x: 1.9496704, y: 2.0116475, z: 1.648756}
   m_Children:
   - {fileID: 115961915}
@@ -2637,6 +2637,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 54.120117
       objectReference: {fileID: 0}
+    - target: {fileID: 224997784749978542, guid: 5c5442a27c25642438e014181cb93d85,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15.899902
+      objectReference: {fileID: 0}
     - target: {fileID: 224946231651639924, guid: 5c5442a27c25642438e014181cb93d85,
         type: 3}
       propertyPath: m_RootOrder
@@ -2741,9 +2746,24 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 29.700195
       objectReference: {fileID: 0}
+    - target: {fileID: 224173927878645088, guid: 5c5442a27c25642438e014181cb93d85,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15.899902
+      objectReference: {fileID: 0}
     - target: {fileID: 1543914552433152, guid: 5c5442a27c25642438e014181cb93d85, type: 3}
       propertyPath: m_Name
       value: P1Heart
+      objectReference: {fileID: 0}
+    - target: {fileID: 224015641536216536, guid: 5c5442a27c25642438e014181cb93d85,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 78.54004
+      objectReference: {fileID: 0}
+    - target: {fileID: 224015641536216536, guid: 5c5442a27c25642438e014181cb93d85,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15.899902
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c5442a27c25642438e014181cb93d85, type: 3}
@@ -2873,7 +2893,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -19.299805, y: -15.900024}
+  m_AnchoredPosition: {x: -19.299805, y: -15.899902}
   m_SizeDelta: {x: 24.419983, y: 22.49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &857469058
@@ -3200,7 +3220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -26, y: -60.391}
+  m_AnchoredPosition: {x: -26, y: -60.391113}
   m_SizeDelta: {x: 160, y: 36.217987}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &953609636
@@ -5871,7 +5891,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5896,39 +5916,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1459738816}
-  - component: {fileID: 1459738815}
-  m_Layer: 8
+  m_Layer: 16
   m_Name: Cannon
   m_TagString: cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1459738815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1459738814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89f5612aba4c7460cbf6bc3ea69554b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetAngle: 0
-  currentAngle: 0
-  difference: 0
-  handCannonDist: 0
-  handXAngle: 0
-  cannonPointingAngle: 0
-  a: 0
-  o: 0
-  circPoint: {x: 0, y: 0}
-  isAttached: 0
-  player: {fileID: 0}
-  playerHand: {fileID: 0}
-  playerHandLocalPos: {x: 0, y: 0}
 --- !u!4 &1459738816
 Transform:
   m_ObjectHideFlags: 0
@@ -6747,7 +6741,8 @@ GameObject:
   - component: {fileID: 1684410224}
   - component: {fileID: 1684410225}
   - component: {fileID: 1684410226}
-  m_Layer: 8
+  - component: {fileID: 1684410227}
+  m_Layer: 16
   m_Name: cannonStem
   m_TagString: cannon
   m_Icon: {fileID: 0}
@@ -6830,7 +6825,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 5.858543, y: -0.0000005066395}
+  m_Offset: {x: 5.149216, y: -0.000000834465}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -6841,7 +6836,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.0234861, y: 1.8156478}
+  m_Size: {x: 3.4421399, y: 2.8512619}
   m_EdgeRadius: 0
 --- !u!50 &1684410226
 Rigidbody2D:
@@ -6864,6 +6859,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1684410227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684410222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f5612aba4c7460cbf6bc3ea69554b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetAngle: 0
+  currentAngle: 0
+  difference: 0
+  handCannonDist: 0
+  handXAngle: 0
+  cannonPointingAngle: 0
+  a: 0
+  o: 0
+  circPoint: {x: 0, y: 0}
+  isAttached: 0
+  player: {fileID: 0}
+  playerHand: {fileID: 0}
+  playerHandLocalPos: {x: 0, y: 0}
 --- !u!1 &1823007101
 GameObject:
   m_ObjectHideFlags: 0
@@ -6940,6 +6960,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1684410223}
     m_Modifications:
+    - target: {fileID: 1919203200560568, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7020,7 +7044,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -70.5, y: -15.900024}
+  m_AnchoredPosition: {x: -70.5, y: -15.899902}
   m_SizeDelta: {x: 24.419983, y: 22.49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1838617742
