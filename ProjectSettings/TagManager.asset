@@ -18,8 +18,7 @@ TagManager:
   - cannon
   - Ground
   - Background
-  - Critter
-  - CannonBall
+  - Draggable
   layers:
   - Default
   - TransparentFX
@@ -39,8 +38,8 @@ TagManager:
   - Ground
   - Cannon
   - Background
-  - CannonBall
-  - 
+  - BossSpike
+  - BossHand
   - 
   - 
   - 

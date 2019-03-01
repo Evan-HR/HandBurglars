@@ -8,6 +8,7 @@ public class CritterSpriteController : MonoBehaviour
     public Sprite idle;
     public Sprite attack;
     private bool attacking;
+    private bool flip;
     private Patrol patrol;
 
     // Start is called before the first frame update
@@ -29,6 +30,5 @@ public class CritterSpriteController : MonoBehaviour
             attacking = false;
             m_SpriteRenderer.sprite = idle;
         }
-        print(patrol.HasDetected() + ", " + attacking);
     }
 }

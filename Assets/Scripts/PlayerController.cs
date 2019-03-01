@@ -139,43 +139,40 @@ public class PlayerController : MonoBehaviour {
     //collision with monster hand 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health > 1)
+        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health >= 1)
         {
             Instantiate(blood, transform.position, Quaternion.identity);
+            FindObjectOfType<AudioManager>().Play("lostHealth");
             FindObjectOfType<AudioManager>().Play("smash");
             camShake.Shake(camShakeAmt, 0.2f);
 
-            FindObjectOfType<AudioManager>().Play("lostHealth");
-           
             PlayerHealth.health--;
-        
-
-
 
             //hit cooldown
             canBeHit = false;
-                Invoke("getHit", hitCooldown);
-
-        }
-        //last hit and death condition
-        else if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health == 1)
+            Invoke("getHit", hitCooldown);
+            if (PlayerHealth.health == 0){
+                print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);
+                //decrement global health
+                PlayerHealth.Death();
+            }
+        } else if (collision.gameObject.tag.Equals("Critter") && canBeHit == true && PlayerHealth.health >= 1)
         {
             Instantiate(blood, transform.position, Quaternion.identity);
             FindObjectOfType<AudioManager>().Play("lostHealth");
-            FindObjectOfType<AudioManager>().Play("smash");
-            camShake.Shake(camShakeAmt, 0.2f);
             PlayerHealth.health--;
-       
+
+            //hit cooldown
             canBeHit = false;
             Invoke("getHit", hitCooldown);
-
-           
-            print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);
-            //decrement global health
-            PlayerHealth.Death();
-            
-
         }
+
+        // Death Condition
+        if (PlayerHealth.health == 0){
+                print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);
+                //decrement global health
+                PlayerHealth.Death();
+            }
     }
 
 
@@ -206,6 +203,7 @@ public class PlayerController : MonoBehaviour {
             if (getHideStatus() == false && Input.GetKeyDown(KeyCode.H))
         {
             setHideStatusTrue();
+            gameObject.layer = LayerMask.NameToLayer("HiddenPlayerBody");
             //Player can't move when they hide(works in later frame check condition)
             moving = false;
             //Velocity need to set zero to overwrite velocity
@@ -226,6 +224,7 @@ public class PlayerController : MonoBehaviour {
         else if (getHideStatus() == true && Input.GetKeyUp(KeyCode.H))
         {
             setHideStatusFalse();
+            gameObject.layer = LayerMask.NameToLayer("PlayerBody");
             moving = true;
 
             //Chnage the layer of plyaer here

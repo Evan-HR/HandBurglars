@@ -12,11 +12,11 @@ public class PlayerScript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Dangerous")){
+        if(other.gameObject.CompareTag("Critter")){
 
             playerDamaged(10);
             print("Health" + health.ToString());
-            GetComponent<Rigidbody2D>().velocity = new Vector2(-20, 20);
+            GetComponent<Rigidbody2D>().velocity += new Vector2(-20, 20);
         }
 
     }

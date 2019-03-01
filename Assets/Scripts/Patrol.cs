@@ -21,7 +21,7 @@ public class Patrol : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        playerHandLayer = ~(LayerMask.GetMask("Hand"));
+        playerHandLayer = (LayerMask.GetMask("PlayerBody"));
         playerController = GameObject.FindObjectOfType<PlayerController>();
         waitTime = startWaitTime;
         randomSpot = 0;

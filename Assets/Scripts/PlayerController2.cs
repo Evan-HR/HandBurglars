@@ -136,7 +136,7 @@ public class PlayerController2 : MonoBehaviour
     //collision with monster hand
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health > 1)
+        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true)
         {
             Instantiate(blood, transform.position, Quaternion.identity);
             FindObjectOfType<AudioManager>().Play("smash");
@@ -150,25 +150,23 @@ public class PlayerController2 : MonoBehaviour
             canBeHit = false;
             Invoke("getHit", hitCooldown);
 
-        }
-        //last hit and death condition
-        else if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health == 1)
+        } else if (collision.gameObject.tag.Equals("Critter") && canBeHit == true && PlayerHealth.health >= 1)
         {
             Instantiate(blood, transform.position, Quaternion.identity);
             FindObjectOfType<AudioManager>().Play("lostHealth");
-            FindObjectOfType<AudioManager>().Play("smash");
-            camShake.Shake(camShakeAmt, 0.2f);
             PlayerHealth.health--;
 
+            //hit cooldown
             canBeHit = false;
             Invoke("getHit", hitCooldown);
+        }
 
-
+        // Death Condition
+        if (PlayerHealth.health == 0)
+        {
             print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);
             //decrement global health
             PlayerHealth.Death();
-
-
         }
     }
 
@@ -211,6 +209,7 @@ public class PlayerController2 : MonoBehaviour
         if (getHideStatus() == false && Input.GetKeyDown(KeyCode.Joystick1Button2))
         {
             setHideStatusTrue();
+            gameObject.layer = LayerMask.NameToLayer("HiddenPlayerBody");
             //Player can't move when they hide(works in later frame check condition)
             moving = false;
             //Velocity need to set zero to overwrite velocity
@@ -231,6 +230,7 @@ public class PlayerController2 : MonoBehaviour
         else if (getHideStatus() == true && Input.GetKeyUp(KeyCode.Joystick1Button2))
         {
             setHideStatusFalse();
+            gameObject.layer = LayerMask.NameToLayer("PlayerBody");
             moving = true;
 
             //Chnage the layer of plyaer here
