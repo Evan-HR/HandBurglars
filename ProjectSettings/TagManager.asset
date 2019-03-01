@@ -5,6 +5,21 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hand
+  - Dangerous
+  - Hand2
+  - Player2
+  - BossGroundBox
+  - BossSmashHand
+  - BossBody
+  - BossSidewayBox
+  - LadderTop
+  - GrabTorch
+  - cannonBush
+  - cannon
+  - Ground
+  - Background
+  - Draggable
+  - Critter
   layers:
   - Default
   - TransparentFX
@@ -14,21 +29,21 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - HandObjects
+  - Hand
+  - Environment
+  - PlayerBody
+  - Boss
+  - Ladder
+  - LadderTop
+  - Ground
+  - Cannon
+  - Background
+  - BossSpike
+  - BossHand
+  - Critter
+  - HiddenPlayerBody
+  - Cover
   - 
   - 
   - 
@@ -44,6 +59,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Boss
+    uniqueID: 1817603011
     locked: 0
   - name: Foreground
     uniqueID: 3132110553
