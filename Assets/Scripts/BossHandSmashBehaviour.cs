@@ -47,7 +47,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
         SIT,
         RECOVER,
         HOLD,
-		HIT_SPIKE
+        HIT_SPIKE
     }
 
     private HandState handState = HandState.START;
@@ -57,6 +57,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
     {
 
         // initialize all the hand variables
+        Debug.Log("BOSSHANDBE: ");
 
         bossFollow = GameObject.FindObjectOfType<BossFollow>();
         smashHandInitYPos = transform.position.y;
@@ -153,7 +154,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
 
 
 
-               // ------------------------------------------------ SHAKE
+        // ------------------------------------------------ SHAKE
         else if (handState == HandState.SHAKE)
         {
             transform.position = new Vector2(shakeSpot.x + Mathf.Sin(Time.time * shakeSpeed) * shakeMagnitude, shakeSpot.y);
@@ -186,18 +187,18 @@ public class BossHandSmashBehaviour : MonoBehaviour
         else if ((Vector2.Distance(bossBodyVector2, handVector2XPos) == 0) || handState == HandState.RECOVER)
         //else if (handState == HandState.RECOVER)
         {
-           // Debug.Log("HandState = RECOVER");
+            // Debug.Log("HandState = RECOVER");
             handState = HandState.RECOVER;
             transform.position = Vector2.MoveTowards(transform.position, handRecoverVector2, recoverSpeed * Time.deltaTime);
-           // Debug.Log("HandState RECOVER position: " + Vector2.Distance(bossBodyVector2, handRecoverVector2));
+            // Debug.Log("HandState RECOVER position: " + Vector2.Distance(bossBodyVector2, handRecoverVector2));
 
             if (Vector2.Distance(transform.position, handRecoverVector2) == 0)
             {
                 handState = HandState.FOLLOW;
             }
         }
- 
-	    else if (handState == HandState.HIT_SPIKE)
+
+        else if (handState == HandState.HIT_SPIKE)
         {
             transform.position = new Vector2(transform.position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeMagnitude, transform.position.y);
             //Debug.Log("HandState SHAKE position: " + Vector2.Distance(bossBodyVector2, handRecoverVector2));
@@ -222,22 +223,21 @@ public class BossHandSmashBehaviour : MonoBehaviour
         return handState;
     }
 
-	    //void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    Debug.Log("Collider.name " + other.name);
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("BOSS Collider.name " + other.name);
 
-    //    if (other.name == "Spike")
-    //    {
-    //        bossFollow.SetIsDuck(false);
-    //        //Destroy(other.gameObject);
+        if (other.name == "Spike")
+        {
+            bossFollow.SetCanDuck(false);
+            //Destroy(other.gameObject);
 
-    //    }
-    //}
+        }
+    }
 
     void OnCollisionStay2D(Collision2D col)
-
     {
-        Debug.Log("Collider.name " + col.gameObject.name);
+        Debug.Log("Boss Collider.name " + col.gameObject.name);
 
         if (col.gameObject.name == "bossSpike")
         {
@@ -251,5 +251,11 @@ public class BossHandSmashBehaviour : MonoBehaviour
         }
 
     }
-   
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Boss Collider.name " + collision.gameObject.name);
+
+    }
+
 }

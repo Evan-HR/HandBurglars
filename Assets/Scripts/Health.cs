@@ -23,6 +23,7 @@ public class Health : MonoBehaviour {
 
 
     void Start(){
+        Debug.Log("heath: " + health);
         healthGameManager = GetComponent<GameManager>();
         sharedLivesHearts = sharedLivesHeartsInspector;
         sharedLives = 3;

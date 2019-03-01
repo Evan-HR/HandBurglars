@@ -139,40 +139,50 @@ public class PlayerController : MonoBehaviour {
     //collision with monster hand 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health >= 1)
+        try
         {
-            Instantiate(blood, transform.position, Quaternion.identity);
-            FindObjectOfType<AudioManager>().Play("lostHealth");
-            FindObjectOfType<AudioManager>().Play("smash");
-            camShake.Shake(camShakeAmt, 0.2f);
+            Debug.Log("collision: " + collision.gameObject.tag);
 
-            PlayerHealth.health--;
+            if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health >= 1)
+            {
+                Instantiate(blood, transform.position, Quaternion.identity);
+                FindObjectOfType<AudioManager>().Play("lostHealth");
+                FindObjectOfType<AudioManager>().Play("smash");
+                camShake.Shake(camShakeAmt, 0.2f);
 
-            //hit cooldown
-            canBeHit = false;
-            Invoke("getHit", hitCooldown);
-            if (PlayerHealth.health == 0){
+                PlayerHealth.health--;
+
+                //hit cooldown
+                canBeHit = false;
+                Invoke("getHit", hitCooldown);
+                if (PlayerHealth.health == 0)
+                {
+                    print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);
+                    //decrement global health
+                    PlayerHealth.Death();
+                }
+            }
+            else if (collision.gameObject.tag.Equals("Critter") && canBeHit == true && PlayerHealth.health >= 1)
+            {
+                Instantiate(blood, transform.position, Quaternion.identity);
+                FindObjectOfType<AudioManager>().Play("lostHealth");
+                PlayerHealth.health--;
+
+                //hit cooldown
+                canBeHit = false;
+                Invoke("getHit", hitCooldown);
+            }
+
+            // Death Condition
+            Debug.Log("Player heath: " + PlayerHealth.health);
+
+            if (PlayerHealth.health == 0)
+            {
                 print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);
                 //decrement global health
                 PlayerHealth.Death();
             }
-        } else if (collision.gameObject.tag.Equals("Critter") && canBeHit == true && PlayerHealth.health >= 1)
-        {
-            Instantiate(blood, transform.position, Quaternion.identity);
-            FindObjectOfType<AudioManager>().Play("lostHealth");
-            PlayerHealth.health--;
-
-            //hit cooldown
-            canBeHit = false;
-            Invoke("getHit", hitCooldown);
-        }
-
-        // Death Condition
-        if (PlayerHealth.health == 0){
-                print("PlayerController DEATH player HEALTH (should be 0!): " + PlayerHealth.health);
-                //decrement global health
-                PlayerHealth.Death();
-            }
+        } catch { }
     }
 
 

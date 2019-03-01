@@ -21,7 +21,8 @@ public class BossSpikeScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("BossSmashHand")){
+        Debug.Log("BossSPike ontreigger");
+        if (other.gameObject.CompareTag("BossSmashHand")){
             other.transform.gameObject.SendMessage("SetStuck");
             //bossObject.SendMessage("SetState", "STUCK");
         }
