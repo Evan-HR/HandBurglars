@@ -42,6 +42,11 @@ public class GrabCannon : MonoBehaviour
     {
         playerHand = h;
     }
+
+    public bool GetIsAttached()
+    {
+        return isAttached;
+    }
     public void SetIsAttached(bool a)
     {
         isAttached = a;

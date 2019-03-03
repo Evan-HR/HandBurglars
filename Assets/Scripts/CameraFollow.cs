@@ -7,8 +7,9 @@ public class CameraFollow : MonoBehaviour
     
     public GameObject player2;              //Player2
 
-    private float distance;                 //Distance between two players
 
+    private float distance;                 //Distance between two players
+    private float distanceX;
     private float positionx;                //New Camera Center x position
     private float positiony;                //New Camera Center y position
     private static float positionz = -10;
@@ -37,6 +38,8 @@ public class CameraFollow : MonoBehaviour
     private float rightBound;
     private float bottomBound;
     private float topBound;
+
+    public float heightBuffer;
 
     private SpriteRenderer spriteBounds;
 
@@ -67,7 +70,7 @@ public class CameraFollow : MonoBehaviour
 
         leftBound = backgroundMinX + camHalfWidth;
         rightBound = backgroundMaxX - camHalfWidth;
-        bottomBound = backgroundMinY + targetOrtho;
+        bottomBound = backgroundMinY + targetOrtho - heightBuffer;
         topBound = backgroundMaxY - targetOrtho;
 
         // Set the position of the camera's transform to be the center of two players
@@ -96,6 +99,7 @@ public class CameraFollow : MonoBehaviour
     {
         //Change camera size based on two players distance
         distance = Vector3.Distance(player1.transform.position, player2.transform.position);
+        distanceX = Vector3.Distance(new Vector3(player1.transform.position.x,0,0), new Vector3(player2.transform.position.x,0,0));
         //Debug.Log("Please let me know the distance between two players: " + distance);
 
         if (distance > 16)

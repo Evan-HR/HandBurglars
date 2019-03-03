@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour {
 
     //cannon
     CannonShoot cannonShoot;
+    GrabCannon grabCannon;
     bool isShootCannon = false;
 
 
@@ -132,6 +133,7 @@ public class PlayerController : MonoBehaviour {
 
         //get CannonShoot
         cannonShoot = GameObject.FindObjectOfType<CannonShoot>();
+        grabCannon = GameObject.FindObjectOfType<GrabCannon>();
         print("at the start, the global health is:" +Health.sharedLives);
         print("at the start, player health is " + PlayerHealth.health);
     }
@@ -325,7 +327,7 @@ public class PlayerController : MonoBehaviour {
             //    cannonShoot.ShootCannon();
             //}
             //Cannon Shoots when M is pressed, isShootCannon prevents cannon from shooting more than once
-            if (Input.GetKeyDown(KeyCode.M) && !isShootCannon)
+            if (Input.GetKeyDown(KeyCode.M) && !isShootCannon && grabCannon.GetIsAttached())
             {
                 isShootCannon = true;
                 cannonShoot.ShootCannon();

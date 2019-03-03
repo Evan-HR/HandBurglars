@@ -145,7 +145,11 @@ public class HandBehavior : MonoBehaviour
                     chosenObject.transform.parent = tempTransform;
                     chosenObject.GetComponent<Rigidbody2D>().isKinematic = false;
                     chosenObject.layer = LayerMask.NameToLayer("HandObjects");
-                    chosenObject.GetComponent<BossSpikeScript>().isAttached = false;
+                    if (chosenObject.tag == "Draggable")
+                    {
+                        chosenObject.GetComponent<BossSpikeScript>().isAttached = false;
+                    }
+
 
                     toggleGrabMode = false;
                 }
