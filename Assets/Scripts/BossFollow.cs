@@ -45,7 +45,15 @@ public class BossFollow : MonoBehaviour {
     private float bossBodyXPosOriginal;
     private float bossBodyYPosOriginal;
     private float bossBodyZPosOriginal;
-    private int bossHealth = 3;
+    private int bossHealth = 2;
+    private SpriteRenderer bossFollowSpriteRender;
+    private BossState bossState = BossState.CAN_DUCK;
+    public float shakeSpeed;
+    public float shakeMagnitude;
+    private Vector2 deathVector;
+    public float deathSpeed;
+    private SpriteRenderer bossHandSpriteRenderer;
+
 
     //private bool isHandAttacking = false;
 
@@ -55,6 +63,13 @@ public class BossFollow : MonoBehaviour {
         SMASH,
         SWIPE,
         STUCK
+    }
+
+    public enum BossState
+    {
+        CAN_DUCK,
+        CANNOT_DUCK,
+        DEAD
     }
 
     // Use this for initialization
@@ -71,6 +86,8 @@ public class BossFollow : MonoBehaviour {
         bossGroundBoxBoxCollider2D = bossGroundBoxGameObject.GetComponent<BoxCollider2D>();
         player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         player2Transform = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
+        bossFollowSpriteRender = this.GetComponent<SpriteRenderer>();
+        bossHandSpriteRenderer = bossSmashHandGameObject.GetComponent<SpriteRenderer>();
 
     }
 
@@ -84,8 +101,10 @@ public class BossFollow : MonoBehaviour {
         //Vector3 v3Scale = transform.localScale;
         //if CannonShoots and BossHand is not on Spike, BossBody will duck
 
-        if (canDuck)
+        if (bossState == BossState.CAN_DUCK)
         {
+            this.GetComponent<BoxCollider2D>().enabled = false;
+
             if (isDucking && (bossBodyYScale >= duckMaxScale))
             {
                 Debug.Log("Boss Duck");
@@ -109,19 +128,34 @@ public class BossFollow : MonoBehaviour {
                 transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScaleOriginal, bossBodyScaleOriginalVector3.z);
             }
         }
-
-        //BossBody will follow the closest player from it's position
-        if (Vector2.Distance(bossCurrentVector2, player1Vector2) >= Vector2.Distance(bossCurrentVector2, player2Vector2))
+        else if (bossState == BossState.DEAD)
         {
-            bossMoveVector2 = new Vector2(player2Transform.position.x, bossBodyYPos);
-            transform.position = Vector2.MoveTowards(transform.position, bossMoveVector2, speed * Time.deltaTime);
-            targetPlayerVector2 = new Vector2(player2Transform.position.x, player2Transform.position.y); 
+            transform.position = new Vector2(transform.position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeMagnitude, transform.position.y);
+            transform.position = Vector2.MoveTowards(transform.position, deathVector, deathSpeed * Time.deltaTime);
         }
         else
         {
-            bossMoveVector2 = new Vector2(player1Transform.position.x, bossBodyYPos);   
-			transform.position = Vector2.MoveTowards(transform.position, bossMoveVector2, speed * Time.deltaTime);
-            targetPlayerVector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
+            this.GetComponent<BoxCollider2D>().enabled = true;
+            bossBodyYPos = bossBodyStartYPos;
+            transform.localScale = new Vector3(bossBodyScaleOriginalVector3.x, bossBodyYScaleOriginal, bossBodyScaleOriginalVector3.z);
+
+        }
+
+        //BossBody will follow the closest player from it's position
+        if (bossState != BossState.DEAD)
+        {
+            if (Vector2.Distance(bossCurrentVector2, player1Vector2) >= Vector2.Distance(bossCurrentVector2, player2Vector2))
+            {
+                bossMoveVector2 = new Vector2(player2Transform.position.x, bossBodyYPos);
+                transform.position = Vector2.MoveTowards(transform.position, bossMoveVector2, speed * Time.deltaTime);
+                targetPlayerVector2 = new Vector2(player2Transform.position.x, player2Transform.position.y);
+            }
+            else
+            {
+                bossMoveVector2 = new Vector2(player1Transform.position.x, bossBodyYPos);
+                transform.position = Vector2.MoveTowards(transform.position, bossMoveVector2, speed * Time.deltaTime);
+                targetPlayerVector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
+            }
         }
 
 
@@ -154,19 +188,64 @@ public class BossFollow : MonoBehaviour {
 
     }
 
-    
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log("BossFollow Collider.tag " + col.gameObject.tag);
+
+        if (col.gameObject.tag == "CannonBall" && bossState != BossState.DEAD)
+        {
+            //Destroy(other.gameObject);
+            Debug.Log("BossFollow bossHealth " + bossHealth);
+            if (bossHealth == 2)
+            {
+                bossFollowSpriteRender.color = new Color(0.85f, 0, 0);
+                bossHandSpriteRenderer.color = new Color(0.85f, 0, 0);
+                bossState = BossState.CAN_DUCK;
+                bossHandBehaviourScript.SetHandState(BossHandSmashBehaviour.HandState.FOLLOW);
+            }
+            else if (bossHealth == 1)
+            {
+                bossFollowSpriteRender.color = new Color(0.7f, 0, 0);
+                bossHandSpriteRenderer.color = new Color(0.7f, 0, 0);
+                bossState = BossState.CAN_DUCK;
+                bossHandBehaviourScript.SetHandState(BossHandSmashBehaviour.HandState.FOLLOW);
+            }
+            else if (bossHealth == 0)
+            {
+                bossFollowSpriteRender.color = new Color(0.55f, 0, 0);
+                bossHandSpriteRenderer.color = new Color(0.55f, 0, 0);
+                deathVector = new Vector2(transform.position.x, -100);
+                this.GetComponent<BoxCollider2D>().enabled = false;
+                bossHandBehaviourScript.SetHandState(BossHandSmashBehaviour.HandState.DEAD);
+                bossState = BossState.DEAD;
+                
+            }
+
+            bossHealth -= 1;
+            
+        }
+
+    }
+
     public void Duck()
     {
-        if (canDuck)
+        if (bossState == BossState.CAN_DUCK)
         {
             isDucking = true;
         }
     }
 
-    public void SetCanDuck(bool canDuck)
+    public void SetCanDuck(BossState bossState)
     {
-        this.canDuck = canDuck;
-        Debug.Log("BossFollow canDuck: " + this.canDuck);
+        if (this.bossState != BossState.DEAD)
+        {
+            this.bossState = bossState;
+            Debug.Log("BossFollow canDuck: " + this.bossState);
 
+            if (bossState == BossState.CANNOT_DUCK)
+            {
+                isDucking = false;
+            }
+        }
     }
 }

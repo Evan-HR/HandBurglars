@@ -319,15 +319,15 @@ public class PlayerController2 : MonoBehaviour
             //    cannonShoot.ShootCannon();
             //}
             //Cannon Shoots when M is pressed, isShootCannon prevents cannon from shooting more than once
-            if (Input.GetKeyDown(KeyCode.M) && !isShootCannon)
-            {
-                isShootCannon = true;
-                cannonShoot.ShootCannon();
-            }
-            else if (Input.GetKeyUp(KeyCode.M) && isShootCannon)
-            {
-                isShootCannon = false;
-            }
+            //if (Input.GetKeyDown(KeyCode.M) && !isShootCannon)
+            //{
+            //    isShootCannon = true;
+            //    cannonShoot.ShootCannon();
+            //}
+            //else if (Input.GetKeyUp(KeyCode.M) && isShootCannon)
+            //{
+            //    isShootCannon = false;
+            //}
         }
 
     }

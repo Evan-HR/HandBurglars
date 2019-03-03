@@ -37,6 +37,10 @@ public class BossHandSmashBehaviour : MonoBehaviour
     private float bossSmashHandStateTime = 5;
     private BossFollow bossFollow;
 
+    //Fade Hand Upon Death
+    public SpriteRenderer bossHandSpriteRenderer;
+    private float fade;
+
     // Desired behaviour is follow, shake, smash, sit, recover, hold
     public enum HandState
     {
@@ -47,7 +51,8 @@ public class BossHandSmashBehaviour : MonoBehaviour
         SIT,
         RECOVER,
         HOLD,
-        HIT_SPIKE
+        HIT_SPIKE,
+        DEAD
     }
 
     private HandState handState = HandState.START;
@@ -59,6 +64,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
         // initialize all the hand variables
         Debug.Log("BOSSHANDBE: ");
 
+        bossHandSpriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
         bossFollow = GameObject.FindObjectOfType<BossFollow>();
         smashHandInitYPos = transform.position.y;
         bossSmashHandGameObject = GameObject.FindGameObjectWithTag("BossSmashHand");
@@ -208,7 +214,16 @@ public class BossHandSmashBehaviour : MonoBehaviour
             if (waitTime <= 0)
             {
                 handState = HandState.FOLLOW;
-                bossFollow.SetCanDuck(true);
+                bossFollow.SetCanDuck(BossFollow.BossState.CAN_DUCK);
+            }
+        }
+
+        else if (handState == HandState.DEAD)
+        {
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            if (fade >= 0) {
+                fade -= 0.01f;
+                bossHandSpriteRenderer.color = new Color(0.55f, 0, 0, fade);
             }
         }
     }
@@ -223,21 +238,21 @@ public class BossHandSmashBehaviour : MonoBehaviour
         return handState;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("BOSS Collider.name " + other.name);
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    Debug.Log("BOSS Collider.name " + other.name);
 
-        if (other.name == "Spike")
-        {
-            bossFollow.SetCanDuck(false);
-            //Destroy(other.gameObject);
+    //    if (other.name == "Spike")
+    //    {
+    //        bossFollow.SetCanDuck(false);
+    //        //Destroy(other.gameObject);
 
-        }
-    }
+    //    }
+    //}
 
     void OnCollisionStay2D(Collision2D col)
     {
-        Debug.Log("Boss Collider.name " + col.gameObject.name);
+        //Debug.Log("BossHandBehaviour Collider.name " + col.gameObject.name);
 
         if (col.gameObject.name == "bossSpike")
         {
@@ -246,16 +261,16 @@ public class BossHandSmashBehaviour : MonoBehaviour
             {
                 handState = HandState.HIT_SPIKE;
                 waitTime = 5;
-                bossFollow.SetCanDuck(false);
+                bossFollow.SetCanDuck(BossFollow.BossState.CANNOT_DUCK);
             }
         }
 
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Boss Collider.name " + collision.gameObject.name);
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    Debug.Log("Boss Collider.name " + collision.gameObject.name);
 
-    }
+    //}
 
 }

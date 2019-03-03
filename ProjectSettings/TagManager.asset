@@ -21,6 +21,7 @@ TagManager:
   - Draggable
   - Critter
   - Floor
+  - CannonBall
   layers:
   - Default
   - TransparentFX
