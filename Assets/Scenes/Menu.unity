@@ -1443,7 +1443,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: bossBattle
-    clip: {fileID: 8300000, guid: a7440c5f07c130d48b8db9166b71c8cf, type: 3}
+    clip: {fileID: 8300000, guid: 2f62382e440cdc64a9841a1e78b94a27, type: 3}
     volume: 0.26
     volumeVariance: 0
     pitch: 1
@@ -1479,7 +1479,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: mainMenuMusic
-    clip: {fileID: 8300000, guid: abbf14cb3b91f7b4fbc38c58f928f912, type: 3}
+    clip: {fileID: 8300000, guid: cb7d751066495104abfbea59da54f1b7, type: 3}
     volume: 0.868
     volumeVariance: 0
     pitch: 1
@@ -1487,13 +1487,22 @@ MonoBehaviour:
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: birds
-    clip: {fileID: 8300000, guid: 8b9022f4ddd901847a5ea05a58722c87, type: 3}
-    volume: 0.442
+  - name: victory
+    clip: {fileID: 8300000, guid: cbd127d2dab1bbc409822b626fb58257, type: 3}
+    volume: 0.868
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
-    loop: 1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: critterShriek
+    clip: {fileID: 8300000, guid: 551b140b02806b741aac2e08339bc016, type: 3}
+    volume: 0.532
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
 --- !u!4 &2020053634

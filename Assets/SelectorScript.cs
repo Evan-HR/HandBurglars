@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class SelectorScript : MonoBehaviour {
 
     public class CharacterSelect
@@ -20,7 +21,8 @@ public class SelectorScript : MonoBehaviour {
 
     public GameObject Bru;
     public GameObject Jotun;
-    
+
+
     private int SelectorInt = 1;
     //gets the component, does it once upon start 
     private SpriteRenderer JotunRender, BruRender, keyboardRender, controllerRender;
@@ -34,11 +36,11 @@ public class SelectorScript : MonoBehaviour {
 	public GameObject topText;
     //TRUE if on player select, false if on CONTROLLER select
     public bool playerSelectBool = true;
-	
 
-//this controls visuals of keyboard/gamepad icons too 
-//pass in variables
-	public void selectButton(){
+
+    //this controls visuals of keyboard/gamepad icons too 
+    //pass in variables
+    public void selectButton(){
 		if(changeTextCounter == 0){
             FindObjectOfType<AudioManager>().Play("tick");
             displayKeyboard();
@@ -62,6 +64,12 @@ public class SelectorScript : MonoBehaviour {
             topText.GetComponent<Text>().text = "Player 2\nSelect Controller";
 			changeTextCounter++;
 		}
+        else if(changeTextCounter ==3)
+        {
+            FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
+            FindObjectOfType<AudioManager>().Play("playAgain");
+            Initiate.Fade("POC_Boss", Color.white, 0.6f);
+        }
 			
 	}
 

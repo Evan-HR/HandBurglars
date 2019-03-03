@@ -218,7 +218,9 @@ public class BossFollow : MonoBehaviour {
                 this.GetComponent<BoxCollider2D>().enabled = false;
                 bossHandBehaviourScript.SetHandState(BossHandSmashBehaviour.HandState.DEAD);
                 bossState = BossState.DEAD;
-                
+                FindObjectOfType<AudioManager>().Play("victory");
+                Initiate.Fade("Victory", Color.white, 0.6f);
+
             }
 
             bossHealth -= 1;

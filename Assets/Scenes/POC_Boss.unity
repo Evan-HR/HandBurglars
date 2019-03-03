@@ -155,6 +155,12 @@ MonoBehaviour:
   player: {fileID: 0}
   playerHand: {fileID: 0}
   hasHandle: 0
+--- !u!4 &103491391 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4990815823572198, guid: 8740347d8003b4fdf80d9ac868850cc0,
+    type: 3}
+  m_PrefabInstance: {fileID: 152351231}
+  m_PrefabAsset: {fileID: 0}
 --- !u!61 &103491393
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4546,6 +4552,68 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1226597285
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 103491391}
+    m_Modifications:
+    - target: {fileID: 1919203200560568, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_Name
+      value: SparkleFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729062553676708, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199683134778296034, guid: c7f165963d3ec114fa6a2347d4c81e9d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}
 --- !u!1 &1229571191
 GameObject:
   m_ObjectHideFlags: 0
@@ -7420,12 +7488,30 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: mainMenuMusic
-    clip: {fileID: 8300000, guid: ed3ce39128a232e44903a1900dc0df16, type: 3}
+    clip: {fileID: 8300000, guid: cb7d751066495104abfbea59da54f1b7, type: 3}
     volume: 0.868
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
     loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: victory
+    clip: {fileID: 8300000, guid: cbd127d2dab1bbc409822b626fb58257, type: 3}
+    volume: 0.868
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: critterShriek
+    clip: {fileID: 8300000, guid: 551b140b02806b741aac2e08339bc016, type: 3}
+    volume: 0.532
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
 --- !u!4 &1850263723
