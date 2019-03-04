@@ -20,10 +20,11 @@ public class CannonShoot : MonoBehaviour {
 
     public void ShootCannon()
     {
+        FindObjectOfType<AudioManager>().Play("cannon");
         cannonBall = Instantiate(cannonBall, transform.position, transform.rotation);
         cannonBall.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.right*firePower,ForceMode2D.Impulse);
         bossFollow.Duck();
-        Debug.Log("ShootCannon");
+        
 
     }
 

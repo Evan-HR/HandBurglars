@@ -185,6 +185,8 @@ public class PlayerController2 : MonoBehaviour
         isLadderTop = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadderTop);
 
         moveInput = Input.GetAxisRaw("LeftJoystickHorizontal");
+        verticalMove = Input.GetAxisRaw("LeftJoystickVertical");
+
         //crouching C, slow speed by crouchSpeed (adjust in inspector)
         if (moving && Input.GetKey(KeyCode.C))
         {
@@ -221,7 +223,7 @@ public class PlayerController2 : MonoBehaviour
             {
                 mySpriteRenderer.sortingOrder = HIDING_LAYER_ORDER;
             }
-
+            
             //Debug.Log("1, hidden status of player now is " + getHideStatus());
 
 
@@ -257,14 +259,14 @@ public class PlayerController2 : MonoBehaviour
 
 
         }
-        //ladder stuff
+        //ladder stuff Input.GetKey(KeyCode.C))
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
         if (moving)
         {
             if (hitInfo.collider != null) // means we're on/in the ladder hitbox
             {
                 //Fail to catch cross direction control
-                if (Input.GetKeyDown(KeyCode.Joystick1Button5) || Input.GetKeyDown(KeyCode.Joystick1Button4))
+                if (Input.GetAxisRaw("LeftJoystickVertical")!=0)
                 {
                     isClimbing = true;
 
@@ -277,8 +279,8 @@ public class PlayerController2 : MonoBehaviour
 
             if (isClimbing)
             {
-                verticalMove = Input.GetAxisRaw("LeftJoystickVertical");
-                print("Vertical move for player 2: " + verticalMove);
+                //verticalMove = Input.GetAxisRaw("LeftJoystickVertical");
+                //print("Vertical move for player 2: " + verticalMove);
                 rb.velocity = new Vector2(rb.velocity.x, verticalMove * climbSpeed);
                 rb.gravityScale = 0;   //so the player doesn't fall down when on ladder
                 rb.velocity.Set(rb.velocity.x, 0); // gets rid of residual effects from gravity

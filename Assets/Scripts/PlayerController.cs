@@ -274,10 +274,7 @@ public class PlayerController : MonoBehaviour {
                     isClimbing = true;
 
                 }
-                else if ((Input.GetButtonDown("Jump")))
-                {
-                    isClimbing = false;
-                }
+   
             }
             else
             {

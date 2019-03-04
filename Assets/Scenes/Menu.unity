@@ -1443,7 +1443,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: bossBattle
-    clip: {fileID: 8300000, guid: 2f62382e440cdc64a9841a1e78b94a27, type: 3}
+    clip: {fileID: 8300000, guid: 9f3f9f23f978aa343b417bec48ea2a70, type: 3}
     volume: 0.26
     volumeVariance: 0
     pitch: 1
@@ -1498,6 +1498,15 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: critterShriek
     clip: {fileID: 8300000, guid: 551b140b02806b741aac2e08339bc016, type: 3}
+    volume: 0.532
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: cannon
+    clip: {fileID: 8300000, guid: f97af9c24ccb50a489c18a31bb648ca4, type: 3}
     volume: 0.532
     volumeVariance: 0
     pitch: 1
