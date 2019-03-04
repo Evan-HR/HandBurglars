@@ -71,26 +71,35 @@ public class HandBehavior : MonoBehaviour
 
         //If other is a child object, ref their root parent in this
         GameObject objectBody;
-        //check if collider is on a child object
-        if (other.transform.root != other.transform)
+        Rigidbody2D objectRB = other.transform.GetComponent<Rigidbody2D>();
+        if (!(isHolding))
         {
-            objectBody = other.transform.root.gameObject;
+            if (!(objectRB == null))
+            {
 
 
-        }
-        else
-        {
-            objectBody = other.transform.gameObject;
-        }
-        if (grabbableObjects.Contains(objectBody))
-        {
-            //print("Same Object within reach");
-        }
-        else
-        {
-            grabbableObjects.Add(objectBody);
-            numOfTouchingObjects++;
-            //print("Object within reach");
+                //check if collider is on a child object
+                if (other.transform.root != other.transform)
+                {
+                    objectBody = other.transform.root.gameObject;
+
+
+                }
+                else
+                {
+                    objectBody = other.transform.gameObject;
+                }
+                if (grabbableObjects.Contains(objectBody))
+                {
+                    //print("Same Object within reach");
+                }
+                else
+                {
+                    grabbableObjects.Add(objectBody);
+                    numOfTouchingObjects++;
+                    //print("Object within reach");
+                }
+            }
         }
 
     }
@@ -159,7 +168,7 @@ public class HandBehavior : MonoBehaviour
             }
         }
 
-        if (isShiftDown)
+        if (isShiftDown & !isHolding)
         {
             if (grabbableObjects.Count == 0)
             {

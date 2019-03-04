@@ -22,6 +22,7 @@ TagManager:
   - Critter
   - Floor
   - CannonBall
+  - cannonStem
   layers:
   - Default
   - TransparentFX
@@ -47,8 +48,8 @@ TagManager:
   - HiddenPlayerBody
   - Cover
   - CannonBall
-  - 
-  - 
+  - CannonBush
+  - InvisibleLayer
   - 
   - 
   - 

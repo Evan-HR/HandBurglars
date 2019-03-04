@@ -29,6 +29,9 @@ public class GrabCannon : MonoBehaviour
     public GameObject playerHand;
     public Vector2 playerHandLocalPos;
 
+    public GameObject cannonStem;
+    public GameObject cannonEnd;
+
     Rigidbody2D myRigidBody;
 
 
@@ -65,18 +68,27 @@ public class GrabCannon : MonoBehaviour
 
     }
 
-    public void disconnectHand()
+    public void DisconnectHand()
     {
         player = null;
         playerHand = null;
         isAttached = false;
     }
 
+    public void MakeVisible(){
+        gameObject.layer = LayerMask.NameToLayer("Cannon");
+
+        cannonStem.layer = LayerMask.NameToLayer("Cannon");
+        cannonEnd.layer = LayerMask.NameToLayer("Cannon");
+    }
 
     private void Start()
     {
         //cannonRotatePos = new Vector2(gameObject.transform.position.x + gameObject.GetComponent<CircleCollider2D>().offset.x, gameObject.transform.position.y + gameObject.GetComponent<CircleCollider2D>().offset.y);
         //transform.Rotate(Vector3.forward * Time.deltaTime*2);
+        cannonStem = gameObject.transform.Find("cannonStem").gameObject;
+        cannonEnd = gameObject.transform.Find("cannonEnd").gameObject;
+     
         currentAngle = 0;
 
     }
@@ -89,7 +101,7 @@ public class GrabCannon : MonoBehaviour
 
         if (handCannonDist > MAX_HAND_DISTANCE)
         {
-            disconnectHand();
+            DisconnectHand();
         }
         if (isAttached)
         {
