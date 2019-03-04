@@ -3,7 +3,7 @@
 public class CameraFollow : MonoBehaviour
 {
 
-    public GameObject player1;              //PLayer1 
+    public GameObject player1;              //Player1 
     
     public GameObject player2;              //Player2
 
@@ -28,16 +28,31 @@ public class CameraFollow : MonoBehaviour
     private float zoomCoef = 2.0f;  
 
     private float minOrtho = 20.0f;         //The minimum camera size
-    private float maxOrtho = 28.0f;         //The maximum camera size
+    private float maxOrtho = 48.0f;         //The maximum camera size
 
     private float backgroundMinX;
     private float backgroundMinY;
     private float backgroundMaxX;
     private float backgroundMaxY;
+
+    // edges of the camera
+    private float cameraLeft;
+    private float cameraRight;
+    private float cameraTop;
+    private float cameraBottom;
+
+    // bounds of the scene
     private float leftBound;
     private float rightBound;
     private float bottomBound;
     private float topBound;
+
+    // flags for offscreen camera edges
+
+    private bool offLeft;
+    private bool offRight;
+    private bool offTop;
+    private bool offBottom;
 
     public float heightBuffer;
 
@@ -62,44 +77,67 @@ public class CameraFollow : MonoBehaviour
     // LateUpdate is called after Update method is called
     void LateUpdate()
     {
+        // Set the position of the new camera's transform to be the center of two players
         float tempX = (player1.transform.position.x + player2.transform.position.x) / 2;
         float tempY = (player1.transform.position.y + player2.transform.position.y) / 2;
 
         //left bound and right bound are calculated based on new camera size
         camHalfWidth = Camera.main.aspect * targetOrtho;
 
-        leftBound = backgroundMinX + camHalfWidth;
-        rightBound = backgroundMaxX - camHalfWidth;
-        bottomBound = backgroundMinY + targetOrtho - heightBuffer;
-        topBound = backgroundMaxY - targetOrtho;
+        leftBound = backgroundMinX;
+        rightBound = backgroundMaxX;
+        bottomBound = backgroundMinY;
+        topBound = backgroundMaxY;
 
-        // Set the position of the camera's transform to be the center of two players
         positionx = Mathf.Clamp(tempX, leftBound, rightBound);
         
         positiony = Mathf.Clamp(tempY, bottomBound, topBound);
 
-        newCameraCenter = new Vector3(positionx, positiony, positionz);
-
         oldCameraCenter = transform.position;
+        newCameraCenter = new Vector3(positionx, positiony, positionz);
 
         float distCovered = Time.deltaTime * cameraCenterMovingSpeed;
 
-        float distanceBetweenTwoCenters = Vector3.Distance(transform.position, newCameraCenter);
+        float distanceBetweenTwoCenters = Vector3.Distance(oldCameraCenter, newCameraCenter);
+
+
+        cameraLeft = newCameraCenter.x - camHalfWidth;
+        cameraRight = newCameraCenter.x + camHalfWidth;
+        cameraBottom = newCameraCenter.y - targetOrtho;
+        cameraTop = newCameraCenter.y + targetOrtho;
+
+        // if (cameraLeft < leftBound)
+        // {
+        //     newCameraCenter.x += (leftBound - cameraLeft );
+        // } else if (cameraRight > rightBound)
+        // {
+        //     newCameraCenter.x -= (cameraRight - rightBound);
+        // } else if (cameraTop > topBound)
+        // {
+        //     newCameraCenter.y -= (cameraTop - topBound);
+        // } else if (cameraBottom < bottomBound)
+        // {
+        //     newCameraCenter.y += (bottomBound - cameraBottom);
+        // }
+
+        // calculate and move the camera
+        // if the camera is now out of bounds, move it back within bounds
+        // if the camera is not out of bounds, the camera can be expanded. 
+
+
+        
 
         //For each frame, camera center position is located where moving towards new camera center
         //So distCovered is used to calculate interpolize point
-        transform.position = Vector3.Lerp(oldCameraCenter, newCameraCenter, distCovered / distanceBetweenTwoCenters);
+        transform.position = Vector3.Lerp(transform.position, newCameraCenter, distCovered / distanceBetweenTwoCenters);
 
         //Debug.Log("Camera position is: " + transform.position);
         //Debug.Log("Half height of camera is: " + Camera.main.orthographicSize);
         //Debug.Log("Half width of camera is: " + Camera.main.orthographicSize * Camera.main.aspect);
-    }
 
-    void Update()
-    {
         //Change camera size based on two players distance
         distance = Vector3.Distance(player1.transform.position, player2.transform.position);
-        distanceX = Vector3.Distance(new Vector3(player1.transform.position.x,0,0), new Vector3(player2.transform.position.x,0,0));
+        //distanceX = Vector3.Distance(new Vector3(player1.transform.position.x,0,0), new Vector3(player2.transform.position.x,0,0));
         //Debug.Log("Please let me know the distance between two players: " + distance);
 
         if (distance > 16)
@@ -109,7 +147,14 @@ public class CameraFollow : MonoBehaviour
         {
             targetOrtho -= zoomCoef * zoomSpeed;
         }
-        targetOrtho = Mathf.Clamp(targetOrtho, minOrtho, maxOrtho);
-        Camera.main.orthographicSize = Mathf.MoveTowards(Camera.main.orthographicSize, targetOrtho, smoothSpeed * Time.deltaTime);
+        distance = Mathf.Clamp(distance, minOrtho, maxOrtho);
+        Camera.main.orthographicSize = Mathf.MoveTowards(Camera.main.orthographicSize, distance, smoothSpeed * Time.deltaTime);
+        //distance = Mathf.Clamp(distance, minOrtho, maxOrtho);
+        //Camera.main.orthographicSize = distance;
+    }
+
+    void Update()
+    {
+        
     }
 }

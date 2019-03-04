@@ -132,13 +132,13 @@ public class HandBehavior : MonoBehaviour
 
     void checkGrab()
     {
-        bool isShiftDown = Input.GetKeyDown(KeyCode.LeftShift);
-        bool isShiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+        bool isRMBDown = Input.GetMouseButtonDown(0);
+        bool isRMBUp = Input.GetMouseButtonUp(0);
         int indexOfMin = 0;
         float objectDistance;
         if (isHolding == true)
         {
-            if (isShiftUp)
+            if (isRMBUp)
             {
 
                 if (chosenObject.CompareTag("cannon"))
@@ -153,7 +153,7 @@ public class HandBehavior : MonoBehaviour
                 {
                     chosenObject.transform.parent = tempTransform;
                     chosenObject.GetComponent<Rigidbody2D>().isKinematic = false;
-                    chosenObject.layer = LayerMask.NameToLayer("HandObjects");
+                    //chosenObject.layer = LayerMask.NameToLayer("HandObjects");
                     if (chosenObject.tag == "Draggable")
                     {
                         chosenObject.GetComponent<BossSpikeScript>().isAttached = false;
@@ -168,7 +168,7 @@ public class HandBehavior : MonoBehaviour
             }
         }
 
-        if (isShiftDown & !isHolding)
+        if (isRMBDown & !isHolding)
         {
             if (grabbableObjects.Count == 0)
             {
@@ -253,7 +253,7 @@ public class HandBehavior : MonoBehaviour
         //Get state of hand
         //IF NOT HOLDING
         //if shift key is down, checkGrab(), and if object match, set hand to holding and attach object to hand
-        //we'll need to update isHolding to true, and either isGrabbing isDragging etc.
+        //we'll need to update isHolding to true, and either isRMBbing isDragging etc.
         //IF GRABBING
         //update position of grabbable with reference to hand, do other shit
         //if shiftUp then set to NOT HOLDING, release obj.

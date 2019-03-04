@@ -74,6 +74,7 @@ public class PlayerController2 : MonoBehaviour
 
     //cannon
     CannonShoot cannonShoot;
+    GrabCannon grabCannon;
     bool isShootCannon = false;
 
 
@@ -316,20 +317,20 @@ public class PlayerController2 : MonoBehaviour
 
             }
 
-            //if (Input.GetKeyDown(KeyCode.M) && (inputTime == Time.time)){
+            // if (Input.GetKeyDown(KeyCode.Joystick1Button2) && (inputTime == Time.time)){
             //    inputTime = Time.time;
             //    cannonShoot.ShootCannon();
-            //}
+            // }
             //Cannon Shoots when M is pressed, isShootCannon prevents cannon from shooting more than once
-            //if (Input.GetKeyDown(KeyCode.M) && !isShootCannon)
-            //{
-            //    isShootCannon = true;
-            //    cannonShoot.ShootCannon();
-            //}
-            //else if (Input.GetKeyUp(KeyCode.M) && isShootCannon)
-            //{
-            //    isShootCannon = false;
-            //}
+            if (Input.GetKeyDown(KeyCode.Joystick1Button2) && !isShootCannon && grabCannon.GetIsAttached())
+            {
+               isShootCannon = true;
+               cannonShoot.ShootCannon();
+            }
+            else if (Input.GetKeyUp(KeyCode.Joystick1Button2) && isShootCannon)
+            {
+               isShootCannon = false;
+            }
         }
 
     }

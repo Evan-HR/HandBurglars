@@ -68,7 +68,7 @@ public class GrabCannon : MonoBehaviour
 
     }
 
-    public void DisconnectHand()
+    public void disconnectHand()
     {
         player = null;
         playerHand = null;
@@ -101,7 +101,7 @@ public class GrabCannon : MonoBehaviour
 
         if (handCannonDist > MAX_HAND_DISTANCE)
         {
-            DisconnectHand();
+            disconnectHand();
         }
         if (isAttached)
         {

@@ -620,7 +620,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.23346603, y: 1.1932904}
+  m_Offset: {x: 0.0585199, y: -0.042984247}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -631,7 +631,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8569454, y: 0.8050709}
+  m_Size: {x: 1.2068378, y: 3.2776203}
   m_EdgeRadius: 0
 --- !u!1 &270976745
 GameObject:
@@ -864,7 +864,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BRU
+  m_Text: JOTUNN
 --- !u!222 &333722317
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2050,7 +2050,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580999135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 38.2, y: 36.3, z: -0.0013554}
+  m_LocalPosition: {x: -52.4, y: 3.3, z: -0.0013554}
   m_LocalScale: {x: 1.9496704, y: 2.0116475, z: 1.648756}
   m_Children:
   - {fileID: 115961915}
@@ -2510,7 +2510,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1429152667722822, guid: 5c5442a27c25642438e014181cb93d85, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1112173282079754, guid: 5c5442a27c25642438e014181cb93d85, type: 3}
       propertyPath: m_Name
@@ -2697,8 +2697,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 580999135}
   player2: {fileID: 2056361910}
-  zoomSpeedAdjust: 3.63
-  cameraCenterMovingSpeedAdjust: 4.3
+  zoomSpeedAdjust: 6
+  cameraCenterMovingSpeedAdjust: 10
   smoothSpeedAdjust: 8
   heightBuffer: 10
 --- !u!1001 &835301892
@@ -3141,7 +3141,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: JOTUNN
+  m_Text: GALE
 --- !u!222 &953609637
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5763,7 +5763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1441484934
 Transform:
   m_ObjectHideFlags: 0
@@ -7654,11 +7654,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -50.79
+      value: -47
       objectReference: {fileID: 0}
     - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.18
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 4537913920857862, guid: 130b7eff7e385481c90eac0447731265, type: 3}
       propertyPath: m_LocalPosition.z
