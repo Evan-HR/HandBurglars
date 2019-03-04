@@ -194,6 +194,7 @@ public class BossFollow : MonoBehaviour {
 
         if (col.gameObject.tag == "CannonBall" && bossState != BossState.DEAD)
         {
+            FindObjectOfType<AudioManager>().Play("monsterHurt");
             //Destroy(other.gameObject);
             Debug.Log("BossFollow bossHealth " + bossHealth);
             if (bossHealth == 2)

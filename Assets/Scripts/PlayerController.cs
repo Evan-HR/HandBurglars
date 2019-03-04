@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour {
 
         //Player has the ability to hide themselves
         //If player is not hidden and then the button is pressed
-            if (getHideStatus() == false && Input.GetKeyDown(KeyCode.H))
+            if (getHideStatus() == false && Input.GetKeyDown(KeyCode.Q))
         {
             setHideStatusTrue();
             gameObject.layer = LayerMask.NameToLayer("HiddenPlayerBody");
@@ -233,7 +233,7 @@ public class PlayerController : MonoBehaviour {
 
         }
         //After hide button is released, player can move again
-        else if (getHideStatus() == true && Input.GetKeyUp(KeyCode.H))
+        else if (getHideStatus() == true && Input.GetKeyUp(KeyCode.Q))
         {
             setHideStatusFalse();
             gameObject.layer = LayerMask.NameToLayer("PlayerBody");
@@ -323,12 +323,17 @@ public class PlayerController : MonoBehaviour {
             //    inputTime = Time.time;
             //    cannonShoot.ShootCannon();
             //}
-            //Cannon Shoots when M is pressed, isShootCannon prevents cannon from shooting more than once
-            if (Input.GetKeyDown(KeyCode.M) && !isShootCannon && grabCannon.GetIsAttached())
+            //Cannon Shoots when E is pressed, isShootCannon prevents cannon from shooting more than once
+            if (Input.GetKeyDown(KeyCode.E) && !isShootCannon && grabCannon.GetIsAttached())
             {
-                isShootCannon = true;
-                cannonShoot.ShootCannon();
-            } else if (Input.GetKeyUp(KeyCode.M) && isShootCannon){
+                if (grabCannon.GetPlayer() == gameObject)
+                {
+                    print("READY TO SHOOT POTENTIALLY!");
+                    isShootCannon = true;
+                    cannonShoot.ShootCannon();
+                }
+
+            } else if (Input.GetKeyUp(KeyCode.E) && isShootCannon){
                 isShootCannon = false;
             }
         }

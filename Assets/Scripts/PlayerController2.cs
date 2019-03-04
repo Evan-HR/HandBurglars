@@ -128,6 +128,7 @@ public class PlayerController2 : MonoBehaviour
 
         //get CannonShoot
         cannonShoot = GameObject.FindObjectOfType<CannonShoot>();
+        grabCannon = GameObject.FindObjectOfType<GrabCannon>();
 
         print("initialization of player 2 is done");
         //print("at the start, the global health is:" + Health.sharedLives);
@@ -322,14 +323,21 @@ public class PlayerController2 : MonoBehaviour
             //    cannonShoot.ShootCannon();
             // }
             //Cannon Shoots when M is pressed, isShootCannon prevents cannon from shooting more than once
-            if (Input.GetKeyDown(KeyCode.Joystick1Button2) && !isShootCannon && grabCannon.GetIsAttached())
+            if (Input.GetButtonDown("JoystickUse") && !isShootCannon && grabCannon.GetIsAttached())
             {
-               isShootCannon = true;
-               cannonShoot.ShootCannon();
+                if (grabCannon.GetPlayer() == gameObject)
+                {
+                    print("READY TO SHOOT POTENTIALLY!");
+                    isShootCannon = true;
+                    cannonShoot.ShootCannon();
+                }
             }
-            else if (Input.GetKeyUp(KeyCode.Joystick1Button2) && isShootCannon)
+            else if (Input.GetButtonDown("JoystickUse") && isShootCannon)
             {
-               isShootCannon = false;
+                isShootCannon = false;
+            }
+            else if (Input.GetButtonDown("JoystickUse")){
+                print("SHOOT BUTTON PRESSED");
             }
         }
 

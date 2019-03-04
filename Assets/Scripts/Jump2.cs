@@ -33,13 +33,13 @@ public class Jump2 : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Joystick1Button3) && extraJumps > 0)
+        if (Input.GetButtonDown("joystickJump") && extraJumps > 0)
         {
             FindObjectOfType<AudioManager>().Play("jump");
             rb.velocity = Vector2.up * jumpVelocity;
             extraJumps--;
         }
-        else if (Input.GetKeyDown(KeyCode.Joystick1Button3) && extraJumps == 0 && (player2.isGrounded == true || player2.isLadder || player2.isLadderTop))
+        else if (Input.GetButtonDown("joystickJump") && extraJumps == 0 && (player2.isGrounded == true || player2.isLadder || player2.isLadderTop))
         {
             FindObjectOfType<AudioManager>().Play("jump");
             rb.velocity = Vector2.up * jumpVelocity;

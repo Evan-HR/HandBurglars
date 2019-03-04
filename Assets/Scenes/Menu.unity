@@ -1514,6 +1514,15 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: monsterHurt
+    clip: {fileID: 8300000, guid: 04e6285fe9deb4e79b3d7a6639736135, type: 3}
+    volume: 0.532
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
 --- !u!4 &2020053634
 Transform:
   m_ObjectHideFlags: 0

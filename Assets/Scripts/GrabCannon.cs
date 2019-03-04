@@ -54,6 +54,9 @@ public class GrabCannon : MonoBehaviour
     {
         isAttached = a;
     }
+    public GameObject GetPlayer(){
+        return player;
+    }
     public void ConnectHand()
     {
         playerHandLocalPos = (((Vector2)playerHand.transform.position) - (Vector2)transform.position);
