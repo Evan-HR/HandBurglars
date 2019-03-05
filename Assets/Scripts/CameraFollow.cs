@@ -27,8 +27,8 @@ public class CameraFollow : MonoBehaviour
     private float camHalfWidth;             //Camera size which is half of camera width
     private float zoomCoef = 2.0f;  
 
-    private float minOrtho = 20.0f;         //The minimum camera size
-    private float maxOrtho = 48.0f;         //The maximum camera size
+    public float minOrtho = 20.0f;         //The minimum camera size
+    public float maxOrtho = 48.0f;         //The maximum camera size
 
     private float backgroundMinX;
     private float backgroundMinY;
