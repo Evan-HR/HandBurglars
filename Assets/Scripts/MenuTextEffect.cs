@@ -9,10 +9,9 @@
 
     public void OnPointerEnter(PointerEventData eventData)
      {
-         theText.color = Color.red; //Or however you do your color
+        theText.color = Color.red; //Or however you do your color
         FindObjectOfType<AudioManager>().Play("tick");
         
-
     }
  
      public void OnPointerExit(PointerEventData eventData)

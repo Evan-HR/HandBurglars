@@ -60,4 +60,8 @@ public class GameManager : MonoBehaviour {
         Initiate.Fade("SelectCharacter", Color.white, 0.3f);
         //FindObjectOfType<AudioManager>().Play("bossBattle");
     }
+
+    public void exitGame(){
+        Application.Quit();
+    }
 }
