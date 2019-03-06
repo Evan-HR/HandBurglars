@@ -256,10 +256,14 @@ public class BossHandSmashBehaviour : MonoBehaviour
 
         if (col.gameObject.name == "bossSpike")
         {
+            
             //Destroy(other.gameObject);
             if (handState == HandState.SMASH)
             {
+               
                 handState = HandState.HIT_SPIKE;
+                FindObjectOfType<AudioManager>().Play("monsterHandSpike");
+                FindObjectOfType<AudioManager>().Play("monsterGrowl");
                 waitTime = 5;
                 bossFollow.SetCanDuck(BossFollow.BossState.CANNOT_DUCK);
             }

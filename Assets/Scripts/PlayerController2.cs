@@ -206,6 +206,7 @@ public class PlayerController2 : MonoBehaviour
             }
         }
 
+
         //Player has the ability to hide themselves
         //If player is not hidden and then the button is pressed
         //Works for player 1 not player 2

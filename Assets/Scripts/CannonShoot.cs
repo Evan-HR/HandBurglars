@@ -6,12 +6,15 @@ public class CannonShoot : MonoBehaviour {
     public GameObject cannonBall;
     public float firePower;
     private BossFollow bossFollow;
+    public GameObject explosion;
 
     public float cannonTimer;
 
     private void Start()
     {
         bossFollow = GameObject.FindObjectOfType<BossFollow>();
+
+
     }
 
     // Update is called once per frame
@@ -23,8 +26,9 @@ public class CannonShoot : MonoBehaviour {
     public void ShootCannon()
     {
         if(cannonTimer<=0){
-        FindObjectOfType<AudioManager>().Play("cannon");
-        cannonBall = Instantiate(cannonBall, transform.position, transform.rotation);
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            FindObjectOfType<AudioManager>().Play("cannon");
+            cannonBall = Instantiate(cannonBall, transform.position, transform.rotation);
         cannonBall.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.right*firePower,ForceMode2D.Impulse);
         bossFollow.Duck();
         cannonTimer = 2.0f;

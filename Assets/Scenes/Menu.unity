@@ -1505,9 +1505,54 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: monsterGrowl
+    clip: {fileID: 8300000, guid: 04e6285fe9deb4e79b3d7a6639736135, type: 3}
+    volume: 0.657
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: playerHurt
+    clip: {fileID: 8300000, guid: aeaeea9be1ee8264a9d84ee3c09509b7, type: 3}
+    volume: 0.532
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
   - name: cannon
     clip: {fileID: 8300000, guid: f97af9c24ccb50a489c18a31bb648ca4, type: 3}
     volume: 0.532
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: monsterCannonHurt
+    clip: {fileID: 8300000, guid: 1d13082b098eea44492a361428151b6a, type: 3}
+    volume: 0.532
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: monsterHandSquish
+    clip: {fileID: 8300000, guid: 7848c9e81908a8f4c80dd2a83bb12a63, type: 3}
+    volume: 0.683
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: monsterBallHurt
+    clip: {fileID: 8300000, guid: 39fb15078cf1bac44a032bd52c865969, type: 3}
+    volume: 0.835
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
