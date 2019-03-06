@@ -199,22 +199,22 @@ public class BossFollow : MonoBehaviour {
             Debug.Log("BossFollow bossHealth " + bossHealth);
             if (bossHealth == 2)
             {
-                bossFollowSpriteRender.color = new Color(0.85f, 0, 0);
-                bossHandSpriteRenderer.color = new Color(0.85f, 0, 0);
+                bossFollowSpriteRender.color = new Color32(255, 112, 112,255);
+                bossHandSpriteRenderer.color = new Color32(255, 112, 112,255);
                 bossState = BossState.CAN_DUCK;
                 bossHandBehaviourScript.SetHandState(BossHandSmashBehaviour.HandState.FOLLOW);
             }
             else if (bossHealth == 1)
             {
-                bossFollowSpriteRender.color = new Color(0.7f, 0, 0);
-                bossHandSpriteRenderer.color = new Color(0.7f, 0, 0);
+                bossFollowSpriteRender.color =new Color32(255, 64, 64,255);
+                bossHandSpriteRenderer.color =new Color32(255, 64, 64,255);
                 bossState = BossState.CAN_DUCK;
                 bossHandBehaviourScript.SetHandState(BossHandSmashBehaviour.HandState.FOLLOW);
             }
             else if (bossHealth == 0)
             {
-                bossFollowSpriteRender.color = new Color(0.55f, 0, 0);
-                bossHandSpriteRenderer.color = new Color(0.55f, 0, 0);
+                bossFollowSpriteRender.color = new Color32(255, 0, 0,255);
+                bossHandSpriteRenderer.color = new Color32(255, 0, 0,255);
                 deathVector = new Vector2(transform.position.x, -100);
                 this.GetComponent<BoxCollider2D>().enabled = false;
                 bossHandBehaviourScript.SetHandState(BossHandSmashBehaviour.HandState.DEAD);
