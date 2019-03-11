@@ -15,6 +15,14 @@ public class GameManager : MonoBehaviour {
             //FindObjectOfType<AudioManager>().Play("birds");
 
         }
+        else if (scene.name == "DrawingScene")
+        {
+            FindObjectOfType<AudioManager>().Play("drawingSceneMusic");
+        }
+        else if (scene.name == "POC_BOSS")
+        {
+            FindObjectOfType<AudioManager>().Play("bossBattle");
+        }
     }
 
 

@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         
         PlayerHealth = GetComponent<Health>();
-        FindObjectOfType<AudioManager>().Play("bossBattle");
+        //FindObjectOfType<AudioManager>().Play("bossBattle");
         rb = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
         //set hitTime cooldown to adjust in inspector

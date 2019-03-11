@@ -114,7 +114,7 @@ public class PlayerController2 : MonoBehaviour
 
         PlayerHealth = GetComponent<Health>();
 
-        FindObjectOfType<AudioManager>().Play("bossBattle");
+        //FindObjectOfType<AudioManager>().Play("bossBattle");
 
         //Get rigid body component
         rb = GetComponent<Rigidbody2D>();
