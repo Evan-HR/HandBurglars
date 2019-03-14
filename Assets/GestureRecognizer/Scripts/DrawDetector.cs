@@ -80,14 +80,22 @@ namespace GestureRecognizer {
 			return normalized;
 		}
 
-		Vector2 FixedPosition(Vector2 position){
-			return position;
-			//var local = rectTransform.InverseTransformPoint (position);
-			//var normalized = Rect.PointToNormalized (rectTransform.rect, local);
-			//return normalized;
-		}
+        public bool worldSpaceCanvas = true;
 
-		public void ClearLines(){
+        Vector2 FixedPosition(Vector2 position)
+        {
+            if (worldSpaceCanvas)
+            {
+                var canvas = GetComponentInParent<Canvas>();
+                var canvasCam = canvas.worldCamera;
+                Vector2 localPoint;
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(this.rectTransform, position, canvasCam, out localPoint);
+                localPoint = rectTransform.TransformPoint(localPoint);
+                return localPoint;
+            }
+            return position;
+        }
+        public void ClearLines(){
 			data.lines.Clear ();
 			UpdateLines ();
 		}
