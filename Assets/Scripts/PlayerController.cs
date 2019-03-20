@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour {
 
     //hittable variables
     public bool canBeHit = true;
-    private  Health PlayerHealth;
+    private Health PlayerHealth;
     private float hitCooldown;
     public float startHitTime;
 
@@ -76,17 +77,19 @@ public class PlayerController : MonoBehaviour {
     bool isShootCannon = false;
 
 
-
+    //Get player hide status
     public bool getHideStatus()
     {
         return hide;
     }
 
+    //Set hide status to true
     public void setHideStatusTrue()
     {
         hide = true;
     }
 
+    //Set hide status to false
     public void setHideStatusFalse()
     {
         hide = false;
@@ -117,10 +120,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start() {
+    void Start() 
+    {
         
-        PlayerHealth = GetComponent<Health>();
-        FindObjectOfType<AudioManager>().Play("bossBattle");
+        //PlayerHealth = GetComponent<Health>();
+        //FindObjectOfType<AudioManager>().Play("bossBattle");
         rb = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
         //set hitTime cooldown to adjust in inspector
@@ -132,10 +136,10 @@ public class PlayerController : MonoBehaviour {
         camShake = GetComponent<CameraShake>();
 
         //get CannonShoot
-        cannonShoot = GameObject.FindObjectOfType<CannonShoot>();
-        grabCannon = GameObject.FindObjectOfType<GrabCannon>();
-        print("at the start, the global health is:" +Health.sharedLives);
-        print("at the start, player health is " + PlayerHealth.health);
+        //cannonShoot = GameObject.FindObjectOfType<CannonShoot>();
+        //grabCannon = GameObject.FindObjectOfType<GrabCannon>();
+        //print("at the start, the global health is:" +Health.sharedLives);
+        //print("at the start, player health is " + PlayerHealth.health);
     }
 
     //collision with monster hand 
@@ -212,7 +216,7 @@ public class PlayerController : MonoBehaviour {
 
         //Player has the ability to hide themselves
         //If player is not hidden and then the button is pressed
-            if (getHideStatus() == false && Input.GetKeyDown(KeyCode.Q))
+            if (getHideStatus() == false && Input.GetKeyDown(KeyCode.H))
         {
             setHideStatusTrue();
             gameObject.layer = LayerMask.NameToLayer("HiddenPlayerBody");
@@ -233,7 +237,7 @@ public class PlayerController : MonoBehaviour {
 
         }
         //After hide button is released, player can move again
-        else if (getHideStatus() == true && Input.GetKeyUp(KeyCode.Q))
+        else if (getHideStatus() == true && Input.GetKeyUp(KeyCode.H))
         {
             setHideStatusFalse();
             gameObject.layer = LayerMask.NameToLayer("PlayerBody");
@@ -323,17 +327,12 @@ public class PlayerController : MonoBehaviour {
             //    inputTime = Time.time;
             //    cannonShoot.ShootCannon();
             //}
-            //Cannon Shoots when E is pressed, isShootCannon prevents cannon from shooting more than once
-            if (Input.GetKeyDown(KeyCode.E) && !isShootCannon && grabCannon.GetIsAttached())
+            //Cannon Shoots when M is pressed, isShootCannon prevents cannon from shooting more than once
+            if (Input.GetKeyDown(KeyCode.M) && !isShootCannon && grabCannon.GetIsAttached())
             {
-                if (grabCannon.GetPlayer() == gameObject)
-                {
-                    print("READY TO SHOOT POTENTIALLY!");
-                    isShootCannon = true;
-                    cannonShoot.ShootCannon();
-                }
-
-            } else if (Input.GetKeyUp(KeyCode.E) && isShootCannon){
+                isShootCannon = true;
+                cannonShoot.ShootCannon();
+            } else if (Input.GetKeyUp(KeyCode.M) && isShootCannon){
                 isShootCannon = false;
             }
         }
