@@ -1,0 +1,44 @@
+ -- Meeting Minutes 11/08 --
+
+In Attendance:
+    Dustin, Ming, Evan
+
+Topics of Discussion:
+    Document/Design Work
+    - Game Design Document (Gameplay)
+    - Game Design Document (Technical)
+    - Level Design Document (good copy)
+
+    Poster Board
+    - Anand has available 4 poster boards
+    - might give a template
+    - basic design of the poster board 
+    - Sell the point that the game at the poster board is playable 
+    - We should contact Dr. Anand about poster board
+    - highlight "play our game"
+    - explain development
+    - explain features
+    - questionnaire 
+
+    Verification/Testing Plan
+    - even if there isn't as much unit testing, we can test that our software works as we expect
+    - if we run into bugs, we test against them in the release. 
+    - in release notes, will cover the bugs that were fixed. 
+    - 
+
+    Action Plan
+    - Dustin is doing tileset PoC map
+    - Grabbing Hand Mechanic(Danny)
+    - Item - Hand Interaction (Danny)
+    - Ming will do Boss AI 
+    - HitBox Fixing / Spikes / Stun / Damage (Evan)
+    - Critter AI (secondary goal) (Ming kinda)
+    - Blob Asset / Blob Hand Asset (Evan)
+    - Local Multiplayer (secondary controls) (Kong)
+    - Shared Camera (Kong)
+    - Organize Folder Structure / Criticial View of the Folder Structure
+    - Basic Poster Board Design (TBD)
+    - Questionnaire (Danny/Evan)
+
+    
+    
