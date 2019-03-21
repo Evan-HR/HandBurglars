@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\HandCollision.cs" />
      <Compile Include="Assets\Oscillate.cs" />
      <Compile Include="Assets\pauseScript.cs" />
      <Compile Include="Assets\Scripts\AddComponent.cs" />
