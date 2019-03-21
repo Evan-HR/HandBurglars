@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour {
     {
         try
         {
-            Debug.Log("collision: " + collision.gameObject.tag);
+            //Debug.Log("collision: " + collision.gameObject.tag);
 
             if (collision.gameObject.tag.Equals("BossSmashHand") && canBeHit == true && PlayerHealth.health >= 1)
             {

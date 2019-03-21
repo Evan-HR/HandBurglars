@@ -23,6 +23,13 @@ TagManager:
   - Floor
   - CannonBall
   - cannonStem
+  - Trigger
+  - LevelManager
+  - Leaf
+  - Bomb
+  - boulder
+  - ramp
+  - GroundSoundBoulder
   layers:
   - Default
   - TransparentFX
