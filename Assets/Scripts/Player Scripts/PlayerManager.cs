@@ -46,12 +46,19 @@ public class PlayerManager : MonoBehaviour {
     //grab things ------------------------------------------------
     //grab input booleans TEMPORARY  -- KONG
     bool grabInput, grabHoldInput, releaseInput;
+
+    // for gripping animation
+    public Animator hand_animator;
+
+    public BoxCollider2D fist_box;
     
     bool isHolding;
     bool isFist;
     GameObject toGrabObject;
     GameObject heldObject;
-    public FixedJoint2D handJoint;
+    public FixedJoint2D handGrabJoint;
+    public HingeJoint2D handDragHingeJoint;
+    public SpringJoint2D handDragSpringJoint;
 
     Vector2 toGrabDist;
     Vector2 tempDist;
@@ -120,6 +127,7 @@ public class PlayerManager : MonoBehaviour {
         m_animator.SetFloat("Speed",Mathf.Abs(moveInput));
 
         // moveInput must be -1, 0, or 1. 
+        //m_rigidBody2D.AddForce(new Vector2(moveInput * walkSpeed, m_rigidBody2D.velocity.y));
         m_rigidBody2D.velocity = new Vector2(moveInput * walkSpeed, m_rigidBody2D.velocity.y);
         print(onGround);
         if (moveInput < 0 && facingRight){ 
@@ -137,7 +145,7 @@ public class PlayerManager : MonoBehaviour {
         if ((onGround || on1WayGround || onLadder) && jumpInput) {
             m_rigidBody2D.velocity = Vector2.up * jumpMultiplier;
         }
-
+        /* 
         if (m_rigidBody2D.velocity.y < 0)
         {
             m_rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier) * Time.deltaTime;
@@ -146,8 +154,9 @@ public class PlayerManager : MonoBehaviour {
         {
             m_rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier) * Time.deltaTime;
         }
+        */
 
-        //---------------------------------------- HAND POSITION UPDATE
+        //---------------------------------------- HAND POSITION UPDATE---------------------------------------------------a 
 		mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         bodyMouseVector = mousePos - (Vector2) gameObject.transform.position;
         //print(bodyMouseVector.x + ", " + bodyMouseVector.y);
@@ -155,6 +164,8 @@ public class PlayerManager : MonoBehaviour {
         bodyMouseMag = bodyMouseVector.magnitude;
         hingeTransform.rotation = Quaternion.Euler(0, 0, 90 -bodyMouseDir);
         
+        // ----------------------- old hand code; does not use any joint / physics.
+
         //float max = Mathf.Min(handRadius, bodyMouseMag);
         //float min = Mathf.Min(handRadius, bodyMouseMag);
         //JointTranslationLimits2D tempLimits = handSlider.limits;
@@ -162,9 +173,13 @@ public class PlayerManager : MonoBehaviour {
         //tempLimits.min = 0;
         //handSlider.limits = tempLimits;
         //handSlider.jointTranslation = tempLimits.max;
+
+        // --------------------------------------
+
+
         handTranslationJoint.linearOffset = new Vector2(0, Mathf.Min(handRadius, bodyMouseMag));
 
-        //---------------------------------------- HAND GRAB UPDATE
+        //----------------------------------------------------- HAND GRAB UPDATE---------------------------------------
         //get click, get click down
         //TEMPORARY GRAB INPUTS -- KONG
         grabHoldInput = Input.GetMouseButton(0);
@@ -177,8 +192,20 @@ public class PlayerManager : MonoBehaviour {
             if (toGrabObject != null){
                 heldObject = toGrabObject;
                 print("step 1");
-                handJoint.enabled = true;
-                handJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
+                if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectGrab")){
+                    handGrabJoint.enabled = true;
+                    handGrabJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
+                } else if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectDrag")){
+
+                    // Drag Hinge Joint formation
+                    handDragHingeJoint.enabled = true;
+                    handDragHingeJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
+
+                    // Drag Spring Joint formation
+                    handDragSpringJoint.enabled = true;
+                    handDragSpringJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
+                }
+                
                 
 
                 isHolding = true;
@@ -206,12 +233,28 @@ public class PlayerManager : MonoBehaviour {
             }
             else if (isHolding){
                 print("step 3");
-                handJoint.enabled = false;
-                handJoint.connectedBody = null;
+                if (handGrabJoint.enabled){
+                    handGrabJoint.enabled = false;
+                    handGrabJoint.connectedBody = null;
+                } else if (handDragHingeJoint.enabled){
+
+                    //Drag Hinge Joint Termination
+                    handDragHingeJoint.enabled = false;
+                    handDragHingeJoint.connectedBody = null;
+
+                    //Drag Spring Joint Termination
+                    handDragSpringJoint.enabled = false;
+                    handDragSpringJoint.connectedBody = null;
+                }
+                
                 heldObject = null;
                 isHolding = false;
             }
         }
+        hand_animator.SetBool("isGrip", (isFist || isHolding));
+        if (isFist){ fist_box.enabled = true;}
+        else { fist_box.enabled = false;}
+
             
     }
 
