@@ -35,6 +35,7 @@ TagManager:
   - BackgroundCamera
   - TorchFlame
   - BombStem
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -64,9 +65,9 @@ TagManager:
   - InvisibleLayer
   - boulder
   - trigger
-  - 
-  - 
-  - 
+  - HandObjectGrab
+  - HandObjectDrag
+  - Button
   - 
   m_SortingLayers:
   - name: Background
@@ -77,6 +78,9 @@ TagManager:
     locked: 0
   - name: Boss
     uniqueID: 1817603011
+    locked: 0
+  - name: Button
+    uniqueID: 3031252665
     locked: 0
   - name: Foreground
     uniqueID: 3132110553

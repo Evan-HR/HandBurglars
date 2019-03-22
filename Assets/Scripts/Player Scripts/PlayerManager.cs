@@ -15,11 +15,14 @@ public class PlayerManager : MonoBehaviour {
     Transform handTransform, hingeTransform, bodyTransform;
     RelativeJoint2D handTranslationJoint;
 
+
     // other unity components of the player
 
     public Animator m_animator;
     public SpriteRenderer m_spriteRenderer;
     public Rigidbody2D m_rigidBody2D;
+
+    public BoxCollider2D m_BoxCollider;
     public Rigidbody2D hand_rigidBody2D;
     //public HandCollision handCollision;
 
@@ -79,13 +82,18 @@ public class PlayerManager : MonoBehaviour {
 //--------------------------------------------------------------------------------------------COLLISION ENTER
 //-----------------------------------------------------------------------------------------------------------
     void OnCollisionEnter2D(Collision2D collision){
-        print("ouch");
         if(collision.gameObject.tag == "Ground")
         {
             onGround = true;
         }
      }
 
+    void OnCollisionStay2D(Collision2D collision){
+            if(collision.gameObject.tag == "Ground")
+            {
+                onGround = true;
+            }
+        }
 //--------------------------------------------------------------------------------------------COLLISION EXIT
 //----------------------------------------------------------------------------------------------------------
     void OnCollisionExit2D(Collision2D collision){
@@ -103,7 +111,6 @@ public class PlayerManager : MonoBehaviour {
         hingeTransform = bodyTransform.GetChild(0);
         handTransform = hingeTransform.GetChild(0);
         handTranslationJoint = handTransform.gameObject.GetComponent<RelativeJoint2D>();
-        //handCollision = handTransform.gameObject.GetComponent<HandCollision>();
         toGrabObject = null;
 
 	}
@@ -140,6 +147,14 @@ public class PlayerManager : MonoBehaviour {
         }
 
         //---------------------------------------- JUMPING UPDATE
+
+        if (m_BoxCollider.IsTouchingLayers(LayerMask.NameToLayer("Ground"))) {
+            print("ouch");
+            onGround = true;
+        } else { 
+            //onGround = false;
+        }
+
         jumpInput = Input.GetKeyDown(KeyCode.Space);
         jumpHoldInput = Input.GetKey(KeyCode.Space);
         if ((onGround || on1WayGround || onLadder) && jumpInput) {
@@ -162,22 +177,25 @@ public class PlayerManager : MonoBehaviour {
         //print(bodyMouseVector.x + ", " + bodyMouseVector.y);
         bodyMouseDir = Mathf.Rad2Deg * Mathf.Atan2(bodyMouseVector.x, bodyMouseVector.y);
         bodyMouseMag = bodyMouseVector.magnitude;
-        hingeTransform.rotation = Quaternion.Euler(0, 0, 90 -bodyMouseDir);
-        
+        hingeTransform.rotation = Quaternion.Euler(0, 0, 90-bodyMouseDir);
+        //handSliderJoint.angle = 90-bodyMouseDir;
         // ----------------------- old hand code; does not use any joint / physics.
 
         //float max = Mathf.Min(handRadius, bodyMouseMag);
         //float min = Mathf.Min(handRadius, bodyMouseMag);
-        //JointTranslationLimits2D tempLimits = handSlider.limits;
+        //JointTranslationLimits2D tempLimits = handSliderJoint.limits;
+        //handSpringJoint.distance = Mathf.Min(handRadius, bodyMouseMag);
+
         //tempLimits.max = Mathf.Min(handRadius, bodyMouseMag);
         //tempLimits.min = 0;
-        //handSlider.limits = tempLimits;
-        //handSlider.jointTranslation = tempLimits.max;
+        //handSliderJoint.limits = tempLimits;
+
 
         // --------------------------------------
 
 
         handTranslationJoint.linearOffset = new Vector2(0, Mathf.Min(handRadius, bodyMouseMag));
+        //tempLimits handSliderJoint.limits
 
         //----------------------------------------------------- HAND GRAB UPDATE---------------------------------------
         //get click, get click down
