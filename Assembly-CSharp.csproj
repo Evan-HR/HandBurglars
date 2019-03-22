@@ -56,6 +56,7 @@
      <Compile Include="Assets\BombScript.cs" />
      <Compile Include="Assets\boulderPlank.cs" />
      <Compile Include="Assets\boulderScript.cs" />
+     <Compile Include="Assets\CameraRestrictBounds.cs" />
      <Compile Include="Assets\GestureRecognizer\Example\ExampleGestureHandler.cs" />
      <Compile Include="Assets\GestureRecognizer\Example\GestureOptions.cs" />
      <Compile Include="Assets\GestureRecognizer\Scripts\DrawDetector.cs" />
@@ -68,6 +69,7 @@
      <Compile Include="Assets\HandCollision.cs" />
      <Compile Include="Assets\Oscillate.cs" />
      <Compile Include="Assets\pauseScript.cs" />
+     <Compile Include="Assets\SceneManagerBoss.cs" />
      <Compile Include="Assets\SceneManagerLevel1.cs" />
      <Compile Include="Assets\SceneManagerLevel2.cs" />
      <Compile Include="Assets\Scripts\AddComponent.cs" />
@@ -124,6 +126,9 @@
      <Compile Include="Assets\Simple Scene Fade Load System\Scripts\Fader.cs" />
      <Compile Include="Assets\Simple Scene Fade Load System\Scripts\Initiate.cs" />
      <Compile Include="Assets\triggerScript.cs" />
+     <Compile Include="Assets\VCUL\Scripts\2D\FlyCamera2D.cs" />
+     <Compile Include="Assets\VCUL\Scripts\2D\MultiTargetCamera.cs" />
+     <Compile Include="Assets\VCUL\Scripts\2D\SmoothFollow2DCamera.cs" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
@@ -141,6 +146,7 @@
      <None Include="Assets\GestureRecognizer\UPDATE GUIDE.txt" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+     <None Include="Assets\VCUL\Manual.txt" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
