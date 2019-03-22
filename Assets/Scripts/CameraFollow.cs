@@ -66,7 +66,7 @@ public class CameraFollow : MonoBehaviour
         smoothSpeed = smoothSpeedAdjust;
         //This is actually size half of the height
         targetOrtho = Camera.main.orthographicSize;
-        spriteBounds = GameObject.FindGameObjectWithTag("Background").GetComponentInChildren<SpriteRenderer>();
+        spriteBounds = GameObject.FindGameObjectWithTag("BackgroundCamera").GetComponentInChildren<SpriteRenderer>();
 
         backgroundMinX = spriteBounds.bounds.min.x;
         backgroundMinY = spriteBounds.bounds.min.y;

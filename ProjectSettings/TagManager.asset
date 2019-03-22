@@ -30,6 +30,11 @@ TagManager:
   - boulder
   - ramp
   - GroundSoundBoulder
+  - RightDoor
+  - Level2BridgeBarrier
+  - BackgroundCamera
+  - TorchFlame
+  - BombStem
   layers:
   - Default
   - TransparentFX
@@ -57,8 +62,8 @@ TagManager:
   - CannonBall
   - CannonBush
   - InvisibleLayer
-  - 
-  - 
+  - boulder
+  - trigger
   - 
   - 
   - 

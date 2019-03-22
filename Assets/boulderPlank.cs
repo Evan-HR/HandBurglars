@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class boulderPlank : MonoBehaviour
 {
-    public GameObject levelManager;
+    public GameObject SceneManagerLevel1;
 
     private void Awake()
     {
-        levelManager = GameObject.FindGameObjectWithTag("LevelManager");
+        SceneManagerLevel1 = GameObject.FindGameObjectWithTag("LevelManager");
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -16,9 +16,22 @@ public class boulderPlank : MonoBehaviour
         if (col.gameObject.tag == "ramp")
         {
 
-            levelManager.SendMessage("StartRamp");
+            SceneManagerLevel1.SendMessage("StartRamp");
         }
+
+        if (col.gameObject.tag == "GroundSoundBoulder"){
+            SceneManagerLevel1.SendMessage("BoulderFallGround");
+        }
+
     }
 
+        void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "RightDoor"){
+            //print("got here collision");
+            SceneManagerLevel1.SendMessage("DestroyRightDoor");
+        }
+        
+    }
 
 }

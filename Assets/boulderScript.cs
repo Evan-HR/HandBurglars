@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class boulderScript : MonoBehaviour
 {
-    public GameObject levelManager;
+    public GameObject SceneManagerLevel1;
 
     private void Awake()
     {
-        levelManager = GameObject.FindGameObjectWithTag("LevelManager");
+        SceneManagerLevel1 = GameObject.FindGameObjectWithTag("LevelManager");
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -16,7 +16,7 @@ public class boulderScript : MonoBehaviour
 
         if (col.gameObject.tag == "boulder")
         {
-            levelManager.SendMessage("MiddleCollide");
+            SceneManagerLevel1.SendMessage("MiddleCollide");
         }
     }
 }
