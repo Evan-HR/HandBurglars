@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 
 
@@ -198,7 +199,16 @@ public class PlayerController : MonoBehaviour {
         isLadder = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadder);
         isLadderTop = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadderTop);
 
-        moveInput = Input.GetAxisRaw("Horizontal");
+        if (InputManager.ActiveDevices.Count > 1)
+        {
+            moveInput = InputManager.ActiveDevices[0].LeftStickX;
+        }else
+        {
+            moveInput = Input.GetAxisRaw("Horizontal");
+        }
+
+        //moveInput = Input.GetAxisRaw("Horizontal");
+
         //crouching C, slow speed by crouchSpeed (adjust in inspector)
         if (moving && Input.GetKey(KeyCode.C))
         {  
@@ -283,7 +293,14 @@ public class PlayerController : MonoBehaviour {
 
             if (isClimbing)
             {
-                verticalMove = Input.GetAxisRaw("Vertical");
+                if (InputManager.ActiveDevices.Count > 1)
+                {
+                    moveInput = InputManager.ActiveDevices[0].LeftStickY;
+                }
+                else
+                {
+                    moveInput = Input.GetAxisRaw("Vertical");
+                }
                 rb.velocity = new Vector2(rb.velocity.x, verticalMove * climbSpeed);
                 rb.gravityScale = 0;   //so the player doesn't fall down when on ladder
                 rb.velocity.Set(rb.velocity.x, 0); // gets rid of residual effects from gravity 

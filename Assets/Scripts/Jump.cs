@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class Jump : MonoBehaviour {
     //num jumps
@@ -28,16 +29,26 @@ public class Jump : MonoBehaviour {
         if (player.isGrounded == true || player.isLadder || player.isLadderTop)
         {
             extraJumps = extraJumpsValue;
-        } 
+        }
 
-        
-        if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0)
+        bool flagJump;
+
+        if (InputManager.ActiveDevices.Count > 1)
+        {
+            flagJump = InputManager.ActiveDevices[0].Action1.IsPressed;
+        }
+        else
+        {
+            flagJump = Input.GetKeyDown(KeyCode.Space);
+        }
+
+        if (flagJump && extraJumps > 0)
         {
             FindObjectOfType<AudioManager>().Play("jump");
             rb.velocity = Vector2.up * jumpVelocity;
             extraJumps--;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && (player.isGrounded == true || player.isLadder || player.isLadderTop))
+        else if (flagJump && extraJumps == 0 && (player.isGrounded == true || player.isLadder || player.isLadderTop))
         {
             FindObjectOfType<AudioManager>().Play("jump");
             rb.velocity = Vector2.up * jumpVelocity;

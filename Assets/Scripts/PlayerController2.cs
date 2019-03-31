@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using InControl;
 
 
 
@@ -186,8 +187,16 @@ public class PlayerController2 : MonoBehaviour
         isLadder = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadder);
         isLadderTop = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadderTop);
 
-        moveInput = Input.GetAxisRaw("LeftJoystickHorizontal");
-        verticalMove = Input.GetAxisRaw("LeftJoystickVertical");
+        if (InputManager.ActiveDevices.Count > 1) {
+            moveInput = InputManager.ActiveDevices[1].LeftStickX;
+            verticalMove = InputManager.ActiveDevices[1].LeftStickY;
+        }else
+        {
+            moveInput = InputManager.ActiveDevice.LeftStickX;
+            verticalMove = InputManager.ActiveDevice.LeftStickY;
+        }
+        //moveInput = Input.GetAxisRaw("LeftJoystickHorizontal");
+        //verticalMove = Input.GetAxisRaw("LeftJoystickVertical");
 
         //crouching C, slow speed by crouchSpeed (adjust in inspector)
         if (moving && Input.GetKey(KeyCode.C))

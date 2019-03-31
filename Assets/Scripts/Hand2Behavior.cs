@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 
 public class Hand2Behavior : MonoBehaviour
@@ -202,8 +203,10 @@ void checkGrab()
     void Update()
     {
         checkGrab();
-        float x = Input.GetAxis("HandHorizontal") * handRadius;
-        float y = Input.GetAxis("HandVertical") * handRadius * (-1);
+        float x = InputManager.ActiveDevice.RightStickX;
+        float y = InputManager.ActiveDevice.RightStickY;
+        //float x = Input.GetAxis("HandHorizontal") * handRadius;
+        //float y = Input.GetAxis("HandVertical") * handRadius * (-1);
 
         Vector2 joystickPos = new Vector2(x, y);
         playerPos = player2.transform.position;
