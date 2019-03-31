@@ -76,6 +76,10 @@ public class PlayerController : MonoBehaviour {
     GrabCannon grabCannon;
     bool isShootCannon = false;
 
+    //Control scheme depending on connected controllers
+    string[] controllerNameArray;
+    int numberOfControllers;
+
 
 
     public bool getHideStatus()
@@ -137,6 +141,17 @@ public class PlayerController : MonoBehaviour {
         grabCannon = GameObject.FindObjectOfType<GrabCannon>();
         print("at the start, the global health is:" +Health.sharedLives);
         print("at the start, player health is " + PlayerHealth.health);
+
+        //get connected controllers
+        controllerNameArray = Input.GetJoystickNames();
+        //numberOfControllers = controllerNameArray.Length;
+        numberOfControllers = InputManager.Devices.Count;
+
+
+        foreach (InputDevice device in InputManager.Devices)
+        {
+            Debug.Log("InputDevice: " + device.Name);
+        }
     }
 
     //collision with monster hand 
@@ -191,6 +206,39 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate () {
+        numberOfControllers = InputManager.Devices.Count;
+
+
+        //Check whether array contains anything
+        if (controllerNameArray.Length > 0)
+        {
+            Debug.Log("Number of Controllers Connected: " + controllerNameArray.Length);
+
+            //Iterate over every element
+            for (int i = 0; i < controllerNameArray.Length; ++i)
+            {
+                //Check if the string is empty or not
+                if (!string.IsNullOrEmpty(controllerNameArray[i]))
+                {
+                    //Not empty, controller temp[i] is connected
+                    Debug.Log("Controller " + i + " is connected using: " + controllerNameArray[i]);
+                }
+                else
+                {
+                    //If it is empty, controller i is disconnected
+                    //where i indicates the controller number
+                    Debug.Log("Controller: " + i + " is disconnected.");
+
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("No Controllers Connected");
+        }
+
+
+
 
         //Debug.Log("Status of hiding: " + getHideStatus() + " and key H press down:" + Input.GetKeyDown(KeyCode.H));
 
@@ -198,10 +246,11 @@ public class PlayerController : MonoBehaviour {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,whatIsGround);
         isLadder = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadder);
         isLadderTop = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadderTop);
+        Debug.Log("Num OF FUCKING controller: " + numberOfControllers);
 
-        if (InputManager.ActiveDevices.Count > 1)
+        if (numberOfControllers > 1)
         {
-            moveInput = InputManager.ActiveDevices[0].LeftStickX;
+            moveInput = InputManager.Devices[0].LeftStickX;
         }else
         {
             moveInput = Input.GetAxisRaw("Horizontal");
@@ -293,9 +342,9 @@ public class PlayerController : MonoBehaviour {
 
             if (isClimbing)
             {
-                if (InputManager.ActiveDevices.Count > 1)
+                if (numberOfControllers > 1)
                 {
-                    moveInput = InputManager.ActiveDevices[0].LeftStickY;
+                    moveInput = InputManager.Devices[0].LeftStickY;
                 }
                 else
                 {

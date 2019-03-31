@@ -203,8 +203,8 @@ void checkGrab()
     void Update()
     {
         checkGrab();
-        float x = InputManager.ActiveDevice.RightStickX;
-        float y = InputManager.ActiveDevice.RightStickY;
+        float x = InputManager.ActiveDevice.RightStickX * handRadius;
+        float y = InputManager.ActiveDevice.RightStickY * handRadius;
         //float x = Input.GetAxis("HandHorizontal") * handRadius;
         //float y = Input.GetAxis("HandVertical") * handRadius * (-1);
 

@@ -12,6 +12,10 @@ public class Jump2 : MonoBehaviour
     public float jumpVelocity;
     private PlayerController2 player2;
 
+    //Control scheme depending on connected controllers
+    string[] controllerNameArray;
+    int numberOfControllers;
+
     private void Awake()
     {
         //instantiate
@@ -28,6 +32,9 @@ public class Jump2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //gets number of devices at each fixedupdate
+        numberOfControllers = InputManager.Devices.Count;
+
         if (player2.isGrounded == true || player2.isLadder || player2.isLadderTop)
         {
             extraJumps = extraJumpsValue;
@@ -35,12 +42,12 @@ public class Jump2 : MonoBehaviour
 
         bool flagJump;
 
-        if (InputManager.ActiveDevices.Count > 1)
+        if (numberOfControllers > 1)
         {
-            flagJump = InputManager.ActiveDevices[1].Action1.IsPressed;
+            flagJump = InputManager.Devices[1].Action1.IsPressed;
         } else
         {
-            flagJump = InputManager.ActiveDevice.Action1.IsPressed;
+            flagJump = InputManager.Devices[1].Action1.IsPressed;
         }
 
         if (flagJump && extraJumps > 0)
