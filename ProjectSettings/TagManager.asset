@@ -35,6 +35,7 @@ TagManager:
   - BackgroundCamera
   - TorchFlame
   - BombStem
+  - Rope
   layers:
   - Default
   - TransparentFX
@@ -59,8 +60,8 @@ TagManager:
   - Critter
   - HiddenPlayerBody
   - Cover
-  - CannonBall
-  - CannonBush
+  - HandObjectGrab
+  - HandObjectDrag
   - InvisibleLayer
   - boulder
   - trigger

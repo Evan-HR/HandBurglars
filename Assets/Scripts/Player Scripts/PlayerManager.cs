@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
-    Vector2 mousePos, handPos, bodyMouseVector;
-    float bodyMouseDir, bodyMouseMag; // angle of the hand, magnitude of the hand
-
     // radius 
     public float handRadius;
 
     // movement constants; change from inspector
     public float walkSpeed, sneakSpeed, jumpSpeed;
     Transform handTransform, hingeTransform, bodyTransform;
-    RelativeJoint2D handTranslationJoint;
+
+
 
     // other unity components of the player
 
     public Animator m_animator;
     public SpriteRenderer m_spriteRenderer;
     public Rigidbody2D m_rigidBody2D;
+
+    public BoxCollider2D m_BoxCollider;
     public Rigidbody2D hand_rigidBody2D;
-    //public HandCollision handCollision;
 
     // collider booleans; determines player movement state
     bool onGround, onLadder, on1WayGround;
@@ -43,6 +42,19 @@ public class PlayerManager : MonoBehaviour {
     // movement booleans TEMPORARY -- KONG
     bool leftMove, rightMove;
 
+    //handMovement things ----------------------------------------
+
+    Vector2 mousePos, handPos, bodyMouseVector;
+    float bodyMouseDir, bodyMouseMag; // angle of the hand, magnitude of the hand
+
+    Vector2 targetDir, handTarget;
+
+    public float maxVelocity, maxForce, toVelocity, gain;
+
+    SliderJoint2D PhysicsTranslationJoint;
+    RelativeJoint2D MovementTranslationJoint;
+
+
     //grab things ------------------------------------------------
     //grab input booleans TEMPORARY  -- KONG
     bool grabInput, grabHoldInput, releaseInput;
@@ -52,40 +64,51 @@ public class PlayerManager : MonoBehaviour {
 
     public BoxCollider2D fist_box;
     
-    bool isHolding;
-    bool isFist;
+    bool isHolding, isFist, isSuspended;
     GameObject toGrabObject;
     GameObject heldObject;
     public FixedJoint2D handGrabJoint;
     public HingeJoint2D handDragHingeJoint;
     public SpringJoint2D handDragSpringJoint;
-
     Vector2 toGrabDist;
     Vector2 tempDist;
 
+    enum HANDSTATE {
+        Movement,
+        Dragging,
+        Suspended
+    }
 
-
-
-// class methods --------------------------------------------------------//
-// ----------------------------------------------------------------------//
-
-
-
-
+    HANDSTATE HandState;
 
 
 
 
-//--------------------------------------------------------------------------------------------COLLISION ENTER
-//-----------------------------------------------------------------------------------------------------------
+    // class methods --------------------------------------------------------//
+    // ----------------------------------------------------------------------//
+
+
+
+
+
+
+
+
+    //--------------------------------------------------------------------------------------------COLLISION ENTER
+    //-----------------------------------------------------------------------------------------------------------
     void OnCollisionEnter2D(Collision2D collision){
-        print("ouch");
         if(collision.gameObject.tag == "Ground")
         {
             onGround = true;
         }
      }
 
+    void OnCollisionStay2D(Collision2D collision){
+            if(collision.gameObject.tag == "Ground")
+            {
+                onGround = true;
+            }
+        }
 //--------------------------------------------------------------------------------------------COLLISION EXIT
 //----------------------------------------------------------------------------------------------------------
     void OnCollisionExit2D(Collision2D collision){
@@ -95,16 +118,32 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+    //public static void AccelerateTo(this Rigidbody body, Vector2 targetVelocity, float maxAccel)
+    //{
+    //    Vector2 deltaV = targetVelocity - (Vector2) body.velocity;
+    //    Vector2 accel = deltaV/Time.deltaTime;
+
+    //    if(accel.sqrMagnitude > maxAccel * maxAccel)
+    //        accel = accel.normalized * maxAccel;
+
+    //    body.AddForce(accel, ForceMode.Acceleration);
+    //}
 //--------------------------------------------------------------------------------------------START
 //-------------------------------------------------------------------------------------------------
 	// Use this for initialization
 	void Start () {
         bodyTransform = this.gameObject.transform;
         hingeTransform = bodyTransform.GetChild(0);
+        Debug.Log(hingeTransform.childCount);
         handTransform = hingeTransform.GetChild(0);
-        handTranslationJoint = handTransform.gameObject.GetComponent<RelativeJoint2D>();
-        //handCollision = handTransform.gameObject.GetComponent<HandCollision>();
+        PhysicsTranslationJoint = handTransform.gameObject.GetComponent<SliderJoint2D>();
+        MovementTranslationJoint = handTransform.gameObject.GetComponent<RelativeJoint2D>();
+        hand_rigidBody2D = handTransform.gameObject.GetComponent<Rigidbody2D>();
+        JointTranslationLimits2D tempLimits = PhysicsTranslationJoint.limits;
+        tempLimits.min = -handRadius;
+        PhysicsTranslationJoint.limits = tempLimits;
         toGrabObject = null;
+        HandState = HANDSTATE.Movement;
 
 	}
 
@@ -127,8 +166,9 @@ public class PlayerManager : MonoBehaviour {
         m_animator.SetFloat("Speed",Mathf.Abs(moveInput));
 
         // moveInput must be -1, 0, or 1. 
-        //m_rigidBody2D.AddForce(new Vector2(moveInput * walkSpeed, m_rigidBody2D.velocity.y));
-        m_rigidBody2D.velocity = new Vector2(moveInput * walkSpeed, m_rigidBody2D.velocity.y);
+        m_rigidBody2D.AddForce(new Vector2(moveInput * walkSpeed, 0));
+        print(m_rigidBody2D.velocity);
+        //m_rigidBody2D.velocity = new Vector2(moveInput * walkSpeed, m_rigidBody2D.velocity.y);
         print(onGround);
         if (moveInput < 0 && facingRight){ 
             facingRight = false;
@@ -140,6 +180,13 @@ public class PlayerManager : MonoBehaviour {
         }
 
         //---------------------------------------- JUMPING UPDATE
+
+        if (m_BoxCollider.IsTouchingLayers(LayerMask.NameToLayer("Ground"))) {
+            onGround = true;
+        } else { 
+            //onGround = false;
+        }
+
         jumpInput = Input.GetKeyDown(KeyCode.Space);
         jumpHoldInput = Input.GetKey(KeyCode.Space);
         if ((onGround || on1WayGround || onLadder) && jumpInput) {
@@ -156,28 +203,50 @@ public class PlayerManager : MonoBehaviour {
         }
         */
 
-        //---------------------------------------- HAND POSITION UPDATE---------------------------------------------------a 
-		mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //---------------------------------------- HAND POSITION UPDATE---------------------------------------------------
+
+		mousePos = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
         bodyMouseVector = mousePos - (Vector2) gameObject.transform.position;
-        //print(bodyMouseVector.x + ", " + bodyMouseVector.y);
         bodyMouseDir = Mathf.Rad2Deg * Mathf.Atan2(bodyMouseVector.x, bodyMouseVector.y);
         bodyMouseMag = bodyMouseVector.magnitude;
-        hingeTransform.rotation = Quaternion.Euler(0, 0, 90 -bodyMouseDir);
-        
-        // ----------------------- old hand code; does not use any joint / physics.
 
-        //float max = Mathf.Min(handRadius, bodyMouseMag);
-        //float min = Mathf.Min(handRadius, bodyMouseMag);
-        //JointTranslationLimits2D tempLimits = handSlider.limits;
-        //tempLimits.max = Mathf.Min(handRadius, bodyMouseMag);
-        //tempLimits.min = 0;
-        //handSlider.limits = tempLimits;
-        //handSlider.jointTranslation = tempLimits.max;
+        //while Dragging, more accurate physics is desired. 
+        //When suspended to an object like a rope forces related to the hand should be disabled.
+        if (HandState == HANDSTATE.Dragging){
+
+            MovementTranslationJoint.enabled = false;
+            PhysicsTranslationJoint.enabled = true;
+            hand_rigidBody2D.mass = 1;
+            hand_rigidBody2D.freezeRotation = false;
+
+            if (bodyMouseMag > handRadius){
+                handTarget = (Vector2) gameObject.transform.position + new Vector2(handRadius * Mathf.Sin(bodyMouseDir * Mathf.Deg2Rad), handRadius * Mathf.Cos(bodyMouseDir * Mathf.Deg2Rad));
+            } else {
+                handTarget = (Vector2) gameObject.transform.position + bodyMouseVector;
+            }
+
+            Vector2 dist = handTarget - (Vector2) handTransform.position;
+            Vector2 targetVelocity = Vector2.ClampMagnitude(toVelocity * dist, maxVelocity);
+            Vector2 error = targetVelocity-hand_rigidBody2D.velocity;
+            Vector2 force = Vector2.ClampMagnitude(gain * error, maxForce);
+            hand_rigidBody2D.AddForce(force);
+
+        } else if (HandState == HANDSTATE.Movement){
+            PhysicsTranslationJoint.enabled = false;
+            MovementTranslationJoint.enabled = true;
+            MovementTranslationJoint.linearOffset = new Vector2(0, Mathf.Min(bodyMouseMag, handRadius));
+            //hingeTransform.rotation = Quaternion.Euler(0, 0, 180 - bodyMouseDir);
+            handTransform.rotation = Quaternion.Euler(0, 0, 180 - bodyMouseDir);
+            //handTransform.position = (Vector2) gameObject.transform.position + bodyMouseVector;
+            //hand_rigidBody2D.mass = 0;
+            hand_rigidBody2D.freezeRotation = true;
+        }
+        
+
 
         // --------------------------------------
 
-
-        handTranslationJoint.linearOffset = new Vector2(0, Mathf.Min(handRadius, bodyMouseMag));
+        //tempLimits handSliderJoint.limits
 
         //----------------------------------------------------- HAND GRAB UPDATE---------------------------------------
         //get click, get click down
@@ -204,6 +273,13 @@ public class PlayerManager : MonoBehaviour {
                     // Drag Spring Joint formation
                     handDragSpringJoint.enabled = true;
                     handDragSpringJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
+
+                    //Change isSuspended to TRUE:
+                    if (heldObject.CompareTag("Rope")){
+                        HandState = HANDSTATE.Suspended;
+                    } else {
+                        HandState = HANDSTATE.Dragging;
+                    }
                 }
                 
                 
@@ -245,6 +321,8 @@ public class PlayerManager : MonoBehaviour {
                     //Drag Spring Joint Termination
                     handDragSpringJoint.enabled = false;
                     handDragSpringJoint.connectedBody = null;
+
+                    HandState = HANDSTATE.Movement;
                 }
                 
                 heldObject = null;
