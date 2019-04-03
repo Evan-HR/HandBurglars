@@ -123,7 +123,6 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        
         PlayerHealth = GetComponent<Health>();
         //FindObjectOfType<AudioManager>().Play("bossBattle");
         rb = GetComponent<Rigidbody2D>();
@@ -139,7 +138,7 @@ public class PlayerController : MonoBehaviour {
         //get CannonShoot
         cannonShoot = GameObject.FindObjectOfType<CannonShoot>();
         grabCannon = GameObject.FindObjectOfType<GrabCannon>();
-        print("at the start, the global health is:" +Health.sharedLives);
+        print("at the start, the global health is:" + Health.sharedLives);
         print("at the start, player health is " + PlayerHealth.health);
 
         //get connected controllers

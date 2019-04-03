@@ -23,6 +23,7 @@ TagManager:
   - Floor
   - CannonBall
   - cannonStem
+  - TopInfoText
   layers:
   - Default
   - TransparentFX
