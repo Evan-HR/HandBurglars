@@ -353,11 +353,12 @@ public class PlayerManager : MonoBehaviour {
 
         if (!isController) {
             mousePos = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }else {
-            mousePos = new Vector2(InputManager.Devices[indexDevice].RightStickX, InputManager.Devices[indexDevice].RightStickY);
+            bodyMouseVector = mousePos - (Vector2)gameObject.transform.position;
         }
-		
-        bodyMouseVector = mousePos - (Vector2) gameObject.transform.position;
+        else {
+            bodyMouseVector = new Vector2(InputManager.Devices[indexDevice].RightStickX, InputManager.Devices[indexDevice].RightStickY);
+            bodyMouseVector = bodyMouseVector * handRadius;
+        }
         bodyMouseDir = Mathf.Rad2Deg * Mathf.Atan2(bodyMouseVector.x, bodyMouseVector.y);
         bodyMouseMag = bodyMouseVector.magnitude;
 

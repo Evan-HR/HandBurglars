@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 922784610}
   m_Layer: 11
   m_Name: Handit2
-  m_TagString: Untagged
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,9 +99,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 50
-  m_LinearDrag: 2
+  m_LinearDrag: 4
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handRadius: 3
-  walkSpeed: 1000
+  walkSpeed: 3000
   sneakSpeed: 15
   jumpSpeed: 25
   m_animator: {fileID: 922784610}
@@ -157,7 +157,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 32768
-  jumpMultiplier: 11
+  jumpMultiplier: 33
   fallMultiplier: 11
   lowJumpMultiplier: 20
   climber: {fileID: 6620643869739027038}
