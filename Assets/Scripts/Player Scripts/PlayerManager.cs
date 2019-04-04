@@ -1,8 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using InControl;
 
 public class PlayerManager : MonoBehaviour {
+    private GameManager gameManager;
+    private PlayerData player1Data;
+    private PlayerData player2Data;
+
 
     // radius 
     public float handRadius;
@@ -28,7 +34,7 @@ public class PlayerManager : MonoBehaviour {
     public LayerMask whatIsGround;
 
     // horizontal movement things ---------------------------------
-    int moveHInput;
+    float moveHInput;
     bool facingRight = true;
 
     // movement booleans TEMPORARY -- KONG
@@ -83,6 +89,12 @@ public class PlayerManager : MonoBehaviour {
     public SpringJoint2D handDragSpringJoint;
     Vector2 toGrabDist;
     Vector2 tempDist;
+
+
+    //flag of controller type
+    private bool isController;
+
+    private int indexDevice;
 
     enum HANDSTATE {
         Movement,
@@ -160,8 +172,52 @@ public class PlayerManager : MonoBehaviour {
         PhysicsTranslationJoint.limits = tempLimits;
         toGrabObject = null;
         HandState = HANDSTATE.Movement;
-
 	}
+
+    void Awake(){
+        gameManager = GameManager.Instance;
+        Debug.Log("size of dic PlayerManager: " + GameManager.playerDataDict.Count);
+        player1Data = GameManager.playerDataDict[1];
+        player2Data = GameManager.playerDataDict[2];
+
+        // Debug.Log("player1 controller type:" + player1Data.controlDevice);
+        // Debug.Log("player2 controller type:" + player2Data.controlDevice);
+        // Debug.Log("devices count:" + InputManager.Devices.Count);
+        // Debug.Log("current gameobject tag:" + this.gameObject.tag);
+
+        if (this.gameObject.tag == "Player1"){
+            //Debug.Log("this is player 1 lalalala");
+            switch (player1Data.controlDevice)
+                {
+                    case PlayerData.ControlDevice.KEYBOARD:
+                        isController = false;
+                        break;
+                    default:
+                        isController = true;
+                        indexDevice = 0;
+                        break;
+                }
+            }
+        else if (this.gameObject.tag == "Player2"){
+            //Debug.Log("this is player 2 lalalala");
+            switch (player2Data.controlDevice)
+                {
+                    case PlayerData.ControlDevice.KEYBOARD:
+                        isController = false;
+                        break;
+                    default:
+                        isController = true;
+                        if (player1Data.controlDevice == PlayerData.ControlDevice.KEYBOARD){
+                            indexDevice = 0;
+                        }else{
+                            indexDevice = 1;
+                        }
+                        
+                        break;
+                }
+            }
+        //more else case if more than two players
+    }
 
 //--------------------------------------------------------------------------------------------UPDATE
 //--------------------------------------------------------------------------------------------------
@@ -171,11 +227,24 @@ public class PlayerManager : MonoBehaviour {
 
         print(onGround);
 
-        // TEMPMOVEINPUT START
-        leftMove = Input.GetKey("a");
-        rightMove = Input.GetKey("d");
-        
         moveHInput = 0;
+
+        // keyboard
+        if (!isController){
+            leftMove = Input.GetKey("a");
+            rightMove = Input.GetKey("d");
+            //Debug.Log("11111111111111");
+        } else {
+            moveHInput = InputManager.Devices[indexDevice].LeftStickX;
+            //Debug.Log("22222222222222");
+        }
+        
+        
+        // controller 
+
+        // end controller
+
+        
         if (leftMove) { moveHInput -=1; }
         if (rightMove) { moveHInput +=1; }
         
@@ -204,8 +273,14 @@ public class PlayerManager : MonoBehaviour {
         } else if (m_BoxCollider.IsTouchingLayers(LayerMask.NameToLayer("1WayGround"))) {
             on1WayGround = true;
         }
-        jumpInput = Input.GetKeyDown(KeyCode.Space);
-        jumpHoldInput = Input.GetKey(KeyCode.Space);
+        if (!isController) {
+            jumpInput = Input.GetKeyDown(KeyCode.Space);
+            jumpHoldInput = Input.GetKey(KeyCode.Space);
+        }else{
+            jumpInput = InputManager.Devices[indexDevice].Action1;
+            jumpHoldInput = InputManager.Devices[indexDevice].Action1.IsPressed;
+        }
+        
         if ((onGround || on1WayGround || onLadder) && jumpInput) {
             m_rigidBody2D.velocity = Vector2.up * jumpMultiplier;
             isClimbing = false;
@@ -229,9 +304,14 @@ public class PlayerManager : MonoBehaviour {
         // print(GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.NameToLayer("PlayerBody")));\
         print(isClimbing);
 
+        if (!isController) {
+            upwardMove = Input.GetKey("w");
+            downwardMove = Input.GetKey("s");
+        }else {
+            upwardMove = InputManager.Devices[indexDevice].LeftStickY;
+            downwardMove = InputManager.Devices[indexDevice].LeftStickY;
+        }
         
-        upwardMove = Input.GetKey("w");
-        downwardMove = Input.GetKey("s");
 
         if (onLadder && (upwardMove || downwardMove)){
             isClimbing = true;
@@ -265,11 +345,18 @@ public class PlayerManager : MonoBehaviour {
             m_rigidBody2D.gravityScale = 2;
 
         }
-            
+        
+
+        //---------------------------------------- HEALTH UPDATE ---------------------------------------------------------
 
         //---------------------------------------- HAND POSITION UPDATE---------------------------------------------------
 
-		mousePos = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (!isController) {
+            mousePos = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }else {
+            mousePos = new Vector2(InputManager.Devices[indexDevice].RightStickX, InputManager.Devices[indexDevice].RightStickY);
+        }
+		
         bodyMouseVector = mousePos - (Vector2) gameObject.transform.position;
         bodyMouseDir = Mathf.Rad2Deg * Mathf.Atan2(bodyMouseVector.x, bodyMouseVector.y);
         bodyMouseMag = bodyMouseVector.magnitude;
@@ -296,14 +383,19 @@ public class PlayerManager : MonoBehaviour {
             hand_rigidBody2D.AddForce(force);
 
         } else if (HandState == HANDSTATE.Movement){
-            PhysicsTranslationJoint.enabled = false;
-            MovementTranslationJoint.enabled = true;
-            MovementTranslationJoint.linearOffset = new Vector2(0, Mathf.Min(bodyMouseMag, handRadius));
-            //hingeTransform.rotation = Quaternion.Euler(0, 0, 180 - bodyMouseDir);
-            handTransform.rotation = Quaternion.Euler(0, 0, 180 - bodyMouseDir);
-            //handTransform.position = (Vector2) gameObject.transform.position + bodyMouseVector;
-            //hand_rigidBody2D.mass = 0;
-            hand_rigidBody2D.freezeRotation = true;
+            try{
+                PhysicsTranslationJoint.enabled = false;
+                MovementTranslationJoint.enabled = true;
+                MovementTranslationJoint.linearOffset = new Vector2(0, Mathf.Min(bodyMouseMag, handRadius));
+                //hingeTransform.rotation = Quaternion.Euler(0, 0, 180 - bodyMouseDir);
+                handTransform.rotation = Quaternion.Euler(0, 0, 180 - bodyMouseDir);
+                //handTransform.position = (Vector2) gameObject.transform.position + bodyMouseVector;
+                //hand_rigidBody2D.mass = 0;
+                hand_rigidBody2D.freezeRotation = true;
+            }catch (Exception e){
+                Debug.Log(e.StackTrace);
+
+            }
         }
         
 
@@ -315,9 +407,16 @@ public class PlayerManager : MonoBehaviour {
         //----------------------------------------------------- HAND GRAB UPDATE---------------------------------------
         //get click, get click down
         //TEMPORARY GRAB INPUTS -- KONG
-        grabHoldInput = Input.GetMouseButton(0);
-        grabInput = Input.GetMouseButtonDown(0);
-        releaseInput = Input.GetMouseButtonUp(0);
+        if (!isController) {
+            grabHoldInput = Input.GetMouseButton(0);
+            grabInput = Input.GetMouseButtonDown(0);
+            releaseInput = Input.GetMouseButtonUp(0);
+        }else {
+            grabHoldInput = InputManager.Devices[indexDevice].RightTrigger.IsPressed;
+            grabInput = grabHoldInput;
+            releaseInput = !grabInput;
+        }
+
         
 
         //if click and hand is free:

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using InControl;
 
 
 
@@ -100,6 +101,10 @@ public class PlayerController2 : MonoBehaviour
     public float camShakeAmt = 0.1f;
     CameraShake camShake;
 
+    //Control scheme depending on connected controllers
+    string[] controllerNameArray;
+    int numberOfControllers;
+
     private PlayerController2 instance;
 
 
@@ -133,6 +138,10 @@ public class PlayerController2 : MonoBehaviour
         print("initialization of player 2 is done");
         //print("at the start, the global health is:" + Health.sharedLives);
         //print("at the start, player health is " + PlayerHealth.health);
+
+        //get connected controllers
+        controllerNameArray = Input.GetJoystickNames();
+        numberOfControllers = controllerNameArray.Length;
     }
 
     //collision with monster hand
@@ -186,8 +195,16 @@ public class PlayerController2 : MonoBehaviour
         isLadder = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadder);
         isLadderTop = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadderTop);
 
-        moveInput = Input.GetAxisRaw("LeftJoystickHorizontal");
-        verticalMove = Input.GetAxisRaw("LeftJoystickVertical");
+        if (numberOfControllers > 1) {
+            moveInput = InputManager.Devices[1].LeftStickX;
+            verticalMove = InputManager.Devices[1].LeftStickY;
+        }else
+        {
+            moveInput = InputManager.Devices[1].LeftStickX;
+            verticalMove = InputManager.Devices[1].LeftStickY;
+        }
+        //moveInput = Input.GetAxisRaw("LeftJoystickHorizontal");
+        //verticalMove = Input.GetAxisRaw("LeftJoystickVertical");
 
         //crouching C, slow speed by crouchSpeed (adjust in inspector)
         if (moving && Input.GetKey(KeyCode.C))

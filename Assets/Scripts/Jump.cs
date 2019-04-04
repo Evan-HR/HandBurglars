@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class Jump : MonoBehaviour {
     //num jumps
@@ -9,6 +10,10 @@ public class Jump : MonoBehaviour {
     private Rigidbody2D rb;
     public float jumpVelocity;
     private PlayerController player;
+
+    //Control scheme depending on connected controllers
+    string[] controllerNameArray;
+    int numberOfControllers;
 
     private void Awake()
     {
@@ -25,19 +30,32 @@ public class Jump : MonoBehaviour {
     
 	// Update is called once per frame
 	void FixedUpdate () {
+        //gets number of devices at each fixedupdate
+        numberOfControllers = InputManager.Devices.Count;
+
         if (player.isGrounded == true || player.isLadder || player.isLadderTop)
         {
             extraJumps = extraJumpsValue;
-        } 
+        }
 
-        
-        if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0)
+        bool flagJump;
+
+        if (numberOfControllers > 1)
+        {
+            flagJump = InputManager.Devices[0].Action1.IsPressed;
+        }
+        else
+        {
+            flagJump = Input.GetKeyDown(KeyCode.Space);
+        }
+
+        if (flagJump && extraJumps > 0)
         {
             FindObjectOfType<AudioManager>().Play("jump");
             rb.velocity = Vector2.up * jumpVelocity;
             extraJumps--;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && (player.isGrounded == true || player.isLadder || player.isLadderTop))
+        else if (flagJump && extraJumps == 0 && (player.isGrounded == true || player.isLadder || player.isLadderTop))
         {
             FindObjectOfType<AudioManager>().Play("jump");
             rb.velocity = Vector2.up * jumpVelocity;

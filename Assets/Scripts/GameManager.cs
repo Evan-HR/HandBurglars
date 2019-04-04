@@ -1,12 +1,42 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour {
     public Scene scene;
 
+    public static GameManager instance = null;
+    private static readonly object padlock = new object();
+
+    //all player control device
+    //public PlayerData player1PlayerData { get; set; }
+    //public PlayerData player2PlayerData { get; set; }
+    //public PlayerData player3PlayerData { get; set; }
+    //public PlayerData player4PlayerData { get; set; }
+    public static Dictionary<int, PlayerData> playerDataDict = new Dictionary<int, PlayerData>();
+
+    GameManager()
+    {
+    }
+
+    public static GameManager Instance
+    {
+        get
+        {
+            //remove lock at this time
+                if (instance == null)
+                {
+                    instance = new GameManager();
+                }
+                return instance;
+            
+        }
+    }
+
     private void Awake()
     {
+        
         scene = SceneManager.GetActiveScene();
 
         if (scene.name == "Menu")
@@ -72,4 +102,12 @@ public class GameManager : MonoBehaviour {
     public void exitGame(){
         Application.Quit();
     }
+
+    // public void setPlayerDic(Dictionary<int, PlayerData> playerDic){
+    //     this.playerDataDict = playerDic;
+    // }
+
+    // public Dictionary<int, PlayerData> getPlayerDic(){
+    //     return playerDataDict;
+    // }
 }

@@ -38,6 +38,8 @@ TagManager:
   - Rope
   - 1WayGround
   - Player1
+  - TopInfoText
+  - GameManager
   layers:
   - Default
   - TransparentFX

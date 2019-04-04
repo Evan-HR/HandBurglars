@@ -22,7 +22,7 @@ public class HandCollision : MonoBehaviour
     {
         int layer = other.gameObject.layer;
         if (handObjLayer == (handObjLayer | (1 << layer)) && other.gameObject.GetComponent<Rigidbody2D>() != null){
-            print("OHYA");
+            //print("OHYA");
             PlayerManager.HandTriggerEnter2D(other);
         }
     }

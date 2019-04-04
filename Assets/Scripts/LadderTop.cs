@@ -13,13 +13,11 @@ public class LadderTop : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyUp(KeyCode.S)|| Input.GetAxisRaw("LeftJoystickVertical") < 0)
+        if (Input.GetKeyUp(KeyCode.S))
         {
-            //print("DOWN IS PRESSED!");
             waitTime = 0.1f;
-            //effector.rotationalOffset = 0;
         }
-        if (Input.GetKey(KeyCode.S)|| Input.GetAxisRaw("LeftJoystickVertical") < 0)
+        if (Input.GetKey(KeyCode.S))
         {
             if (waitTime <= 0)
             {
@@ -31,9 +29,8 @@ public class LadderTop : MonoBehaviour {
                 waitTime -= Time.deltaTime;
             }
         }
-        if (Input.GetKey(KeyCode.W)|| Input.GetAxisRaw("LeftJoystickVertical") > 0)
+        if (Input.GetKey(KeyCode.W))
         {
-            //print("UP IS PRESSED!");
             effector.rotationalOffset = 0;
         }
 
