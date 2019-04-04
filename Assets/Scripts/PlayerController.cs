@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 
 
@@ -75,6 +76,10 @@ public class PlayerController : MonoBehaviour {
     GrabCannon grabCannon;
     bool isShootCannon = false;
 
+    //Control scheme depending on connected controllers
+    string[] controllerNameArray;
+    int numberOfControllers;
+
 
 
     public bool getHideStatus()
@@ -118,7 +123,6 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        
         PlayerHealth = GetComponent<Health>();
         //FindObjectOfType<AudioManager>().Play("bossBattle");
         rb = GetComponent<Rigidbody2D>();
@@ -134,8 +138,19 @@ public class PlayerController : MonoBehaviour {
         //get CannonShoot
         cannonShoot = GameObject.FindObjectOfType<CannonShoot>();
         grabCannon = GameObject.FindObjectOfType<GrabCannon>();
-        print("at the start, the global health is:" +Health.sharedLives);
+        print("at the start, the global health is:" + Health.sharedLives);
         print("at the start, player health is " + PlayerHealth.health);
+
+        //get connected controllers
+        controllerNameArray = Input.GetJoystickNames();
+        //numberOfControllers = controllerNameArray.Length;
+        numberOfControllers = InputManager.Devices.Count;
+
+
+        foreach (InputDevice device in InputManager.Devices)
+        {
+            Debug.Log("InputDevice: " + device.Name);
+        }
     }
 
     //collision with monster hand 
@@ -190,6 +205,39 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate () {
+        numberOfControllers = InputManager.Devices.Count;
+
+
+        //Check whether array contains anything
+        if (controllerNameArray.Length > 0)
+        {
+            Debug.Log("Number of Controllers Connected: " + controllerNameArray.Length);
+
+            //Iterate over every element
+            for (int i = 0; i < controllerNameArray.Length; ++i)
+            {
+                //Check if the string is empty or not
+                if (!string.IsNullOrEmpty(controllerNameArray[i]))
+                {
+                    //Not empty, controller temp[i] is connected
+                    Debug.Log("Controller " + i + " is connected using: " + controllerNameArray[i]);
+                }
+                else
+                {
+                    //If it is empty, controller i is disconnected
+                    //where i indicates the controller number
+                    Debug.Log("Controller: " + i + " is disconnected.");
+
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("No Controllers Connected");
+        }
+
+
+
 
         //Debug.Log("Status of hiding: " + getHideStatus() + " and key H press down:" + Input.GetKeyDown(KeyCode.H));
 
@@ -197,8 +245,18 @@ public class PlayerController : MonoBehaviour {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,whatIsGround);
         isLadder = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadder);
         isLadderTop = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsLadderTop);
+        Debug.Log("Num OF FUCKING controller: " + numberOfControllers);
 
-        moveInput = Input.GetAxisRaw("Horizontal");
+        if (numberOfControllers > 1)
+        {
+            moveInput = InputManager.Devices[0].LeftStickX;
+        }else
+        {
+            moveInput = Input.GetAxisRaw("Horizontal");
+        }
+
+        //moveInput = Input.GetAxisRaw("Horizontal");
+
         //crouching C, slow speed by crouchSpeed (adjust in inspector)
         if (moving && Input.GetKey(KeyCode.C))
         {  
@@ -283,7 +341,14 @@ public class PlayerController : MonoBehaviour {
 
             if (isClimbing)
             {
-                verticalMove = Input.GetAxisRaw("Vertical");
+                if (numberOfControllers > 1)
+                {
+                    moveInput = InputManager.Devices[0].LeftStickY;
+                }
+                else
+                {
+                    moveInput = Input.GetAxisRaw("Vertical");
+                }
                 rb.velocity = new Vector2(rb.velocity.x, verticalMove * climbSpeed);
                 rb.gravityScale = 0;   //so the player doesn't fall down when on ladder
                 rb.velocity.Set(rb.velocity.x, 0); // gets rid of residual effects from gravity 

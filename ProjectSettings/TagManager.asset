@@ -37,6 +37,7 @@ TagManager:
   - BombStem
   - Rope
   - 1WayGround
+  - TopInfoText
   layers:
   - Default
   - TransparentFX
