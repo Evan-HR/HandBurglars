@@ -24,6 +24,8 @@ public class SceneManagerLevel1 : MonoBehaviour{
     public GameObject bombSmoke;
     public GameObject bombFire;
 
+    public bool canWin = false;
+
 public GameObject bombExplode;
 public GameObject bomb;
 public GameObject bottomHideout;
@@ -40,7 +42,13 @@ public GameObject bottomHideout;
         plankInitial.SetActive(false);
         FindObjectOfType<AudioManager>().Play("Lvl1FirstCrack");
     }
+public void setWinLevel1(){
+    canWin=true;
+}
 
+public bool getWinLevel1(){
+    return canWin;
+}
     void StartRamp()
     {
         FindObjectOfType<AudioManager>().Play("Lvl1SecondCrack");

@@ -5,6 +5,7 @@ using UnityEngine;
 public class boulderPlank : MonoBehaviour
 {
     public GameObject SceneManagerLevel1;
+    public SceneManagerLevel1 SceneManagerVariables;
 
     private void Awake()
     {
@@ -29,7 +30,9 @@ public class boulderPlank : MonoBehaviour
     {
         if(col.gameObject.tag == "RightDoor"){
             //print("got here collision");
+            SceneManagerVariables.setWinLevel1();
             SceneManagerLevel1.SendMessage("DestroyRightDoor");
+        
         }
         
     }

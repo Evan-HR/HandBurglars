@@ -2580,7 +2580,7 @@ Transform:
   - {fileID: 675549192}
   - {fileID: 1302674336}
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &147884723
 GameObject:
@@ -3317,6 +3317,7 @@ MonoBehaviour:
   dustCloud3: {fileID: 2120476064}
   bombSmoke: {fileID: 2053191167}
   bombFire: {fileID: 2053191166}
+  canWin: 0
   bombExplode: {fileID: 1524507268}
   bomb: {fileID: 2053191168}
   bottomHideout: {fileID: 147884723}
@@ -3449,6 +3450,77 @@ MonoBehaviour:
   m_CameraTransform: {fileID: 288488664}
   m_Influence: {x: 0.1, y: 0.1}
   m_DrawDebug: 0
+--- !u!1 &466443745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 466443748}
+  - component: {fileID: 466443747}
+  - component: {fileID: 466443746}
+  m_Layer: 0
+  m_Name: WinningZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &466443746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466443745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc1f4faf92a7b43807ba7ed4cf3498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneInfo: {fileID: 372945991}
+--- !u!61 &466443747
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466443745}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 82.815506, y: -0.7025411}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 14.719513, y: 8.267824}
+  m_EdgeRadius: 0
+--- !u!4 &466443748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466443745}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -29.406628, y: 4.602584, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &538357242
 GameObject:
   m_ObjectHideFlags: 0
@@ -3505,7 +3577,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &538357245
 MonoBehaviour:
@@ -3873,7 +3945,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &622551826
 GameObject:
@@ -4458,7 +4530,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5258faf38e7e8e645b6261cf34a033e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneManagerLevel1: {fileID: 0}
+  SceneManagerLevel1: {fileID: 372945990}
+  SceneManagerVariables: {fileID: 372945991}
 --- !u!1 &763354842
 GameObject:
   m_ObjectHideFlags: 0
@@ -5777,7 +5850,7 @@ Transform:
   - {fileID: 466200935}
   - {fileID: 1055648720}
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &893937821
 GameObject:
@@ -6270,6 +6343,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910881314739866178, guid: 9dee0b1e1d3123f439a3502080cc5274,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 7910881314739866176, guid: 9dee0b1e1d3123f439a3502080cc5274,
         type: 3}
@@ -7792,13 +7870,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Handit4 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 640210445, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -33.905697
+      value: 49.56
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.969115
+      value: 1.94
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7849,13 +7931,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Handit2
       objectReference: {fileID: 0}
+    - target: {fileID: 922784609, guid: 6dae8a475bb872f42a4a27f9113ef76c, type: 3}
+      propertyPath: m_TagString
+      value: Player1
+      objectReference: {fileID: 0}
     - target: {fileID: 922784616, guid: 6dae8a475bb872f42a4a27f9113ef76c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.4
+      value: -43.1
       objectReference: {fileID: 0}
     - target: {fileID: 922784616, guid: 6dae8a475bb872f42a4a27f9113ef76c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 922784616, guid: 6dae8a475bb872f42a4a27f9113ef76c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9226,7 +9312,7 @@ GameObject:
   - component: {fileID: 1742236145}
   m_Layer: 11
   m_Name: Handit4
-  m_TagString: Untagged
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9336,6 +9422,8 @@ MonoBehaviour:
   jumpMultiplier: 11
   fallMultiplier: 11
   lowJumpMultiplier: 20
+  climber: {fileID: 0}
+  climbSpeed: 0
   maxVelocity: 0
   maxForce: 0
   toVelocity: 0

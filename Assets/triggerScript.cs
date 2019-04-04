@@ -25,7 +25,7 @@ public class triggerScript : MonoBehaviour
     {
 
 if(sceneCheck.name=="Level1"){
-            if (col1.gameObject.tag == "Player")
+            if (col1.gameObject.tag == "Player1" || col1.gameObject.tag=="Player2")
         {
             //run start boulder from SceneManagerLevel1 script
             SceneManagerScript.SendMessage("StartBoulder");
