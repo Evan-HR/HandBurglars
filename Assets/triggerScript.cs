@@ -14,6 +14,8 @@ public class triggerScript : MonoBehaviour
     private GameObject SceneManagerScript;
     private bool firstExplosion=false;
 
+    public SceneManagerLevel2 sceneInfo2;
+
     private SpriteRenderer triggerUpRender, triggerDownRender;
     private void Awake()
     {
@@ -36,7 +38,7 @@ if(sceneCheck.name=="Level1"){
 
 }
 else if(sceneCheck.name=="Level2"){
-            if (col1.gameObject.tag == "Player" && id == 1)
+            if (col1.gameObject.layer == LayerMask.NameToLayer("PlayerBody") && id == 1)
         {
             triggerUp.SetActive(false);
             SceneManagerScript.SendMessage("FirstBarrierExplosion");
@@ -45,10 +47,11 @@ else if(sceneCheck.name=="Level2"){
 
         }
 
-        if (col1.gameObject.tag == "Player" && id==2)
+        if (col1.gameObject.layer == LayerMask.NameToLayer("PlayerBody") && id==2)
         {
 
             triggerUp.SetActive(false);
+            sceneInfo2.canWin2=true;
             SceneManagerScript.SendMessage("SecondBarrierExplosion");
 
 

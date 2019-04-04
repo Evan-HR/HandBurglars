@@ -20,6 +20,8 @@ public class SceneManagerLevel2 : MonoBehaviour{
 
         public GameObject bottomBarrier;
 
+        public bool canWin2=false;
+
 
     void FirstBarrierExplosion(){
         //print("got here");
