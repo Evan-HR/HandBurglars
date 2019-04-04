@@ -227,7 +227,7 @@ MonoBehaviour:
     m_Handle: 0
   triggerUp: {fileID: 51879891}
   triggerDown: {fileID: 276158175}
-  sceneInfo2: {fileID: 0}
+  sceneInfo2: {fileID: 1351694153}
 --- !u!61 &51879893
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10997,7 +10997,7 @@ MonoBehaviour:
     m_Handle: 0
   triggerUp: {fileID: 1841698271}
   triggerDown: {fileID: 1138468483}
-  sceneInfo2: {fileID: 0}
+  sceneInfo2: {fileID: 1351694153}
 --- !u!61 &1841698273
 BoxCollider2D:
   m_ObjectHideFlags: 0
