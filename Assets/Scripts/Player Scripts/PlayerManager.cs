@@ -28,9 +28,11 @@ public class PlayerManager : MonoBehaviour {
     public LayerMask whatIsGround;
 
     // horizontal movement things ---------------------------------
-    int moveInput;
+    int moveHInput;
     bool facingRight = true;
 
+    // movement booleans TEMPORARY -- KONG
+    bool leftMove, rightMove;
     //jump things -------------------------------------------------
     // set through inspector
     bool jumpInput; //TEMPORARY -- KONG
@@ -39,8 +41,17 @@ public class PlayerManager : MonoBehaviour {
     public float fallMultiplier;
     public float lowJumpMultiplier;
 
-    // movement booleans TEMPORARY -- KONG
-    bool leftMove, rightMove;
+    //climbing things ---------------------------------------------
+
+    int moveVInput;
+    bool isClimbing;
+
+    public BoxCollider2D climber;
+    public float climbSpeed;
+
+    // more movement booleans TEMPORARY -- KONG
+    bool upwardMove, downwardMove;
+    
 
     //handMovement things ----------------------------------------
 
@@ -96,10 +107,13 @@ public class PlayerManager : MonoBehaviour {
 
     //--------------------------------------------------------------------------------------------COLLISION ENTER
     //-----------------------------------------------------------------------------------------------------------
+
     void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.tag == "Ground")
         {
             onGround = true;
+        } else if (collision.gameObject.tag == "1WayGround"){
+            on1WayGround = true;
         }
      }
 
@@ -115,6 +129,8 @@ public class PlayerManager : MonoBehaviour {
         if(collision.gameObject.tag == "Ground")
         {
             onGround = false;
+        } else if (collision.gameObject.tag == "1WayGround"){
+            on1WayGround = false;
         }
     }
 
@@ -153,44 +169,46 @@ public class PlayerManager : MonoBehaviour {
 	void Update () {
         //----------------------------------------HORIZONTAL MOVEMENT UPDATE
 
+        print(onGround);
+
         // TEMPMOVEINPUT START
         leftMove = Input.GetKey("a");
         rightMove = Input.GetKey("d");
         
-        moveInput = 0;
-        if (leftMove) { moveInput -=1; }
-        if (rightMove) { moveInput +=1; }
+        moveHInput = 0;
+        if (leftMove) { moveHInput -=1; }
+        if (rightMove) { moveHInput +=1; }
         
         // TEMPMOVEINPUT END
 
-        m_animator.SetFloat("Speed",Mathf.Abs(moveInput));
+        m_animator.SetFloat("Speed",Mathf.Abs(moveHInput));
 
         // moveInput must be -1, 0, or 1. 
-        m_rigidBody2D.AddForce(new Vector2(moveInput * walkSpeed, 0));
-        print(m_rigidBody2D.velocity);
+        m_rigidBody2D.AddForce(new Vector2(moveHInput * walkSpeed, 0));
+        //print(m_rigidBody2D.velocity);
         //m_rigidBody2D.velocity = new Vector2(moveInput * walkSpeed, m_rigidBody2D.velocity.y);
-        print(onGround);
-        if (moveInput < 0 && facingRight){ 
+        //print(onGround);
+        if (moveHInput < 0 && facingRight){ 
             facingRight = false;
             m_spriteRenderer.flipX = true;
         } 
-        else if (moveInput > 0 && !facingRight){
+        else if (moveHInput > 0 && !facingRight){
             facingRight = true;
             m_spriteRenderer.flipX = false;
         }
 
-        //---------------------------------------- JUMPING UPDATE
+        //------------------------------------------------------------------------------ JUMPING UPDATE
 
         if (m_BoxCollider.IsTouchingLayers(LayerMask.NameToLayer("Ground"))) {
             onGround = true;
-        } else { 
-            //onGround = false;
+        } else if (m_BoxCollider.IsTouchingLayers(LayerMask.NameToLayer("1WayGround"))) {
+            on1WayGround = true;
         }
-
         jumpInput = Input.GetKeyDown(KeyCode.Space);
         jumpHoldInput = Input.GetKey(KeyCode.Space);
         if ((onGround || on1WayGround || onLadder) && jumpInput) {
             m_rigidBody2D.velocity = Vector2.up * jumpMultiplier;
+            isClimbing = false;
         }
         /* 
         if (m_rigidBody2D.velocity.y < 0)
@@ -202,6 +220,52 @@ public class PlayerManager : MonoBehaviour {
             m_rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier) * Time.deltaTime;
         }
         */
+
+        //------------------------------------------------------------------------------------ CLIMBING UPDATE
+        // if climbing: 
+
+        // onLadder = GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.NameToLayer("Ladder"));
+        // if (onLadder) {print("fuckyou");}
+        // print(GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.NameToLayer("PlayerBody")));\
+        print(isClimbing);
+
+        
+        upwardMove = Input.GetKey("w");
+        downwardMove = Input.GetKey("s");
+
+        if (onLadder && (upwardMove || downwardMove)){
+            isClimbing = true;
+        }
+
+        if (downwardMove && on1WayGround) {
+            gameObject.layer = LayerMask.NameToLayer("PlayerBodyGoingDown");
+        }
+
+        if (gameObject.layer == LayerMask.NameToLayer("PlayerBodyGoingDown") && !downwardMove){
+            gameObject.layer = LayerMask.NameToLayer("PlayerBody");
+        }
+
+        else if (!onLadder) {
+            isClimbing = false;
+        }
+
+        if (isClimbing){
+            // vertical input detection
+            moveVInput = 0;
+            if (upwardMove) { moveVInput += 1; }
+            if (downwardMove) { moveVInput -= 1; }
+            m_rigidBody2D.AddForce(new Vector2(0, moveVInput * climbSpeed));
+            m_rigidBody2D.gravityScale = 0;
+            hand_rigidBody2D.gravityScale = 0;
+        }
+            
+            
+        else {
+            // gravity on
+            m_rigidBody2D.gravityScale = 2;
+
+        }
+            
 
         //---------------------------------------- HAND POSITION UPDATE---------------------------------------------------
 
@@ -260,7 +324,7 @@ public class PlayerManager : MonoBehaviour {
         if (grabInput && !isHolding){
             if (toGrabObject != null){
                 heldObject = toGrabObject;
-                print("step 1");
+                //print("step 1");
                 if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectGrab")){
                     handGrabJoint.enabled = true;
                     handGrabJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
@@ -294,7 +358,7 @@ public class PlayerManager : MonoBehaviour {
         //if click is held:
         else if (grabHoldInput){
             if (isHolding){
-                print("step 2");
+                //print("step 2");
                 //keep holding
             } else {
                 // stay in fist mode
@@ -308,7 +372,7 @@ public class PlayerManager : MonoBehaviour {
                 isFist = false;
             }
             else if (isHolding){
-                print("step 3");
+                //print("step 3");
                 if (handGrabJoint.enabled){
                     handGrabJoint.enabled = false;
                     handGrabJoint.connectedBody = null;
@@ -362,9 +426,17 @@ public class PlayerManager : MonoBehaviour {
 
     public void HandTriggerExit2D(Collider2D other){
         if (other.gameObject == toGrabObject){
-            print("it worked");
+            //print("it worked");
             toGrabObject = null;
         }
+    }
+
+    public void LadderEnter(){
+        onLadder = true;
+    }
+
+    public void LadderExit(){
+        onLadder = false;
     }
 }
 

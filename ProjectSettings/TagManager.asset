@@ -36,6 +36,7 @@ TagManager:
   - TorchFlame
   - BombStem
   - Rope
+  - 1WayGround
   layers:
   - Default
   - TransparentFX
@@ -51,9 +52,9 @@ TagManager:
   - PlayerBody
   - Boss
   - Ladder
-  - LadderTop
+  - PlayerBodyGoingDown
   - Ground
-  - Cannon
+  - 1WayGround
   - Background
   - BossSpike
   - BossHand
@@ -67,7 +68,7 @@ TagManager:
   - trigger
   - camera
   - LevelBoundaryCollider
-  - 
+  - playerClimber
   - 
   m_SortingLayers:
   - name: Background

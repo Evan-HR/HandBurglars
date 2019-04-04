@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 640210447}
   - component: {fileID: 640210446}
   m_Layer: 11
-  m_Name: Handit4 (1)
+  m_Name: Handit4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,6 +33,7 @@ Transform:
   m_LocalPosition: {x: -33.905697, y: 8.969115, z: 0}
   m_LocalScale: {x: 11.4, y: 11.4, z: 1.3446815}
   m_Children:
+  - {fileID: 4000622386548725257}
   - {fileID: 1838876685}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -159,6 +160,8 @@ MonoBehaviour:
   jumpMultiplier: 11
   fallMultiplier: 11
   lowJumpMultiplier: 20
+  climber: {fileID: 7003725939648527226}
+  climbSpeed: 0
   maxVelocity: 300
   maxForce: 300
   toVelocity: 200
@@ -520,7 +523,7 @@ Transform:
   m_Children:
   - {fileID: 1420129682}
   m_Father: {fileID: 640210452}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1838876683
 Rigidbody2D:
@@ -567,3 +570,60 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!1 &5806975798628451804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4000622386548725257}
+  - component: {fileID: 7003725939648527226}
+  m_Layer: 30
+  m_Name: HanditClimber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000622386548725257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5806975798628451804}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.08771931, y: 0.08771931, z: 0.7436705}
+  m_Children: []
+  m_Father: {fileID: 640210452}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &7003725939648527226
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5806975798628451804}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.0103302}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.7768173, y: 3.499937}
+  m_EdgeRadius: 0

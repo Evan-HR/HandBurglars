@@ -57,6 +57,7 @@
      <Compile Include="Assets\boulderPlank.cs" />
      <Compile Include="Assets\boulderScript.cs" />
      <Compile Include="Assets\CameraRestrictBounds.cs" />
+     <Compile Include="Assets\ClimbDetection.cs" />
      <Compile Include="Assets\Game-Eye-2D-master\GameEye2D\Assets\GameEye2D\Core\Behaviours\FixedFollow.cs" />
      <Compile Include="Assets\Game-Eye-2D-master\GameEye2D\Assets\GameEye2D\Core\Behaviours\ScrollZoom.cs" />
      <Compile Include="Assets\Game-Eye-2D-master\GameEye2D\Assets\GameEye2D\Core\Behaviours\Shake.cs" />
