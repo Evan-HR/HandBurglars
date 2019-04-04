@@ -111,13 +111,12 @@ public class SelectorScript : MonoBehaviour {
             displayKeyboard();
             //playerSelectBool = false;
             // playerDataDicTemp = GameManager.Instance.getPlayerDic();
-            PlayerData playerData = new PlayerData(currentDevice, currentCharacter);
+
             // playerDataDicTemp.Add(1, playerData);
             // Debug.Log("playerDic playerDataDicTemp Count: " + playerDataDicTemp.Count);
             // //playerDataDicTemp.Add(1, new PlayerData(currentDevice, currentCharacter));
             // GameManager.Instance.setPlayerDic(playerDataDicTemp);
             //GameManager.Instance.playerDataDict.Add(1, new PlayerData(currentDevice, currentCharacter));
-            GameManager.playerDataDict.Add(1, playerData);
             characterList.Remove(currentCharacter);
 			topText.GetComponent<Text>().text = "Player 1\nSelect Controller";
 			changeTextCounter++;
@@ -130,6 +129,10 @@ public class SelectorScript : MonoBehaviour {
 
             //displayBru();
             //playerSelectBool = true;
+            Debug.Log("currentDevice: " + currentDevice);
+            Debug.Log("currentCharacter: " + currentCharacter);
+            PlayerData playerData = new PlayerData(currentDevice, currentCharacter);
+            GameManager.playerDataDict.Add(1, playerData);
             topText.GetComponent<Text>().text = "Player 2\nSelect Character";
 
             if (currentDevice == PlayerData.ControlDevice.KEYBOARD)
@@ -151,9 +154,7 @@ public class SelectorScript : MonoBehaviour {
             // Debug.Log("playerDic playerDataDicTemp Count: " + playerDataDicTemp.Count);
             // //playerDataDicTemp.Add(1, new PlayerData(currentDevice, currentCharacter));
             // GameManager.Instance.setPlayerDic(playerDataDicTemp);
-            PlayerData playerData = new PlayerData(currentDevice, currentCharacter);
-            GameManager.playerDataDict.Add(2, playerData);
-            Debug.Log("playerDic SelectorScript: " + GameManager.playerDataDict.Count);
+
             //GameManager.Instance.playerDataDict.Add(2, new PlayerData(currentDevice, currentCharacter));
             topText.GetComponent<Text>().text = "Player 2\nSelect Controller";
 			changeTextCounter++;
@@ -162,6 +163,11 @@ public class SelectorScript : MonoBehaviour {
         {
             //FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
             //FindObjectOfType<AudioManager>().Play("playAgain");
+            Debug.Log("currentDevice: " + currentDevice);
+            Debug.Log("currentCharacter: " + currentCharacter);
+            PlayerData playerData = new PlayerData(currentDevice, currentCharacter);
+            GameManager.playerDataDict.Add(2, playerData);
+            Debug.Log("playerDic SelectorScript: " + GameManager.playerDataDict.Count);
             if (currentDevice == PlayerData.ControlDevice.KEYBOARD)
             {
                 freeKeyboard -= 1;
@@ -169,7 +175,7 @@ public class SelectorScript : MonoBehaviour {
 
             //currentDevice = nextDevice();
 
-            Initiate.Fade("PlayerTest", Color.white, 0.6f);
+            Initiate.Fade("Level1", Color.white, 0.6f);
         }
 
         if (freeKeyboard <= 0)
@@ -178,10 +184,10 @@ public class SelectorScript : MonoBehaviour {
             Debug.Log("changeTextCounter: " + changeTextCounter);
         }
 
-        Debug.Log("changeTextCounter: " + changeTextCounter);
-        Debug.Log("freeKeyboard: " + freeKeyboard);
-        Debug.Log("currentDevice: " + currentDevice);
-        Debug.Log("currentCharacter: " + currentCharacter);
+        // Debug.Log("changeTextCounter: " + changeTextCounter);
+        // Debug.Log("freeKeyboard: " + freeKeyboard);
+        // Debug.Log("currentDevice: " + currentDevice);
+        // Debug.Log("currentCharacter: " + currentCharacter);
     }
 
 

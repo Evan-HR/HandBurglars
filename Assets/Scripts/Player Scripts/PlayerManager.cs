@@ -180,10 +180,10 @@ public class PlayerManager : MonoBehaviour {
         player1Data = GameManager.playerDataDict[1];
         player2Data = GameManager.playerDataDict[2];
 
-        // Debug.Log("player1 controller type:" + player1Data.controlDevice);
-        // Debug.Log("player2 controller type:" + player2Data.controlDevice);
-        // Debug.Log("devices count:" + InputManager.Devices.Count);
-        // Debug.Log("current gameobject tag:" + this.gameObject.tag);
+        Debug.Log("player1 controller type:" + player1Data.controlDevice);
+        Debug.Log("player2 controller type:" + player2Data.controlDevice);
+        Debug.Log("devices count:" + InputManager.Devices.Count);
+        Debug.Log("current gameobject tag:" + this.gameObject.tag);
 
         if (this.gameObject.tag == "Player1"){
             //Debug.Log("this is player 1 lalalala");
@@ -233,10 +233,10 @@ public class PlayerManager : MonoBehaviour {
         if (!isController){
             leftMove = Input.GetKey("a");
             rightMove = Input.GetKey("d");
-            //Debug.Log("11111111111111");
+            Debug.Log("11111111111111");
         } else {
             moveHInput = InputManager.Devices[indexDevice].LeftStickX;
-            //Debug.Log("22222222222222");
+            Debug.Log("22222222222222");
         }
         
         
