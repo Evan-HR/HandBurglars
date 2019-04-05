@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 
     GameManager()
     {
+
     }
 
     public static GameManager Instance

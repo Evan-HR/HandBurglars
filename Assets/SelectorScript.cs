@@ -120,7 +120,7 @@ public class SelectorScript : MonoBehaviour {
             characterList.Remove(currentCharacter);
 			topText.GetComponent<Text>().text = "Player 1\nSelect Controller";
 			changeTextCounter++;
-            currentCharacter = nextCharacter();
+            //currentCharacter = nextCharacter();
 		}
 		else if (changeTextCounter == 1)
 		{
@@ -129,8 +129,8 @@ public class SelectorScript : MonoBehaviour {
 
             //displayBru();
             //playerSelectBool = true;
-            Debug.Log("currentDevice: " + currentDevice);
-            Debug.Log("currentCharacter: " + currentCharacter);
+            Debug.Log("Player 1 addingDevice: " + currentDevice);
+            Debug.Log("Player 1 addingCharacter: " + currentCharacter);
             PlayerData playerData = new PlayerData(currentDevice, currentCharacter);
             GameManager.playerDataDict.Add(1, playerData);
             topText.GetComponent<Text>().text = "Player 2\nSelect Character";
@@ -141,6 +141,7 @@ public class SelectorScript : MonoBehaviour {
             }
 
             currentDevice = nextDevice();
+            currentCharacter = nextCharacter();
             changeTextCounter++;
 		}
 		else if (changeTextCounter == 2)
@@ -163,8 +164,8 @@ public class SelectorScript : MonoBehaviour {
         {
             //FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
             //FindObjectOfType<AudioManager>().Play("playAgain");
-            Debug.Log("currentDevice: " + currentDevice);
-            Debug.Log("currentCharacter: " + currentCharacter);
+            Debug.Log("Player 2 addingDevice: " + currentDevice);
+            Debug.Log("Player 2 addingCharacter: " + currentCharacter);
             PlayerData playerData = new PlayerData(currentDevice, currentCharacter);
             GameManager.playerDataDict.Add(2, playerData);
             Debug.Log("playerDic SelectorScript: " + GameManager.playerDataDict.Count);
@@ -206,6 +207,7 @@ public class SelectorScript : MonoBehaviour {
         controllerRender = ControllerIcon.GetComponent<SpriteRenderer>();
         displayBru();
         topText = GameObject.FindGameObjectWithTag("TopInfoText");
+        GameManager.playerDataDict.Clear();
         //public TileData[] tiles;
     }
 

@@ -203,9 +203,25 @@ public class PlayerManager : MonoBehaviour {
 
     void Awake(){
         gameManager = GameManager.Instance;
+        if (GameManager.playerDataDict.Count == 0)
+        {
+            Debug.Log("PlayerManager playerDataDic.Count == 0");
+            GameManager.playerDataDict.Add(1, new PlayerData(PlayerData.ControlDevice.KEYBOARD, "Bru"));
+            GameManager.playerDataDict.Add(2, new PlayerData(PlayerData.ControlDevice.CONTROLLER_1, "Jotun"));
+        }
         Debug.Log("size of dic PlayerManager: " + GameManager.playerDataDict.Count);
-        player1Data = GameManager.playerDataDict[1];
-        player2Data = GameManager.playerDataDict[2];
+        
+
+
+        if (GameManager.playerDataDict[1].characterName.Equals("Bru"))
+        {
+            player1Data = GameManager.playerDataDict[1];
+            player2Data = GameManager.playerDataDict[2];
+        } else
+        {
+            player1Data = GameManager.playerDataDict[2];
+            player2Data = GameManager.playerDataDict[1];
+        }
 
         Debug.Log("player1 controller type:" + player1Data.controlDevice);
         Debug.Log("player2 controller type:" + player2Data.controlDevice);
