@@ -154,6 +154,7 @@ MonoBehaviour:
   m_rigidBody2D: {fileID: 640210450}
   m_BoxCollider: {fileID: 1420129685}
   hand_rigidBody2D: {fileID: 1420129681}
+  hand_spriteRenderer: {fileID: 1420129678}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 32768
@@ -171,6 +172,10 @@ MonoBehaviour:
   handGrabJoint: {fileID: 1420129684}
   handDragHingeJoint: {fileID: 1420129683}
   handDragSpringJoint: {fileID: 1420129675}
+  damage_coolDown: 4
+  canBeHit: 0
+  tombstone: {fileID: 4102973225034973843, guid: 3d306b273b78698448def5b09ebf1025,
+    type: 3}
 --- !u!114 &640210447
 MonoBehaviour:
   m_ObjectHideFlags: 0

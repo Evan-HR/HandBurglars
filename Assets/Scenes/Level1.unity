@@ -2582,6 +2582,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &147634488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 147634489}
+  m_Layer: 0
+  m_Name: Respawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &147634489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147634488}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -47.69, y: 2.7, z: 1.8399242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &147884723
 GameObject:
   m_ObjectHideFlags: 0
@@ -3465,11 +3495,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 51.70571
+      value: -36.67
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.457032
+      value: 2.53
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7167,6 +7197,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch
       objectReference: {fileID: 0}
+    - target: {fileID: 5367037814899996044, guid: 8f5ab614dabd2ff449a02facc1fecc5d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 23
+      objectReference: {fileID: 0}
     - target: {fileID: 5367037814899996035, guid: 8f5ab614dabd2ff449a02facc1fecc5d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7220,6 +7255,16 @@ PrefabInstance:
     - target: {fileID: 5367037814899996035, guid: 8f5ab614dabd2ff449a02facc1fecc5d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367037814899996033, guid: 8f5ab614dabd2ff449a02facc1fecc5d,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367037813731838305, guid: 8f5ab614dabd2ff449a02facc1fecc5d,
+        type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -9483,6 +9528,7 @@ MonoBehaviour:
   m_rigidBody2D: {fileID: 1742236151}
   m_BoxCollider: {fileID: 0}
   hand_rigidBody2D: {fileID: 1264298185}
+  hand_spriteRenderer: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 32768
@@ -9500,6 +9546,9 @@ MonoBehaviour:
   handGrabJoint: {fileID: 1264298182}
   handDragHingeJoint: {fileID: 1264298181}
   handDragSpringJoint: {fileID: 1264298175}
+  damage_coolDown: 0
+  canBeHit: 0
+  tombstone: {fileID: 0}
 --- !u!61 &1742236150
 BoxCollider2D:
   m_ObjectHideFlags: 0

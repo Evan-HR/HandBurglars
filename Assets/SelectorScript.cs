@@ -175,7 +175,7 @@ public class SelectorScript : MonoBehaviour {
 
             //currentDevice = nextDevice();
 
-            Initiate.Fade("Level1", Color.white, 0.6f);
+            Initiate.Fade("Level2", Color.white, 0.6f);
         }
 
         if (freeKeyboard <= 0)

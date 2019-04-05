@@ -14,17 +14,20 @@ public class ClimbDetection : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider){
         if (collider.gameObject.layer == LayerMask.NameToLayer("Ladder")){
-            print("fuck");
-            // make onLadder true in code
+            print("laderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
             PlayerManager.LadderEnter();
+        } else if (collider.gameObject.layer == LayerMask.NameToLayer("Cover")){
+            PlayerManager.CoverEnter();
         }
     }
 
     void OnTriggerExit2D(Collider2D collider){
         if (collider.gameObject.layer == LayerMask.NameToLayer("Ladder")){
-            print("fuck2");
+            print("laddddddddddddddddddddddddddddddddddddddddddddddddddddddddddder");
             PlayerManager.LadderExit();
 
+        } else if (collider.gameObject.layer == LayerMask.NameToLayer("Cover")){
+            PlayerManager.CoverExit();
         }
     }
 }

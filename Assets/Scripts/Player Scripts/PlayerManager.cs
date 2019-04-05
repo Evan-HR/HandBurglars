@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour {
 
     public BoxCollider2D m_BoxCollider;
     public Rigidbody2D hand_rigidBody2D;
+    public SpriteRenderer hand_spriteRenderer;
 
     // collider booleans; determines player movement state
     bool onGround, onLadder, on1WayGround;
@@ -49,7 +50,7 @@ public class PlayerManager : MonoBehaviour {
 
     //climbing things ---------------------------------------------
 
-    int moveVInput;
+    float moveVInput;
     bool isClimbing;
 
     public BoxCollider2D climber;
@@ -104,8 +105,24 @@ public class PlayerManager : MonoBehaviour {
 
     HANDSTATE HandState;
 
+    // hiding things
 
+    bool isHiding;
+    bool inCover;
+    bool hideInput;
 
+    // health things
+
+    int health;
+    bool isDead;
+
+    public int damage_coolDown;
+    public bool canBeHit;
+
+    // death things
+    Vector2 respawnPos;
+
+    public GameObject tombstone;
 
     // class methods --------------------------------------------------------//
     // ----------------------------------------------------------------------//
@@ -128,16 +145,10 @@ public class PlayerManager : MonoBehaviour {
             on1WayGround = true;
         }
      }
-
-    void OnCollisionStay2D(Collision2D collision){
-            if(collision.gameObject.tag == "Ground")
-            {
-                onGround = true;
-            }
-        }
 //--------------------------------------------------------------------------------------------COLLISION EXIT
 //----------------------------------------------------------------------------------------------------------
     void OnCollisionExit2D(Collision2D collision){
+
         if(collision.gameObject.tag == "Ground")
         {
             onGround = false;
@@ -172,6 +183,15 @@ public class PlayerManager : MonoBehaviour {
         PhysicsTranslationJoint.limits = tempLimits;
         toGrabObject = null;
         HandState = HANDSTATE.Movement;
+        isHiding = false;
+
+        // health
+        health = 3;
+        isDead = false;
+        canBeHit = true;
+
+        // death
+        respawnPos = GameObject.Find("Respawn").transform.position;
 	}
 
     void Awake(){
@@ -236,7 +256,6 @@ public class PlayerManager : MonoBehaviour {
             Debug.Log("11111111111111");
         } else {
             moveHInput = InputManager.Devices[indexDevice].LeftStickX;
-            Debug.Log("22222222222222");
         }
         
         
@@ -331,9 +350,13 @@ public class PlayerManager : MonoBehaviour {
 
         if (isClimbing){
             // vertical input detection
-            moveVInput = 0;
-            if (upwardMove) { moveVInput += 1; }
-            if (downwardMove) { moveVInput -= 1; }
+            if (!isController) {
+                moveVInput = 0;
+                if (upwardMove) { moveVInput += 1; }
+                if (downwardMove) { moveVInput -= 1; }
+            } else {
+                moveVInput = InputManager.Devices[indexDevice].LeftStickY;
+            }
             m_rigidBody2D.AddForce(new Vector2(0, moveVInput * climbSpeed));
             m_rigidBody2D.gravityScale = 0;
             hand_rigidBody2D.gravityScale = 0;
@@ -348,6 +371,24 @@ public class PlayerManager : MonoBehaviour {
         
 
         //---------------------------------------- HEALTH UPDATE ---------------------------------------------------------
+        if (health <= 0){
+            isDead = true;
+            print("Vlad#2019");
+        }
+
+        if (isDead){
+            Vector2 tempPos = this.transform.position;
+            this.gameObject.SetActive(false);
+            //spawn a tombstone at current location
+            Instantiate(tombstone, transform.position,Quaternion.identity);
+            this.transform.position = respawnPos;
+            Invoke("Respawn", 5.0f);
+            //decrement global health
+            
+
+        }
+
+
 
         //---------------------------------------- HAND POSITION UPDATE---------------------------------------------------
 
@@ -492,13 +533,54 @@ public class PlayerManager : MonoBehaviour {
                 heldObject = null;
                 isHolding = false;
             }
+        } else if (!grabHoldInput && isFist){
+            isFist = false;
+        } else if (!grabHoldInput && isHolding){
+            isHolding = false;
+            handGrabJoint.enabled = false;
+            handGrabJoint.connectedBody = null;
+            handDragHingeJoint.enabled = false;
+            handDragHingeJoint.connectedBody = null;
+            handDragSpringJoint.enabled = false;
+            handDragSpringJoint.connectedBody = null;
         }
+
         hand_animator.SetBool("isGrip", (isFist || isHolding));
         if (isFist){ fist_box.enabled = true;}
         else { fist_box.enabled = false;}
 
+        // ----------------------------------------------------------------- HIDE UPDATE ------------------------------
+        if (!isController){
+            hideInput = Input.GetKeyDown("Q");
+        } else {
+            hideInput = InputManager.Devices[indexDevice].Action3;
+        }
+        
+
+        if (inCover){
+            if (hideInput) {
+                isHiding = true;
+                this.gameObject.layer = LayerMask.NameToLayer("HiddenPlayerBody");
+                print("Dustin#2019");
+                // grey out player
+                m_spriteRenderer.color = new Color32(0,0,0,184);
+                hand_spriteRenderer.color = new Color32(0,0,0,184);
+                // restrict movement -- Player State
+        }
+            }
+                
+
+        if ((isHiding && !hideInput) || (isHiding && !inCover)){
+            isHiding = false;
+            this.gameObject.layer = LayerMask.NameToLayer("PlayerBody");
+            //enable movement
+            m_spriteRenderer.color = new Color32(255,255,255,255);
+            hand_spriteRenderer.color = new Color32(255,255,255,255);
+        }
+            
             
     }
+        
 
     public void HandTriggerEnter2D(Collider2D other){
         if (toGrabObject == null){
@@ -537,6 +619,38 @@ public class PlayerManager : MonoBehaviour {
 
     public void LadderExit(){
         onLadder = false;
+    }
+
+    public void CoverEnter(){
+        inCover = true;
+    }
+
+    public void CoverExit(){
+        inCover = false;
+    }
+
+    public void takeDamage(int dmg_val){
+        health -= dmg_val;
+        canBeHit = false;
+        Invoke("resetCooldown", damage_coolDown);
+        m_spriteRenderer.color = new Color32(255,0,0,255);
+        Invoke("resetColor", 0.25f);
+    }
+
+    public void resetCooldown(){
+        canBeHit = true;
+    }
+
+    public void resetColor(){
+        m_spriteRenderer.color = new Color32(255,255,255,255);
+    }
+
+    public void Respawn(){
+        if (this.gameObject.activeSelf == false){
+            this.gameObject.SetActive(true);
+            health += 3;
+            isDead = false;
+        }
     }
 }
 
