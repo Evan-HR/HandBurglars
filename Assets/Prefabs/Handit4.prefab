@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 640210448}
   - component: {fileID: 640210447}
   - component: {fileID: 640210446}
+  - component: {fileID: 1789271448399107382}
   m_Layer: 11
   m_Name: Handit4
   m_TagString: Player2
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 190358d705d094145ba77278c752702b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -120,7 +121,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.08635553}
+  m_Offset: {x: 0, y: 0.021522015}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +132,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.13728894}
+  m_Size: {x: 0.24, y: 0.26314604}
   m_EdgeRadius: 0
 --- !u!114 &640210448
 MonoBehaviour:
@@ -153,6 +154,7 @@ MonoBehaviour:
   m_spriteRenderer: {fileID: 640210451}
   m_rigidBody2D: {fileID: 640210450}
   m_BoxCollider: {fileID: 1420129685}
+  m_CircleCollider: {fileID: 1789271448399107382}
   hand_rigidBody2D: {fileID: 1420129681}
   hand_spriteRenderer: {fileID: 1420129678}
   whatIsGround:
@@ -207,6 +209,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &1789271448399107382
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640210445}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.035317007}
+  serializedVersion: 2
+  m_Radius: 0.119682975
 --- !u!1 &1420129674
 GameObject:
   m_ObjectHideFlags: 0

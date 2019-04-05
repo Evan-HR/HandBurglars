@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 66780879}
   - component: {fileID: 66780880}
   m_Layer: 0
-  m_Name: Bru
+  m_Name: Eileen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 66780878}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.36, y: 1.72, z: 1.5834175}
-  m_LocalScale: {x: 1.473186, y: 1.473186, z: 1.473186}
+  m_LocalScale: {x: 10, y: 10, z: 1.473186}
   m_Children: []
   m_Father: {fileID: 1844319761}
   m_RootOrder: 0
@@ -180,7 +180,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f85a0bd7d50b678489dd32b41eb60dad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8509b4c1ae3e0b1459a26c416e48cd6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -806,7 +806,7 @@ GameObject:
   - component: {fileID: 1219247564}
   - component: {fileID: 1219247565}
   m_Layer: 0
-  m_Name: Jotun
+  m_Name: Bru
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -821,7 +821,7 @@ Transform:
   m_GameObject: {fileID: 1219247563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.18, y: 1.23, z: 1.5834175}
-  m_LocalScale: {x: 1.503848, y: 1.503848, z: 1.503848}
+  m_LocalScale: {x: 10, y: 10, z: 1.503848}
   m_Children: []
   m_Father: {fileID: 1844319761}
   m_RootOrder: 1
@@ -863,7 +863,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8c3c078276d487f4a8d4c0858779579d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 190358d705d094145ba77278c752702b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

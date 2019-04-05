@@ -74,7 +74,7 @@ public bool getWinLevel1(){
         dustCloud2.SetActive(true);
     }
 
-    void DestroyRightDoor(){
+    public void DestroyRightDoor(){
         //print("got here");
         FindObjectOfType<AudioManager>().Play("Lvl1SecondCrack");
         FindObjectOfType<AudioManager>().Play("cannon");

@@ -26,11 +26,13 @@ public class PlayerManager : MonoBehaviour {
     public Rigidbody2D m_rigidBody2D;
 
     public BoxCollider2D m_BoxCollider;
+
+    public CircleCollider2D m_CircleCollider;
     public Rigidbody2D hand_rigidBody2D;
     public SpriteRenderer hand_spriteRenderer;
 
     // collider booleans; determines player movement state
-    bool onGround, onLadder, on1WayGround;
+    bool onGround, onLadder, on1WayGround, onFist;
 
     public LayerMask whatIsGround;
 
@@ -111,6 +113,8 @@ public class PlayerManager : MonoBehaviour {
     bool inCover;
     bool hideInput;
 
+    LayerMask tempLayer;
+
     // health things
 
     int health;
@@ -137,25 +141,25 @@ public class PlayerManager : MonoBehaviour {
     //--------------------------------------------------------------------------------------------COLLISION ENTER
     //-----------------------------------------------------------------------------------------------------------
 
-    void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.tag == "Ground")
-        {
-            onGround = true;
-        } else if (collision.gameObject.tag == "1WayGround"){
-            on1WayGround = true;
-        }
-     }
+    // void OnCollisionEnter2D(Collision2D collision){
+    //     if(collision.gameObject.tag == "Ground")
+    //     {
+    //         onGround = true;
+    //     } else if (collision.gameObject.tag == "1WayGround"){
+    //         on1WayGround = true;
+    //     }
+    //  }
 //--------------------------------------------------------------------------------------------COLLISION EXIT
 //----------------------------------------------------------------------------------------------------------
-    void OnCollisionExit2D(Collision2D collision){
+    // void OnCollisionExit2D(Collision2D collision){
 
-        if(collision.gameObject.tag == "Ground")
-        {
-            onGround = false;
-        } else if (collision.gameObject.tag == "1WayGround"){
-            on1WayGround = false;
-        }
-    }
+    //     if(collision.gameObject.tag == "Ground")
+    //     {
+    //         onGround = false;
+    //     } else if (collision.gameObject.tag == "1WayGround"){
+    //         on1WayGround = false;
+    //     }
+    // }
 
     //public static void AccelerateTo(this Rigidbody body, Vector2 targetVelocity, float maxAccel)
     //{
@@ -183,7 +187,10 @@ public class PlayerManager : MonoBehaviour {
         PhysicsTranslationJoint.limits = tempLimits;
         toGrabObject = null;
         HandState = HANDSTATE.Movement;
+
+        // hide stuff
         isHiding = false;
+        tempLayer = this.gameObject.layer;
 
         // health
         health = 3;
@@ -246,7 +253,7 @@ public class PlayerManager : MonoBehaviour {
         //----------------------------------------HORIZONTAL MOVEMENT UPDATE
 
         print(onGround);
-
+    print(onLadder);
         moveHInput = 0;
 
         // keyboard
@@ -287,10 +294,15 @@ public class PlayerManager : MonoBehaviour {
 
         //------------------------------------------------------------------------------ JUMPING UPDATE
 
-        if (m_BoxCollider.IsTouchingLayers(LayerMask.NameToLayer("Ground"))) {
+        if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Ground"))) {
             onGround = true;
-        } else if (m_BoxCollider.IsTouchingLayers(LayerMask.NameToLayer("1WayGround"))) {
+            print("onGround");
+        } else if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("1WayGround"))) {
             on1WayGround = true;
+            print("on1Way");
+        } else if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Hand")) || m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Hand2")) ) {
+            onFist = true;
+            print("onFist");
         }
         if (!isController) {
             jumpInput = Input.GetKeyDown(KeyCode.Space);
@@ -300,27 +312,24 @@ public class PlayerManager : MonoBehaviour {
             jumpHoldInput = InputManager.Devices[indexDevice].Action1.IsPressed;
         }
         
-        if ((onGround || on1WayGround || onLadder) && jumpInput) {
+        if ((onGround /*|| on1WayGround || onLadder || onFist */) && jumpInput) {
             m_rigidBody2D.velocity = Vector2.up * jumpMultiplier;
             isClimbing = false;
         }
         /* 
         if (m_rigidBody2D.velocity.y < 0)
         {
-            m_rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier) * Time.deltaTime;
+            m_rigidBody2D.AddForce(Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
         }
         else if (m_rigidBody2D.velocity.y > 0 && !jumpHoldInput)
         {
-            m_rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier) * Time.deltaTime;
+            m_rigidBody2D.AddForce(Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime);
         }
         */
 
         //------------------------------------------------------------------------------------ CLIMBING UPDATE
         // if climbing: 
 
-        // onLadder = GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.NameToLayer("Ladder"));
-        // if (onLadder) {print("fuckyou");}
-        // print(GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.NameToLayer("PlayerBody")));\
         print(isClimbing);
 
         if (!isController) {
@@ -335,7 +344,7 @@ public class PlayerManager : MonoBehaviour {
         if (onLadder && (upwardMove || downwardMove)){
             isClimbing = true;
         }
-
+        print("downward move: " + downwardMove + ", on1WayGround: " + on1WayGround);
         if (downwardMove && on1WayGround) {
             gameObject.layer = LayerMask.NameToLayer("PlayerBodyGoingDown");
         }
@@ -359,6 +368,7 @@ public class PlayerManager : MonoBehaviour {
             }
             m_rigidBody2D.AddForce(new Vector2(0, moveVInput * climbSpeed));
             m_rigidBody2D.gravityScale = 0;
+            hingeTransform.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             hand_rigidBody2D.gravityScale = 0;
         }
             
@@ -366,6 +376,8 @@ public class PlayerManager : MonoBehaviour {
         else {
             // gravity on
             m_rigidBody2D.gravityScale = 2;
+            hingeTransform.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+            hand_rigidBody2D.gravityScale = 1;
 
         }
         
@@ -373,7 +385,6 @@ public class PlayerManager : MonoBehaviour {
         //---------------------------------------- HEALTH UPDATE ---------------------------------------------------------
         if (health <= 0){
             isDead = true;
-            print("Vlad#2019");
         }
 
         if (isDead){
@@ -436,8 +447,11 @@ public class PlayerManager : MonoBehaviour {
                 hand_rigidBody2D.freezeRotation = true;
             }catch (Exception e){
                 Debug.Log(e.StackTrace);
-
             }
+        } else if (HandState == HANDSTATE.Suspended){
+            MovementTranslationJoint.enabled = false;
+            PhysicsTranslationJoint.enabled = true;
+            hand_rigidBody2D.freezeRotation = false;
         }
         
 
@@ -551,12 +565,11 @@ public class PlayerManager : MonoBehaviour {
 
         // ----------------------------------------------------------------- HIDE UPDATE ------------------------------
         if (!isController){
-            hideInput = Input.GetKeyDown("q");
+            hideInput = Input.GetKey("q");
         } else {
             hideInput = InputManager.Devices[indexDevice].Action3;
         }
         
-
         if (inCover){
             if (hideInput) {
                 isHiding = true;
@@ -572,7 +585,7 @@ public class PlayerManager : MonoBehaviour {
 
         if ((isHiding && !hideInput) || (isHiding && !inCover)){
             isHiding = false;
-            this.gameObject.layer = LayerMask.NameToLayer("PlayerBody");
+            this.gameObject.layer = tempLayer;
             //enable movement
             m_spriteRenderer.color = new Color32(255,255,255,255);
             hand_spriteRenderer.color = new Color32(255,255,255,255);
@@ -650,6 +663,13 @@ public class PlayerManager : MonoBehaviour {
             this.gameObject.SetActive(true);
             health += 3;
             isDead = false;
+        } else {
+            // take one life
+            isDead = true;
+            this.gameObject.SetActive(false);
+            this.transform.position = respawnPos;
+            Invoke("Respawn", 5.0f);
+
         }
     }
 }

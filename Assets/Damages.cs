@@ -10,6 +10,8 @@ public class Damages : MonoBehaviour
     public float knockBackForce;
     int playerLayers;
      int playerLayer;
+
+     int player2Layer;
      int playerGDLayer;
 
     // Start is called before the first frame update
@@ -17,8 +19,9 @@ public class Damages : MonoBehaviour
     {
         dmg_collider = gameObject.GetComponent<BoxCollider2D>();
         playerLayer = 1 << LayerMask.NameToLayer("PlayerBody");
+        player2Layer = 1 << LayerMask.NameToLayer("PlayerBody2");
         playerGDLayer = 1 << LayerMask.NameToLayer("PlayerBodyGoingDown");
-         playerLayers = playerLayer | playerGDLayer;
+         playerLayers = playerLayer | playerGDLayer | player2Layer;
     }
 
     // Update is called once per frame

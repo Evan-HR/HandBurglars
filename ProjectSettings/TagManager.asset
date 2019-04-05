@@ -40,6 +40,7 @@ TagManager:
   - Player1
   - TopInfoText
   - GameManager
+  - Pit
   layers:
   - Default
   - TransparentFX
@@ -50,16 +51,16 @@ TagManager:
   - 
   - 
   - HandObjectDrag(Works)
-  - Hand
-  - Environment
+  - Hand1
+  - Hand2
   - PlayerBody
-  - Boss
+  - JustGround
   - Ladder
   - PlayerBodyGoingDown
   - Ground
   - 1WayGround
   - Background
-  - BossSpike
+  - PlayerBody2
   - BossHand
   - Critter
   - HiddenPlayerBody

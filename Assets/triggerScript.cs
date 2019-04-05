@@ -38,7 +38,7 @@ if(sceneCheck.name=="Level1"){
 
 }
 else if(sceneCheck.name=="Level2"){
-            if (col1.gameObject.layer == LayerMask.NameToLayer("PlayerBody") && id == 1)
+            if ((col1.gameObject.layer == LayerMask.NameToLayer("PlayerBody") || col1.gameObject.layer == LayerMask.NameToLayer("PlayerBody2")) && id == 1)
         {
             triggerUp.SetActive(false);
             SceneManagerScript.SendMessage("FirstBarrierExplosion");
@@ -47,7 +47,7 @@ else if(sceneCheck.name=="Level2"){
 
         }
 
-        if (col1.gameObject.layer == LayerMask.NameToLayer("PlayerBody") && id==2)
+        if ((col1.gameObject.layer == LayerMask.NameToLayer("PlayerBody") || col1.gameObject.layer == LayerMask.NameToLayer("PlayerBody2")) && id==2)
         {
 
             triggerUp.SetActive(false);

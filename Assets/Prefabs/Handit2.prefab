@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 922784612}
   - component: {fileID: 922784611}
   - component: {fileID: 922784610}
-  m_Layer: 11
+  - component: {fileID: 7323673623154677147}
+  m_Layer: 18
   m_Name: Handit2
   m_TagString: Player1
   m_Icon: {fileID: 0}
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 8509b4c1ae3e0b1459a26c416e48cd6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -120,7 +121,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00610663, y: -0.016270839}
+  m_Offset: {x: 0.00610663, y: 0.030557081}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +132,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16778675, y: 0.4074583}
+  m_Size: {x: 0.16778675, y: 0.31380245}
   m_EdgeRadius: 0
 --- !u!114 &922784612
 MonoBehaviour:
@@ -153,6 +154,7 @@ MonoBehaviour:
   m_spriteRenderer: {fileID: 922784615}
   m_rigidBody2D: {fileID: 922784614}
   m_BoxCollider: {fileID: 1057580846}
+  m_CircleCollider: {fileID: 7323673623154677147}
   hand_rigidBody2D: {fileID: 1057580848}
   hand_spriteRenderer: {fileID: 1057580840}
   whatIsGround:
@@ -207,6 +209,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &7323673623154677147
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922784609}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0049999934, y: -0.13631333}
+  serializedVersion: 2
+  m_Radius: 0.083686575
 --- !u!1 &1057580836
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +245,7 @@ GameObject:
   - component: {fileID: 1057580844}
   - component: {fileID: 1057580837}
   - component: {fileID: 1057580838}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Hand2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

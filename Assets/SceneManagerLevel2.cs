@@ -17,11 +17,11 @@ public class SceneManagerLevel2 : MonoBehaviour{
         public GameObject bombExplode;
 
         public GameObject bomb; 
-
+        GameObject Pit;
         public GameObject bottomBarrier;
 
-        public bool canWin2=false;
 
+        public bool canWin2=false;
 
     void FirstBarrierExplosion(){
         //print("got here");
@@ -39,6 +39,7 @@ public class SceneManagerLevel2 : MonoBehaviour{
         secondBarrier.SetActive(false);
         explosions2.SetActive(true);
         dustCloud2.SetActive(true);
+        canWin2 = true;
 
     }
 
@@ -53,8 +54,6 @@ public class SceneManagerLevel2 : MonoBehaviour{
         bomb.SetActive(false);
         bottomBarrier.SetActive(false);
     }
-
-    
 
   
 

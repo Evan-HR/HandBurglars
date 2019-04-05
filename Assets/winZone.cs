@@ -26,7 +26,7 @@ public Scene sceneCheck2;
     void OnTriggerEnter2D(Collider2D col)
     {
         if(sceneCheck2.name=="Level1"){
-        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody")){
+        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody") || col.gameObject.layer == LayerMask.NameToLayer("PlayerBody2") ){
             winners += 1;
         }
         if (winners == 2 && sceneInfo.canWin==true) { 
@@ -34,7 +34,7 @@ public Scene sceneCheck2;
         }
         }
         else if(sceneCheck2.name=="Level2"){
-        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody")){
+        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody") || col.gameObject.layer == LayerMask.NameToLayer("PlayerBody2")){
             winners += 1;
         }
         if (winners == 2 && sceneInfo2.canWin2==true) { 
@@ -48,7 +48,7 @@ public Scene sceneCheck2;
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody")){
+        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody") || col.gameObject.layer == LayerMask.NameToLayer("PlayerBody2")){
             winners -= 1;
         }
         if (winners < 2){  

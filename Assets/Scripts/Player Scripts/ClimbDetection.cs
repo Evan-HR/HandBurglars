@@ -15,7 +15,6 @@ public class ClimbDetection : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider){
         print("dfdfdfdfdfdfdfdfdfdfd");
         if (collider.gameObject.layer == LayerMask.NameToLayer("Ladder") ){
-            print("laderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
             PlayerManager.LadderEnter();
         } else if (collider.gameObject.layer == LayerMask.NameToLayer("Cover")){
             PlayerManager.CoverEnter();
@@ -24,7 +23,6 @@ public class ClimbDetection : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider){
         if (collider.gameObject.layer == LayerMask.NameToLayer("Ladder")){
-            print("laddddddddddddddddddddddddddddddddddddddddddddddddddddddddddder");
             PlayerManager.LadderExit();
 
         } else if (collider.gameObject.layer == LayerMask.NameToLayer("Cover")){
