@@ -469,7 +469,7 @@ public class PlayerManager : MonoBehaviour {
                 if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectGrab")){
                     handGrabJoint.enabled = true;
                     handGrabJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
-                } else if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectDrag")){
+                } else if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectDrag(Works)")){
 
                     // Drag Hinge Joint formation
                     handDragHingeJoint.enabled = true;
@@ -551,7 +551,7 @@ public class PlayerManager : MonoBehaviour {
 
         // ----------------------------------------------------------------- HIDE UPDATE ------------------------------
         if (!isController){
-            hideInput = Input.GetKeyDown("Q");
+            hideInput = Input.GetKeyDown("q");
         } else {
             hideInput = InputManager.Devices[indexDevice].Action3;
         }

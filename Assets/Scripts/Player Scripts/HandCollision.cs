@@ -13,7 +13,7 @@ public class HandCollision : MonoBehaviour
     void Start() {
         PlayerManager =  transform.parent.parent.gameObject.GetComponent<PlayerManager>();
         grabObjLayer = 1 << LayerMask.NameToLayer("HandObjectGrab");
-        dragObjLayer = 1 << LayerMask.NameToLayer("HandObjectDrag");
+        dragObjLayer = 1 << LayerMask.NameToLayer("HandObjectDrag(Works)");
          handObjLayer = grabObjLayer | dragObjLayer;
     }
     

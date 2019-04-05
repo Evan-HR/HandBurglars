@@ -162,7 +162,7 @@ MonoBehaviour:
   fallMultiplier: 11
   lowJumpMultiplier: 20
   climber: {fileID: 6620643869739027038}
-  climbSpeed: 0
+  climbSpeed: 400
   maxVelocity: 300
   maxForce: 300
   toVelocity: 200
@@ -585,6 +585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4816137597331878820}
   - component: {fileID: 6620643869739027038}
+  - component: {fileID: 1728776241298281718}
   m_Layer: 30
   m_Name: HanditClimber
   m_TagString: Untagged
@@ -632,3 +633,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9759693, y: 4.67865}
   m_EdgeRadius: 0
+--- !u!114 &1728776241298281718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4671439190987366047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441d3bc7a2556374990760dd93ad8744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
