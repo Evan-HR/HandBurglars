@@ -23,6 +23,16 @@ public class SceneManagerLevel2 : MonoBehaviour{
 
         public bool canWin2=false;
 
+    public void setWinLevel2()
+    {
+        canWin2 = true;
+    }
+
+    public bool getWinLevel2()
+    {
+        return canWin2;
+    }
+
     void FirstBarrierExplosion(){
         //print("got here");
         FindObjectOfType<AudioManager>().Play("Lvl1SecondCrack");
@@ -43,19 +53,23 @@ public class SceneManagerLevel2 : MonoBehaviour{
 
     }
 
-    void BombTorch(){
+    void BombTorch()
+    {
         bombSmoke.SetActive(true);
+        FindObjectOfType<AudioManager>().Play("smoke");
         bombFire.SetActive(true);
         Invoke("ExplodingRubble", 3);
     }
 
-    void ExplodingRubble(){
+    void ExplodingRubble()
+    {
+        FindObjectOfType<AudioManager>().Play("cannon");
         bombExplode.SetActive(true);
-        bomb.SetActive(false);
         bottomBarrier.SetActive(false);
+        bomb.SetActive(false);
     }
 
-  
+
 
 
 

@@ -56,7 +56,7 @@ public Scene sceneCheck2;
                 player2WinZone = true;
             }
 
-            if (player1WinZone && player2WinZone && sceneInfo.canWin == true)
+            if (player1WinZone && player2WinZone && sceneInfo2.canWin2 == true)
             {
                 Initiate.Fade("Victory", Color.white, 0.6f);
             }

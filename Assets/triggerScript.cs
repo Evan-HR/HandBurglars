@@ -14,6 +14,8 @@ public class triggerScript : MonoBehaviour
     private GameObject SceneManagerScript;
     private bool firstExplosion=false;
 
+
+
     public SceneManagerLevel2 sceneInfo2;
 
     private SpriteRenderer triggerUpRender, triggerDownRender;
@@ -51,7 +53,7 @@ else if(sceneCheck.name=="Level2"){
         {
 
             triggerUp.SetActive(false);
-            sceneInfo2.canWin2=true;
+            sceneInfo2.setWinLevel2();
             SceneManagerScript.SendMessage("SecondBarrierExplosion");
 
 
