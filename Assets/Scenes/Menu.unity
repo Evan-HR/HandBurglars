@@ -1434,7 +1434,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: smoke
-    clip: {fileID: 8300000, guid: b4d41402abe553f4b8828a60c4048f18, type: 3}
+    clip: {fileID: 8300000, guid: 387e57c1e4854494aadd34d1c173165c, type: 3}
     volume: 0.628
     volumeVariance: 0
     pitch: 1
@@ -1552,7 +1552,61 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: monsterBallHurt
     clip: {fileID: 8300000, guid: 39fb15078cf1bac44a032bd52c865969, type: 3}
-    volume: 0.835
+    volume: 0.87
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: drawingSceneMusic
+    clip: {fileID: 8300000, guid: 057da4bc7aa0f77468b152a2d7845883, type: 3}
+    volume: 0.779
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Lvl1FirstCrack
+    clip: {fileID: 8300000, guid: 2f483c2e916436a46911607e66689e35, type: 3}
+    volume: 0.779
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Lvl1SecondCrack
+    clip: {fileID: 8300000, guid: 82eda05be0369144dbb019c81ba8c327, type: 3}
+    volume: 0.779
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Lvl1ThirdCrackGround
+    clip: {fileID: 8300000, guid: 82eda05be0369144dbb019c81ba8c327, type: 3}
+    volume: 0.779
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Lvl1BallRoll
+    clip: {fileID: 8300000, guid: 902c2b2f9534c5447921b2767aa3cc2b, type: 3}
+    volume: 0.687
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Lvl1DestroyMiddle
+    clip: {fileID: 8300000, guid: b1979c651bd3d984e91ed4f9a20b1eb3, type: 3}
+    volume: 0.763
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0

@@ -73,7 +73,7 @@ TagManager:
   - camera
   - LevelBoundaryCollider
   - playerClimber
-  - 
+  - level1BluePlank
   m_SortingLayers:
   - name: Background
     uniqueID: 2152301383

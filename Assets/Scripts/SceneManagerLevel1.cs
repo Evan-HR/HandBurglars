@@ -51,6 +51,7 @@ public bool getWinLevel1(){
 }
     void StartRamp()
     {
+        print("got here");
         FindObjectOfType<AudioManager>().Play("Lvl1SecondCrack");
         FindObjectOfType<AudioManager>().Play("Lvl1BallRoll");
         rampColliderRender.enabled = false;
@@ -87,11 +88,13 @@ public bool getWinLevel1(){
 
         void BombTorch(){
         bombSmoke.SetActive(true);
+        FindObjectOfType<AudioManager>().Play("smoke");
         bombFire.SetActive(true);
         Invoke("ExplodingRubble", 3);
     }
 
     void ExplodingRubble(){
+        FindObjectOfType<AudioManager>().Play("cannon");
         bombExplode.SetActive(true);
         bomb.SetActive(false);
         bottomHideout.SetActive(false);

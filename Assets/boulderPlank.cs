@@ -14,9 +14,9 @@ public class boulderPlank : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "ramp")
+        if (col.gameObject.layer == LayerMask.NameToLayer("level1BluePlank"))
         {
-
+            print("GET HERE?");
             SceneManagerLevel1.SendMessage("StartRamp");
         }
 

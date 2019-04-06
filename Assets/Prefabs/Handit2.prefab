@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 922784611}
   - component: {fileID: 922784610}
   - component: {fileID: 7323673623154677147}
+  - component: {fileID: 2365202355412694675}
   m_Layer: 18
   m_Name: Handit2
   m_TagString: Player1
@@ -225,6 +226,21 @@ CircleCollider2D:
   m_Offset: {x: 0.0049999934, y: -0.13631333}
   serializedVersion: 2
   m_Radius: 0.083686575
+--- !u!114 &2365202355412694675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922784609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807f8d2bf0831224f8b2f509fa2f073f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Influence: {x: 1, y: 1}
+  m_DrawDebug: 0
+  m_Offset: {x: 0, y: 0}
 --- !u!1 &1057580836
 GameObject:
   m_ObjectHideFlags: 0

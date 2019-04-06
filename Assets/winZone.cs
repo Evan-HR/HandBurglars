@@ -11,50 +11,72 @@ public SceneManagerLevel2 sceneInfo2;
 
 public Scene sceneCheck2;
 
-    int winners;
+    bool player1WinZone = false;
+    bool player2WinZone = false;
 
     private void Awake()
     {
+        
         sceneCheck2 = SceneManager.GetActiveScene();
     }
-    void Start() 
-    {
-        winners = 0;
-    }
+
 
 //sceneCheck.name=="Level1"
     void OnTriggerEnter2D(Collider2D col)
     {
         if(sceneCheck2.name=="Level1"){
-        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody") || col.gameObject.layer == LayerMask.NameToLayer("PlayerBody2") ){
-            winners += 1;
-        }
-        if (winners == 2 && sceneInfo.canWin==true) { 
-            Initiate.Fade("Level2", Color.white, 0.6f);
-        }
-        }
-        else if(sceneCheck2.name=="Level2"){
-        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody") || col.gameObject.layer == LayerMask.NameToLayer("PlayerBody2")){
-            winners += 1;
-        }
-        if (winners == 2 && sceneInfo2.canWin2==true) { 
-            Initiate.Fade("Victory", Color.white, 0.6f);
+
+            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody")){
+
+                player1WinZone = true;
+            }
+            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody2"))
+            {
+
+                player2WinZone = true;
+            }
+
+            if (player1WinZone && player2WinZone && sceneInfo.canWin==true) { 
+                Initiate.Fade("Level2", Color.white, 0.6f);
+            }
         }
 
+
+        else if (sceneCheck2.name == "Level2")
+        {
+
+            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody"))
+            {
+
+                player1WinZone = true;
+            }
+            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody2"))
+            {
+
+                player2WinZone = true;
+            }
+
+            if (player1WinZone && player2WinZone && sceneInfo.canWin == true)
+            {
+                Initiate.Fade("Victory", Color.white, 0.6f);
+            }
         }
-        
+
 
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody") || col.gameObject.layer == LayerMask.NameToLayer("PlayerBody2")){
-            winners -= 1;
-        }
-        if (winners < 2){  
-            // no longer allowed to pass to next level
-        }
+            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody"))
+            {
 
+                player1WinZone = false;
+            }
+            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody2"))
+            {
+
+                player2WinZone = false;
+            }
 
 
     }
