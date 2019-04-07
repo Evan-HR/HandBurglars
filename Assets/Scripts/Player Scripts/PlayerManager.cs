@@ -49,6 +49,7 @@ public class PlayerManager : MonoBehaviour {
     public float jumpMultiplier;
     public float fallMultiplier;
     public float lowJumpMultiplier;
+    bool canJump;
 
     //climbing things ---------------------------------------------
 
@@ -268,15 +269,14 @@ public class PlayerManager : MonoBehaviour {
 	void Update () {
         //----------------------------------------HORIZONTAL MOVEMENT UPDATE
 
-        print(onGround);
-    print(onLadder);
+        //print(onGround);
+    //print(onLadder);
         moveHInput = 0;
 
         // keyboard
         if (!isController){
             leftMove = Input.GetKey("a");
             rightMove = Input.GetKey("d");
-            Debug.Log("11111111111111");
         } else {
             moveHInput = InputManager.Devices[indexDevice].LeftStickX;
         }
@@ -312,14 +312,23 @@ public class PlayerManager : MonoBehaviour {
 
         if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Ground"))) {
             onGround = true;
-            print("onGround");
-        } else if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("1WayGround"))) {
+            print("onGround is true");
+        } else {
+            onGround = false;
+        }
+        if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("1WayGround"))) {
             on1WayGround = true;
-            print("on1Way");
-        } else if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Hand")) || m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Hand2")) ) {
+            print("on1Way is true");
+        } else {
+            on1WayGround = false;
+        }
+        if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Hand")) || m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Hand2")) ) {
             onFist = true;
             print("onFist");
+        } else {
+            onFist = false;
         }
+
         if (!isController) {
             jumpInput = Input.GetKeyDown(KeyCode.Space);
             jumpHoldInput = Input.GetKey(KeyCode.Space);
@@ -328,9 +337,16 @@ public class PlayerManager : MonoBehaviour {
             jumpHoldInput = InputManager.Devices[indexDevice].Action1.IsPressed;
         }
         
-        if ((onGround /*|| on1WayGround || onLadder || onFist */) && jumpInput) {
-            m_rigidBody2D.velocity = Vector2.up * jumpMultiplier;
+        if ((onGround || on1WayGround || isClimbing || onFist ) && jumpInput) {
+            canJump = true;
+            print(canJump);
             isClimbing = false;
+        } else {
+            canJump = false;
+        }
+
+        if (canJump && m_rigidBody2D.velocity.y <= jumpMultiplier){
+            m_rigidBody2D.velocity = Vector2.up * jumpMultiplier;
         }
         /* 
         if (m_rigidBody2D.velocity.y < 0)
@@ -346,7 +362,7 @@ public class PlayerManager : MonoBehaviour {
         //------------------------------------------------------------------------------------ CLIMBING UPDATE
         // if climbing: 
 
-        print(isClimbing);
+        //print(isClimbing);
 
         if (!isController) {
             upwardMove = Input.GetKey("w");
@@ -360,7 +376,7 @@ public class PlayerManager : MonoBehaviour {
         if (onLadder && (upwardMove || downwardMove)){
             isClimbing = true;
         }
-        print("downward move: " + downwardMove + ", on1WayGround: " + on1WayGround);
+        //print("downward move: " + downwardMove + ", on1WayGround: " + on1WayGround);
         if (downwardMove && on1WayGround) {
             gameObject.layer = LayerMask.NameToLayer("PlayerBodyGoingDown");
         }
@@ -590,7 +606,6 @@ public class PlayerManager : MonoBehaviour {
             if (hideInput) {
                 isHiding = true;
                 this.gameObject.layer = LayerMask.NameToLayer("HiddenPlayerBody");
-                print("Dustin#2019");
                 // grey out player
                 m_spriteRenderer.color = new Color32(0,0,0,184);
                 hand_spriteRenderer.color = new Color32(0,0,0,184);
