@@ -49,7 +49,12 @@ public class PlayerManager : MonoBehaviour {
     public float jumpMultiplier;
     public float fallMultiplier;
     public float lowJumpMultiplier;
+
+    // is true only when character is in a state where they can jump
     bool canJump;
+
+    // set to true in Update when a character is going to jump, set to false in fixedUpdate when jumping is performed. 
+    bool doJump;
 
     //climbing things ---------------------------------------------
 
@@ -189,6 +194,10 @@ public class PlayerManager : MonoBehaviour {
         toGrabObject = null;
         HandState = HANDSTATE.Movement;
 
+        //jump stuff
+        canJump = false;
+        doJump = false;
+
         // hide stuff
         isHiding = false;
         tempLayer = this.gameObject.layer;
@@ -230,7 +239,6 @@ public class PlayerManager : MonoBehaviour {
         Debug.Log("current gameobject tag:" + this.gameObject.tag);
 
         if (this.gameObject.tag == "Player1"){
-            //Debug.Log("this is player 1 lalalala");
             switch (player1Data.controlDevice)
                 {
                     case PlayerData.ControlDevice.KEYBOARD:
@@ -243,7 +251,6 @@ public class PlayerManager : MonoBehaviour {
                 }
             }
         else if (this.gameObject.tag == "Player2"){
-            //Debug.Log("this is player 2 lalalala");
             switch (player2Data.controlDevice)
                 {
                     case PlayerData.ControlDevice.KEYBOARD:
@@ -295,7 +302,7 @@ public class PlayerManager : MonoBehaviour {
         m_animator.SetFloat("Speed",Mathf.Abs(moveHInput));
 
         // moveInput must be -1, 0, or 1. 
-        m_rigidBody2D.AddForce(new Vector2(moveHInput * walkSpeed, 0));
+        // m_rigidBody2D.AddForce(new Vector2(moveHInput * walkSpeed, 0));
         //print(m_rigidBody2D.velocity);
         //m_rigidBody2D.velocity = new Vector2(moveInput * walkSpeed, m_rigidBody2D.velocity.y);
         //print(onGround);
@@ -333,8 +340,8 @@ public class PlayerManager : MonoBehaviour {
             jumpInput = Input.GetKeyDown(KeyCode.Space);
             jumpHoldInput = Input.GetKey(KeyCode.Space);
         }else{
-            jumpInput = InputManager.Devices[indexDevice].Action1.WasPressed;
-            jumpHoldInput = InputManager.Devices[indexDevice].Action1.IsPressed;
+            jumpInput = InputManager.Devices[indexDevice].RightBumper.WasPressed;
+            jumpHoldInput = InputManager.Devices[indexDevice].RightBumper.IsPressed;
         }
         
         if ((onGround || on1WayGround || isClimbing || onFist )) {
@@ -344,20 +351,19 @@ public class PlayerManager : MonoBehaviour {
         } else {
             canJump = false;
         }
-        
+
         if (canJump && m_rigidBody2D.velocity.y <= jumpMultiplier && jumpInput){
-            m_rigidBody2D.velocity += Vector2.up * jumpMultiplier;
+            doJump = true;
         }
-        /* 
-        if (!canJump && m_rigidBody2D.velocity.y < 0 && !isSuspended)
-        {
-            m_rigidBody2D.velocity -=(Vector2.up * (fallMultiplier - 1));
-        }
-        else if (!canJump && m_rigidBody2D.velocity.y > 0 && !jumpHoldInput && !isSuspended)
-        {
-            m_rigidBody2D.velocity -= (Vector2.up * (lowJumpMultiplier - 1));
-        }
-        */
+
+        // if (!canJump && m_rigidBody2D.velocity.y < 0 && !isSuspended)
+        // {
+        //     m_rigidBody2D.velocity -=(Vector2.up * (fallMultiplier - 1));
+        // }
+        // else if (!canJump && m_rigidBody2D.velocity.y > 0 && !jumpHoldInput && !isSuspended)
+        // {
+        //     m_rigidBody2D.velocity -= (Vector2.up * (lowJumpMultiplier - 1));
+        // }
 
         //------------------------------------------------------------------------------------ CLIMBING UPDATE
         // if climbing: 
@@ -389,29 +395,29 @@ public class PlayerManager : MonoBehaviour {
             isClimbing = false;
         }
 
-        if (isClimbing){
-            // vertical input detection
-            if (!isController) {
-                moveVInput = 0;
-                if (upwardMove) { moveVInput += 1; }
-                if (downwardMove) { moveVInput -= 1; }
-            } else {
-                moveVInput = InputManager.Devices[indexDevice].LeftStickY;
-            }
-            m_rigidBody2D.AddForce(new Vector2(0, moveVInput * climbSpeed));
-            m_rigidBody2D.gravityScale = 0;
-            hingeTransform.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            hand_rigidBody2D.gravityScale = 0;
-        }
+        // if (isClimbing){
+        //     // vertical input detection
+        //     if (!isController) {
+        //         moveVInput = 0;
+        //         if (upwardMove) { moveVInput += 1; }
+        //         if (downwardMove) { moveVInput -= 1; }
+        //     } else {
+        //         moveVInput = InputManager.Devices[indexDevice].LeftStickY;
+        //     }
+        //     m_rigidBody2D.AddForce(new Vector2(0, moveVInput * climbSpeed));
+        //     m_rigidBody2D.gravityScale = 0;
+        //     hingeTransform.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        //     hand_rigidBody2D.gravityScale = 0;
+        // }
             
             
-        else {
-            // gravity on
-            m_rigidBody2D.gravityScale = 2;
-            hingeTransform.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
-            hand_rigidBody2D.gravityScale = 1;
+        // else {
+        //     // gravity on
+        //     m_rigidBody2D.gravityScale = 2;
+        //     hingeTransform.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+        //     hand_rigidBody2D.gravityScale = 1;
 
-        }
+        // }
         
 
         //---------------------------------------- HEALTH UPDATE ---------------------------------------------------------
@@ -624,7 +630,58 @@ public class PlayerManager : MonoBehaviour {
             
             
     }
+    
+    // -------------------------------------------------------------------------------- FIXED UPDATE ---------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // use for physics related changes that require constant fps
+    public void FixedUpdate() {
+
+
+        //walking update
+        m_rigidBody2D.AddForce(new Vector2(moveHInput * walkSpeed, 0));
+
+        //jumping update
+        if (doJump){
+            m_rigidBody2D.velocity += Vector2.up * jumpMultiplier;
+            doJump = false;
+        }
+
+        // falling
+        if (!canJump && m_rigidBody2D.velocity.y < 0 && !jumpHoldInput && !isClimbing && HandState != HANDSTATE.Suspended)
+        {
+            m_rigidBody2D.velocity -=(Vector2.up * (fallMultiplier - 1));
+        }
+
+        // low jump
+        else if (!canJump && m_rigidBody2D.velocity.y < 0 && !isClimbing && HandState != HANDSTATE.Suspended)
+        {
+            m_rigidBody2D.velocity -= (Vector2.up * (lowJumpMultiplier - 1));
+        }
         
+        // climbing ladder
+        if (isClimbing){
+            // vertical input detection
+            if (!isController) {
+                moveVInput = 0;
+                if (upwardMove) { moveVInput += 1; }
+                if (downwardMove) { moveVInput -= 1; }
+            } else {
+                moveVInput = InputManager.Devices[indexDevice].LeftStickY;
+            }
+            m_rigidBody2D.AddForce(new Vector2(0, moveVInput * climbSpeed));
+            m_rigidBody2D.gravityScale = 0;
+            hingeTransform.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            hand_rigidBody2D.gravityScale = 0;
+        } else {
+            // gravity on
+            m_rigidBody2D.gravityScale = 2;
+            hingeTransform.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+            hand_rigidBody2D.gravityScale = 1;
+
+        }
+
+        // end of fixed update
+    }
 
     public void HandTriggerEnter2D(Collider2D other){
         if (toGrabObject == null){

@@ -162,8 +162,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32768
   jumpMultiplier: 33
-  fallMultiplier: 11
-  lowJumpMultiplier: 20
+  fallMultiplier: 3
+  lowJumpMultiplier: 2
   climber: {fileID: 6620643869739027038}
   climbSpeed: 400
   maxVelocity: 300
