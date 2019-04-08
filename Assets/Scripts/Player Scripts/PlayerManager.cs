@@ -310,19 +310,19 @@ public class PlayerManager : MonoBehaviour {
 
         //------------------------------------------------------------------------------ JUMPING UPDATE
 
-        if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Ground"))) {
+        if (m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) {
             onGround = true;
             print("onGround is true");
         } else {
             onGround = false;
         }
-        if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("1WayGround"))) {
+        if (m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("1WayGround"))) {
             on1WayGround = true;
             print("on1Way is true");
         } else {
             on1WayGround = false;
         }
-        if (m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Hand")) || m_CircleCollider.IsTouchingLayers(LayerMask.NameToLayer("Hand2")) ) {
+        if (m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("Hand", "Hand2"))) {
             onFist = true;
             print("onFist");
         } else {
@@ -333,29 +333,29 @@ public class PlayerManager : MonoBehaviour {
             jumpInput = Input.GetKeyDown(KeyCode.Space);
             jumpHoldInput = Input.GetKey(KeyCode.Space);
         }else{
-            jumpInput = InputManager.Devices[indexDevice].Action1;
+            jumpInput = InputManager.Devices[indexDevice].Action1.WasPressed;
             jumpHoldInput = InputManager.Devices[indexDevice].Action1.IsPressed;
         }
         
-        if ((onGround || on1WayGround || isClimbing || onFist ) && jumpInput) {
+        if ((onGround || on1WayGround || isClimbing || onFist )) {
             canJump = true;
             print(canJump);
             isClimbing = false;
         } else {
             canJump = false;
         }
-
-        if (canJump && m_rigidBody2D.velocity.y <= jumpMultiplier){
-            m_rigidBody2D.velocity = Vector2.up * jumpMultiplier;
+        
+        if (canJump && m_rigidBody2D.velocity.y <= jumpMultiplier && jumpInput){
+            m_rigidBody2D.velocity += Vector2.up * jumpMultiplier;
         }
         /* 
-        if (m_rigidBody2D.velocity.y < 0)
+        if (!canJump && m_rigidBody2D.velocity.y < 0 && !isSuspended)
         {
-            m_rigidBody2D.AddForce(Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
+            m_rigidBody2D.velocity -=(Vector2.up * (fallMultiplier - 1));
         }
-        else if (m_rigidBody2D.velocity.y > 0 && !jumpHoldInput)
+        else if (!canJump && m_rigidBody2D.velocity.y > 0 && !jumpHoldInput && !isSuspended)
         {
-            m_rigidBody2D.AddForce(Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime);
+            m_rigidBody2D.velocity -= (Vector2.up * (lowJumpMultiplier - 1));
         }
         */
 

@@ -101,9 +101,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 50
-  m_LinearDrag: 2
+  m_LinearDrag: 4
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -118,7 +118,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 640210445}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3b9dc575dad4ce94b81079f6fc6a74e5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -148,20 +148,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handRadius: 3
-  walkSpeed: 1000
+  walkSpeed: 3000
   sneakSpeed: 15
   jumpSpeed: 25
   m_animator: {fileID: 640210446}
   m_spriteRenderer: {fileID: 640210451}
   m_rigidBody2D: {fileID: 640210450}
-  m_BoxCollider: {fileID: 1420129685}
+  m_BoxCollider: {fileID: 640210449}
   m_CircleCollider: {fileID: 1789271448399107382}
   hand_rigidBody2D: {fileID: 1420129681}
   hand_spriteRenderer: {fileID: 1420129678}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 32768
-  jumpMultiplier: 11
+  jumpMultiplier: 33
   fallMultiplier: 11
   lowJumpMultiplier: 20
   climber: {fileID: 7003725939648527226}
@@ -223,9 +223,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.035317007}
+  m_Offset: {x: 0, y: -0.0544232}
   serializedVersion: 2
-  m_Radius: 0.119682975
+  m_Radius: 0.10057677
 --- !u!114 &4671559252433943014
 MonoBehaviour:
   m_ObjectHideFlags: 0
