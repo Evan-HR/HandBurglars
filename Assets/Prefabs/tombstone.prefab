@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5456801137668018519}
   - component: {fileID: 6243701061534715766}
   - component: {fileID: 7028318611061653350}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tombstone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
