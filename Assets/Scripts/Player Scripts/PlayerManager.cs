@@ -134,6 +134,8 @@ public class PlayerManager : MonoBehaviour {
 
     public GameObject tombstone;
 
+    GameObject myTombstone;
+
     // class methods --------------------------------------------------------//
     // ----------------------------------------------------------------------//
 
@@ -429,9 +431,10 @@ public class PlayerManager : MonoBehaviour {
             Vector2 tempPos = this.transform.position;
             this.gameObject.SetActive(false);
             //spawn a tombstone at current location
-            Instantiate(tombstone, transform.position,Quaternion.identity);
+            
+            myTombstone = Instantiate(tombstone, transform.position,Quaternion.identity);
             this.transform.position = respawnPos;
-            Invoke("Respawn", 5.0f);
+            Invoke("Respawn", 3.0f);
             //decrement global health
             
 
@@ -747,16 +750,19 @@ public class PlayerManager : MonoBehaviour {
     }
 
     public void Respawn(){
+        // if health is zero
         if (this.gameObject.activeSelf == false){
             this.gameObject.SetActive(true);
+            myTombstone.SetActive(false);
             health += 3;
             isDead = false;
+        // if you fall off an edge
         } else {
             // take one life
             isDead = true;
             this.gameObject.SetActive(false);
             this.transform.position = respawnPos;
-            Invoke("Respawn", 5.0f);
+            Invoke("Respawn", 3.0f);
 
         }
     }

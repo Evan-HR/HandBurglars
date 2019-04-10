@@ -177,7 +177,7 @@ MonoBehaviour:
   handDragSpringJoint: {fileID: 1057580837}
   damage_coolDown: 4
   canBeHit: 0
-  tombstone: {fileID: 5713325231762459433, guid: a8e60426f0b04db45affe01e0947288f,
+  tombstone: {fileID: 8457277552836806745, guid: 671a69fb4cf3cbb4dafa5cb67eabac25,
     type: 3}
 --- !u!114 &922784611
 MonoBehaviour:
