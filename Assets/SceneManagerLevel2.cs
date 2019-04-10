@@ -15,6 +15,7 @@ public class SceneManagerLevel2 : MonoBehaviour{
     public GameObject bombSmoke;
     public GameObject bombFire;
         public GameObject bombExplode;
+    public GameObject rightDoor;
 
         public GameObject bomb; 
         GameObject Pit;
@@ -50,6 +51,7 @@ public class SceneManagerLevel2 : MonoBehaviour{
         explosions2.SetActive(true);
         dustCloud2.SetActive(true);
         canWin2 = true;
+        rightDoor.SetActive(true);
 
     }
 

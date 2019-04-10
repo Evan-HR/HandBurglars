@@ -37,7 +37,7 @@ public Scene sceneCheck2;
             }
 
             if (player1WinZone && player2WinZone && sceneInfo.canWin==true) { 
-                Initiate.Fade("Level2", Color.white, 0.6f);
+                Initiate.Fade("Level2", Color.white, 0.8f);
             }
         }
 
@@ -58,7 +58,7 @@ public Scene sceneCheck2;
 
             if (player1WinZone && player2WinZone && sceneInfo2.canWin2 == true)
             {
-                Initiate.Fade("Victory", Color.white, 0.6f);
+                Initiate.Fade("Victory", Color.white, 0.8f);
             }
         }
 

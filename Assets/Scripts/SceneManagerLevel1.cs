@@ -62,7 +62,7 @@ public bool getWinLevel1(){
     void MiddleCollide()
     {
         FindObjectOfType<AudioManager>().Play("Lvl1DestroyMiddle");
-        Invoke("Explosions", 0.5f);
+        Invoke("Explosions", 0.0f);
 
     }
     void Explosions()
