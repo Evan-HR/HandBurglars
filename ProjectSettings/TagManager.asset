@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hand
   - Dangerous
   - Hand2
   - Player2
@@ -41,6 +40,9 @@ TagManager:
   - TopInfoText
   - GameManager
   - Pit
+  - Hand1
+  - Fist1
+  - Fist2
   layers:
   - Default
   - TransparentFX
@@ -53,7 +55,7 @@ TagManager:
   - HandObjectDrag(Works)
   - Hand1
   - Hand2
-  - PlayerBody
+  - PlayerBody1
   - JustGround
   - Ladder
   - PlayerBodyGoingDown

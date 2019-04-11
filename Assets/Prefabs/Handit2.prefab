@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 2365202355412694675}
   m_Layer: 18
   m_Name: Handit2
-  m_TagString: Player1
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   fallMultiplier: 3
   lowJumpMultiplier: 2
   climber: {fileID: 6620643869739027038}
-  climbSpeed: 400
+  climbSpeed: 1200
   maxVelocity: 300
   maxForce: 300
   toVelocity: 200
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 1057580838}
   m_Layer: 10
   m_Name: Hand2
-  m_TagString: Untagged
+  m_TagString: Hand2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

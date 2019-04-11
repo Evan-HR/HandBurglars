@@ -120,6 +120,7 @@ public class PlayerManager : MonoBehaviour {
     bool hideInput;
 
     LayerMask tempLayer;
+    String tempHandTag;
 
     // health things
 
@@ -146,39 +147,21 @@ public class PlayerManager : MonoBehaviour {
 
 
 
-    //--------------------------------------------------------------------------------------------COLLISION ENTER
-    //-----------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------COLLISION ENTER
+//-----------------------------------------------------------------------------------------------------------
 
-    // void OnCollisionEnter2D(Collision2D collision){
-    //     if(collision.gameObject.tag == "Ground")
-    //     {
-    //         onGround = true;
-    //     } else if (collision.gameObject.tag == "1WayGround"){
-    //         on1WayGround = true;
-    //     }
-    //  }
-//--------------------------------------------------------------------------------------------COLLISION EXIT
-//----------------------------------------------------------------------------------------------------------
-    // void OnCollisionExit2D(Collision2D collision){
+    void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.tag == "Fist1" || collision.gameObject.tag == "Fist2")
+        {
+            if (m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("Hand1", "Hand2"))) {
+            onFist = true;
+            print("on fist is true");
+        } else {
+            onFist = false;
+            }
+        }
+    }
 
-    //     if(collision.gameObject.tag == "Ground")
-    //     {
-    //         onGround = false;
-    //     } else if (collision.gameObject.tag == "1WayGround"){
-    //         on1WayGround = false;
-    //     }
-    // }
-
-    //public static void AccelerateTo(this Rigidbody body, Vector2 targetVelocity, float maxAccel)
-    //{
-    //    Vector2 deltaV = targetVelocity - (Vector2) body.velocity;
-    //    Vector2 accel = deltaV/Time.deltaTime;
-
-    //    if(accel.sqrMagnitude > maxAccel * maxAccel)
-    //        accel = accel.normalized * maxAccel;
-
-    //    body.AddForce(accel, ForceMode.Acceleration);
-    //}
 //--------------------------------------------------------------------------------------------START
 //-------------------------------------------------------------------------------------------------
 	// Use this for initialization
@@ -198,11 +181,13 @@ public class PlayerManager : MonoBehaviour {
 
         //jump stuff
         canJump = false;
+        print("ONFIST IS" + onFist);
         doJump = false;
 
         // hide stuff
         isHiding = false;
         tempLayer = this.gameObject.layer;
+        tempHandTag = handTransform.gameObject.tag;
 
         // health
         health = 3;
@@ -319,7 +304,7 @@ public class PlayerManager : MonoBehaviour {
 
         //------------------------------------------------------------------------------ JUMPING UPDATE
 
-        if (m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) {
+        if (m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("Ground", "Water"))) {
             onGround = true;
             print("onGround is true");
         } else {
@@ -331,10 +316,7 @@ public class PlayerManager : MonoBehaviour {
         } else {
             on1WayGround = false;
         }
-        if (m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("Hand", "Hand2"))) {
-            onFist = true;
-            print("onFist");
-        } else {
+        if (!m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("Hand1", "Hand2"))) {
             onFist = false;
         }
 
@@ -349,13 +331,13 @@ public class PlayerManager : MonoBehaviour {
         if ((onGround || on1WayGround || isClimbing || onFist )) {
             canJump = true;
             print(canJump);
-            isClimbing = false;
         } else {
             canJump = false;
         }
 
         if (canJump && m_rigidBody2D.velocity.y <= jumpMultiplier && jumpInput){
             doJump = true;
+            isClimbing = false;
         }
 
         // if (!canJump && m_rigidBody2D.velocity.y < 0 && !isSuspended)
@@ -390,7 +372,7 @@ public class PlayerManager : MonoBehaviour {
         }
 
         if (gameObject.layer == LayerMask.NameToLayer("PlayerBodyGoingDown") && !downwardMove){
-            gameObject.layer = LayerMask.NameToLayer("PlayerBody");
+            gameObject.layer = tempLayer;
         }
 
         else if (!onLadder) {
@@ -600,9 +582,23 @@ public class PlayerManager : MonoBehaviour {
             handDragSpringJoint.connectedBody = null;
         }
 
+        // animator update
         hand_animator.SetBool("isGrip", (isFist || isHolding));
-        if (isFist){ fist_box.enabled = true;}
-        else { fist_box.enabled = false;}
+
+        // fist update
+        if (isFist){ 
+            fist_box.enabled = true;
+            if (tempHandTag == "Hand1"){
+                handTransform.gameObject.tag = "Fist1";
+            } else if (tempHandTag == "Hand2") {
+                handTransform.gameObject.tag = "Fist2";
+            }
+
+        }
+        else { 
+            fist_box.enabled = false;
+            handTransform.gameObject.tag = tempHandTag;
+        }
 
         // ----------------------------------------------------------------- HIDE UPDATE ------------------------------
         if (!isController){
@@ -753,7 +749,7 @@ public class PlayerManager : MonoBehaviour {
         // if health is zero
         if (this.gameObject.activeSelf == false){
             this.gameObject.SetActive(true);
-            myTombstone.SetActive(false);
+            //myTombstone.SetActive(false);
             health += 3;
             isDead = false;
         // if you fall off an edge

@@ -26,7 +26,7 @@ public Scene sceneCheck2;
     {
         if(sceneCheck2.name=="Level1"){
 
-            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody")){
+            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody1")){
 
                 player1WinZone = true;
             }
@@ -45,7 +45,7 @@ public Scene sceneCheck2;
         else if (sceneCheck2.name == "Level2")
         {
 
-            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody"))
+            if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBody1"))
             {
 
                 player1WinZone = true;

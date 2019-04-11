@@ -18,7 +18,7 @@ public class Damages : MonoBehaviour
     void Start()
     {
         dmg_collider = gameObject.GetComponent<BoxCollider2D>();
-        playerLayer = 1 << LayerMask.NameToLayer("PlayerBody");
+        playerLayer = 1 << LayerMask.NameToLayer("PlayerBody1");
         player2Layer = 1 << LayerMask.NameToLayer("PlayerBody2");
         playerGDLayer = 1 << LayerMask.NameToLayer("PlayerBodyGoingDown");
          playerLayers = playerLayer | playerGDLayer | player2Layer;
