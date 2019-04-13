@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void Awake()
+    public void Awake()
     {
         
         scene = SceneManager.GetActiveScene();
@@ -46,13 +46,14 @@ public class GameManager : MonoBehaviour {
             //FindObjectOfType<AudioManager>().Play("birds");
 
         }
-        else if (scene.name == "DrawingScene")
+        else if (scene.name == "Level1")
         {
             FindObjectOfType<AudioManager>().Play("drawingSceneMusic");
         }
-        else if (scene.name == "POC_BOSS")
+        else if (scene.name == "Victory")
         {
-            FindObjectOfType<AudioManager>().Play("bossBattle");
+            FindObjectOfType<AudioManager>().Stop("drawingSceneMusic");
+            FindObjectOfType<AudioManager>().Play("victory");
         }
     }
 

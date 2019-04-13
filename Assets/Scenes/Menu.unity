@@ -1561,7 +1561,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: drawingSceneMusic
     clip: {fileID: 8300000, guid: 057da4bc7aa0f77468b152a2d7845883, type: 3}
-    volume: 0.779
+    volume: 0.433
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
