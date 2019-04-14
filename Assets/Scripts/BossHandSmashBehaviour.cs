@@ -15,6 +15,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
     private Vector2 shakeSpot;
     public float sitTimer;
     private float waitTime;
+    private float stunTime;
 
 
     private Transform player1Transform;
@@ -36,6 +37,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
     private float smashHandInitYPos;
     private float bossSmashHandStateTime = 5;
     private BossFollow bossFollow;
+    private bool isHandSmash = true;
 
     //Fade Hand Upon Death
     public SpriteRenderer bossHandSpriteRenderer;
@@ -51,7 +53,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
         SIT,
         RECOVER,
         HOLD,
-        HIT_SPIKE,
+        HIT_TORCH,
         DEAD
     }
 
@@ -68,7 +70,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
         bossFollow = GameObject.FindObjectOfType<BossFollow>();
         smashHandInitYPos = transform.position.y;
         bossSmashHandGameObject = GameObject.FindGameObjectWithTag("BossSmashHand");
-        player1Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        player1Transform = GameObject.FindGameObjectWithTag("Player1").GetComponent<Transform>();
         player2Transform = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
         bossBodyTransform = GameObject.FindGameObjectWithTag("BossBody").GetComponent<Transform>();
 
@@ -104,17 +106,22 @@ public class BossHandSmashBehaviour : MonoBehaviour
         //    }
         //}
 
-        if (handState == HandState.START)
-        {
-            //Debug.Log("HandState = START");
-            bossSmashHandGameObject.GetComponent<Renderer>().enabled = false;
+        //if (handState == HandState.START)
+        //{
+        //    //Debug.Log("HandState = START");
+        //    //bossSmashHandGameObject.GetComponent<Renderer>().enabled = false;
+        //    Debug.Log("BossHand enabled");
+        //    bossSmashHandGameObject.GetComponent<Renderer>().enabled = true;
+        //    handState = HandState.FOLLOW;
 
-        }
-        else
-        {
-            bossSmashHandGameObject.GetComponent<Renderer>().enabled = true;
 
-        }
+        //}
+        //else
+        //{
+        //    //bossSmashHandGameObject.GetComponent<Renderer>().enabled = true;
+        //    bossSmashHandGameObject.GetComponent<Renderer>().enabled = false;
+
+        //}
 
 
         // ------------------------------------------------ FOLLOW
@@ -129,7 +136,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
             }
             else
             {
-                target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+                target = GameObject.FindGameObjectWithTag("Player1").GetComponent<Transform>();
                 //Debug.Log("target Player1");
 
             }
@@ -163,14 +170,31 @@ public class BossHandSmashBehaviour : MonoBehaviour
         // ------------------------------------------------ SHAKE
         else if (handState == HandState.SHAKE)
         {
-            transform.position = new Vector2(shakeSpot.x + Mathf.Sin(Time.time * shakeSpeed) * shakeMagnitude, shakeSpot.y);
+            Debug.Log("BossHandSmashBehaviour HandState.SHAKE");
+
+            if (!isHandSmash)
+            {
+                this.GetComponent<CircleCollider2D>().enabled = true;
+                this.GetComponent<BoxCollider2D>().enabled = true;
+            }
+
+            transform.position = new Vector2(transform.position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeMagnitude, transform.position.y);
             //Debug.Log("HandState SHAKE position: " + Vector2.Distance(bossBodyVector2, handRecoverVector2));
 
             waitTime -= Time.deltaTime;
             if (waitTime <= 0)
             {
-                transform.position = Vector2.MoveTowards(transform.position, shakeSpot, smashSpeed * Time.deltaTime);
-                handState = HandState.SMASH;
+                //transform.position = Vector2.MoveTowards(transform.position, handSmashVector2, smashSpeed * Time.deltaTime);
+
+                if (isHandSmash)
+                {
+                    handState = HandState.SMASH;
+                }
+                else
+                {
+                    handState = HandState.RECOVER;
+                }
+
             }
         }
 
@@ -181,46 +205,52 @@ public class BossHandSmashBehaviour : MonoBehaviour
         {
             //Debug.Log("HandState = SMASH");
             handState = HandState.SMASH;
-            handSmashVector2 = new Vector2(transform.position.x, 0);
+            handSmashVector2 = new Vector2(transform.position.x, 2);
             transform.position = Vector2.MoveTowards(transform.position, handSmashVector2, smashSpeed * Time.deltaTime);
             //Debug.Log("HandState SMASH position: " + Vector2.Distance(transform.position, handVector2XPos));
             if (Vector2.Distance(handSmashVector2, transform.position) == 0)
             {
-                handState = HandState.RECOVER;
+                waitTime = 5;
+                isHandSmash = false;
+                handState = HandState.SHAKE;
             }
         }
         // ------------------------------------------------ RECOVER
-        else if ((Vector2.Distance(bossBodyVector2, handVector2XPos) == 0) || handState == HandState.RECOVER)
-        //else if (handState == HandState.RECOVER)
+        //else if ((Vector2.Distance(bossBodyVector2, handVector2XPos) == 0) || handState == HandState.RECOVER)
+        else if (handState == HandState.RECOVER)
         {
             // Debug.Log("HandState = RECOVER");
             handState = HandState.RECOVER;
+            this.GetComponent<CircleCollider2D>().enabled = false;
+            this.GetComponent<BoxCollider2D>().enabled = false;
             transform.position = Vector2.MoveTowards(transform.position, handRecoverVector2, recoverSpeed * Time.deltaTime);
             // Debug.Log("HandState RECOVER position: " + Vector2.Distance(bossBodyVector2, handRecoverVector2));
 
             if (Vector2.Distance(transform.position, handRecoverVector2) == 0)
             {
+                isHandSmash = true;
                 handState = HandState.FOLLOW;
             }
         }
 
-        else if (handState == HandState.HIT_SPIKE)
+        else if (handState == HandState.HIT_TORCH)
         {
             transform.position = new Vector2(transform.position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeMagnitude, transform.position.y);
             //Debug.Log("HandState SHAKE position: " + Vector2.Distance(bossBodyVector2, handRecoverVector2));
 
-            waitTime -= Time.deltaTime;
+            stunTime -= Time.deltaTime;
             //Debug.Log("WaitTime: " + waitTime);
-            if (waitTime <= 0)
+            if (stunTime <= 0)
             {
-                handState = HandState.FOLLOW;
-                bossFollow.SetCanDuck(BossFollow.BossState.CAN_DUCK);
+                handState = HandState.RECOVER;
+                bossFollow.SetCanDuck(BossFollow.BossState.CAN_MOVE);
             }
         }
 
         else if (handState == HandState.DEAD)
         {
             this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            this.GetComponent<CircleCollider2D>().enabled = false;
             if (fade >= 0) {
                 fade -= 0.01f;
                 bossHandSpriteRenderer.color = new Color(0.55f, 0, 0, fade);
@@ -238,43 +268,54 @@ public class BossHandSmashBehaviour : MonoBehaviour
         return handState;
     }
 
-    //void OnTriggerEnter2D(Collider2D other)
+    public void EnableBossHand()
+    {
+        Debug.Log("BossHand enabled");
+        bossSmashHandGameObject.GetComponent<Renderer>().enabled = true;
+
+    }
+
+    public void DisableBossHand()
+    {
+        Debug.Log("BossHand disabled");
+        bossSmashHandGameObject.GetComponent<Renderer>().enabled = false;
+    }
+
+    //void OnTriggerEnter2D(Collider2D col)
     //{
-    //    Debug.Log("BOSS Collider.name " + other.name);
-
-    //    if (other.name == "Spike")
+    //    string colliderName = col.gameObject.name;
+    //    Debug.Log("BossHandBehaviour Collider.name " + colliderName);
+    //    if (name == "Torch")
     //    {
-    //        bossFollow.SetCanDuck(false);
-    //        //Destroy(other.gameObject);
+    //        handState = HandState.HIT_TORCH;
 
+
+    //        //if (other.name == "Spike")
+    //        //{
+    //        //    bossFollow.SetCanDuck(false);
+    //        //    //Destroy(other.gameObject);
+
+    //        //}
     //    }
     //}
 
     void OnCollisionStay2D(Collision2D col)
     {
-        //Debug.Log("BossHandBehaviour Collider.name " + col.gameObject.name);
+        string colliderName = col.gameObject.name;
+        Debug.Log("BossHandBehaviour OnCollStay2D colliderName: " + colliderName);
 
-        if (col.gameObject.name == "bossSpike")
+        if (col.gameObject.name == "Torch" && handState == HandState.SHAKE && !isHandSmash)
         {
-            
-            //Destroy(other.gameObject);
-            if (handState == HandState.SMASH)
-            {
-               
-                handState = HandState.HIT_SPIKE;
-                FindObjectOfType<AudioManager>().Play("monsterHandSpike");
-                FindObjectOfType<AudioManager>().Play("monsterGrowl");
-                waitTime = 5;
-                bossFollow.SetCanDuck(BossFollow.BossState.CANNOT_DUCK);
-            }
+            waitTime = 5;
+            stunTime = 10;
+            handState = HandState.HIT_TORCH;
+            bossFollow.SetCanDuck(BossFollow.BossState.HAND_STUCK);
+
+            //destroy(other.gameobject);
+            //FindObjectOfType<AudioManager>().Play("monsterhandspike");
+            //FindObjectOfType<AudioManager>().Play("monstergrowl");
         }
 
     }
-
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    Debug.Log("Boss Collider.name " + collision.gameObject.name);
-
-    //}
 
 }

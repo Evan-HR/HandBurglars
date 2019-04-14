@@ -30,41 +30,41 @@ public class Patrol : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!playerController.getHideStatus())
-        {
-            RaycastHit2D detectionRaycast = Physics2D.Raycast(transform.position, transform.right, distance, playerHandLayer);
+        //if (!playerController.getHideStatus())
+        //{
+        //    RaycastHit2D detectionRaycast = Physics2D.Raycast(transform.position, transform.right, distance, playerHandLayer);
 
-            //Debug.Log("HandState = DISABLED");
-            //controls direction of raycast based on which MoveSpot Critter is moving towards
-            if (randomSpot == 1)
-            {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
-            else if (randomSpot == 0)
-            {
-                transform.rotation = Quaternion.Euler(0, 180f, 0);
-            }
+        //    //Debug.Log("HandState = DISABLED");
+        //    //controls direction of raycast based on which MoveSpot Critter is moving towards
+        //    if (randomSpot == 1)
+        //    {
+        //        transform.rotation = Quaternion.Euler(0, 0, 0);
+        //    }
+        //    else if (randomSpot == 0)
+        //    {
+        //        transform.rotation = Quaternion.Euler(0, 180f, 0);
+        //    }
 
 
-            if (detectionRaycast.collider != null)
-            {
-                //Debug.DrawLine(transform.position, detectionRaycast.point, Color.red);
-                detectionState = DetectionState.DETECTED;
-                playerPosition = detectionRaycast.collider.gameObject.transform.position;
-                transform.position = Vector2.MoveTowards(transform.position, playerPosition, enemyDetectionSpeed * Time.deltaTime);
-            }
-            else
-            {
-                detectionState = DetectionState.NOT_DETECTED;
-                //Debug.DrawLine(transform.position, transform.position + transform.right * distance, Color.green);
+        //    if (detectionRaycast.collider != null)
+        //    {
+        //        //Debug.DrawLine(transform.position, detectionRaycast.point, Color.red);
+        //        detectionState = DetectionState.DETECTED;
+        //        playerPosition = detectionRaycast.collider.gameObject.transform.position;
+        //        transform.position = Vector2.MoveTowards(transform.position, playerPosition, enemyDetectionSpeed * Time.deltaTime);
+        //    }
+        //    else
+        //    {
+        //        detectionState = DetectionState.NOT_DETECTED;
+        //        //Debug.DrawLine(transform.position, transform.position + transform.right * distance, Color.green);
 
-            }
-        } else {
-            detectionState = DetectionState.NOT_DETECTED;
-        }
+        //    }
+        //} else {
+        //    detectionState = DetectionState.NOT_DETECTED;
+        //}
         
 
-        MoveToMoveSpot();    
+        //MoveToMoveSpot();    
     }
 
     public bool HasDetected()

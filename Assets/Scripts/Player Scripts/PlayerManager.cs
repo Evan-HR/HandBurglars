@@ -195,7 +195,7 @@ public class PlayerManager : MonoBehaviour {
         canBeHit = true;
 
         // death
-        respawnPos = GameObject.Find("Respawn").transform.position;
+        //respawnPos = GameObject.Find("Respawn").transform.position;
 	}
 
     void Awake(){
@@ -415,7 +415,7 @@ public class PlayerManager : MonoBehaviour {
             //spawn a tombstone at current location
             
             myTombstone = Instantiate(tombstone, transform.position,Quaternion.identity);
-            this.transform.position = respawnPos;
+            //this.transform.position = respawnPos;
             Invoke("Respawn", 3.0f);
             //decrement global health
             
@@ -757,7 +757,7 @@ public class PlayerManager : MonoBehaviour {
             // take one life
             isDead = true;
             this.gameObject.SetActive(false);
-            this.transform.position = respawnPos;
+            //this.transform.position = respawnPos;
             Invoke("Respawn", 3.0f);
 
         }
