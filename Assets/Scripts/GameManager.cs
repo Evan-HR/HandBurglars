@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public Scene scene;
+    public static int globalLives = 3;
 
     public static GameManager instance = null;
     private static readonly object padlock = new object();
@@ -21,6 +22,19 @@ public class GameManager : MonoBehaviour {
 
     }
 
+    //helper methods
+    public static void globalHealthLoss()
+    {
+        globalLives -= 1;
+    }
+
+    public static void globalHealthReset()
+    {
+        globalLives = 3;
+    }
+
+
+
     public static GameManager Instance
     {
         get
@@ -35,10 +49,20 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void Update()
+    {
+        if(globalLives == 0)
+        {
+            GameOver();
+        }
+    }
+
     public void Awake()
     {
         
         scene = SceneManager.GetActiveScene();
+        //don't destroy on load
+        DontDestroyOnLoad(this.gameObject);
 
         if (scene.name == "Menu")
         {
@@ -48,11 +72,16 @@ public class GameManager : MonoBehaviour {
         }
         else if (scene.name == "Level1")
         {
-            FindObjectOfType<AudioManager>().Play("drawingSceneMusic");
+            FindObjectOfType<AudioManager>().Play("caveAmbience");
+        }
+
+        else if (scene.name == "Level2")
+        {
+            FindObjectOfType<AudioManager>().Play("caveAmbience");
         }
         else if (scene.name == "Victory")
         {
-            FindObjectOfType<AudioManager>().Stop("drawingSceneMusic");
+            FindObjectOfType<AudioManager>().Stop("caveAmbience");
             FindObjectOfType<AudioManager>().Play("victory");
         }
     }
@@ -61,7 +90,7 @@ public class GameManager : MonoBehaviour {
     public static void GameOver()
     {
 
-        FindObjectOfType<AudioManager>().Stop("bossBattle");
+        //FindObjectOfType<AudioManager>().Stop("bossBattle");
     
         //losing music
         FindObjectOfType<AudioManager>().Play("defeat");

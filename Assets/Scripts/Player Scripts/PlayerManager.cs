@@ -124,7 +124,8 @@ public class PlayerManager : MonoBehaviour {
 
     // health things
 
-    int health;
+    //DUSTIN EDIT --> made public int health to work with healthUI, used to be PRIVATE!
+    public int health;
     bool isDead;
 
     public int damage_coolDown;
@@ -195,7 +196,7 @@ public class PlayerManager : MonoBehaviour {
         canBeHit = true;
 
         // death
-        //respawnPos = GameObject.Find("Respawn").transform.position;
+        respawnPos = GameObject.Find("Respawn").transform.position;
 	}
 
     void Awake(){
@@ -336,6 +337,7 @@ public class PlayerManager : MonoBehaviour {
         }
 
         if (canJump && m_rigidBody2D.velocity.y <= jumpMultiplier && jumpInput){
+            FindObjectOfType<AudioManager>().Play("jump");
             doJump = true;
             isClimbing = false;
         }
@@ -418,7 +420,11 @@ public class PlayerManager : MonoBehaviour {
             //this.transform.position = respawnPos;
             Invoke("Respawn", 3.0f);
             //decrement global health
-            
+            //health loss sound effect
+            FindObjectOfType<AudioManager>().Play("discovery");
+            GameManager.globalHealthLoss();
+
+
 
         }
 
@@ -730,6 +736,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
     public void takeDamage(int dmg_val){
+        FindObjectOfType<AudioManager>().Play("lostHealth");
         health -= dmg_val;
         canBeHit = false;
         Invoke("resetCooldown", damage_coolDown);
