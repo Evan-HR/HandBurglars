@@ -43,6 +43,8 @@ TagManager:
   - Hand1
   - Fist1
   - Fist2
+  - ungrabbed
+  - grabbed
   layers:
   - Default
   - TransparentFX

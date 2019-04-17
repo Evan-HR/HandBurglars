@@ -417,12 +417,13 @@ public class PlayerManager : MonoBehaviour {
             //spawn a tombstone at current location
             
             myTombstone = Instantiate(tombstone, transform.position,Quaternion.identity);
-            //this.transform.position = respawnPos;
+            this.transform.position = respawnPos;
             Invoke("Respawn", 3.0f);
             //decrement global health
+            GameManager.globalHealthLoss();
             //health loss sound effect
             FindObjectOfType<AudioManager>().Play("discovery");
-            GameManager.globalHealthLoss();
+            
 
 
 
@@ -508,10 +509,10 @@ public class PlayerManager : MonoBehaviour {
         if (grabInput && !isHolding){
             if (toGrabObject != null){
                 heldObject = toGrabObject;
-                //print("step 1");
                 if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectGrab")){
                     handGrabJoint.enabled = true;
                     handGrabJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
+                    heldObject.tag = "grabbed";
                 } else if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectDrag(Works)")){
 
                     // Drag Hinge Joint formation
@@ -560,6 +561,7 @@ public class PlayerManager : MonoBehaviour {
                 if (handGrabJoint.enabled){
                     handGrabJoint.enabled = false;
                     handGrabJoint.connectedBody = null;
+                    heldObject.tag = "ungrabbed";
                 } else if (handDragHingeJoint.enabled){
 
                     //Drag Hinge Joint Termination
@@ -761,10 +763,10 @@ public class PlayerManager : MonoBehaviour {
             isDead = false;
         // if you fall off an edge
         } else {
-            // take one life
+            GameManager.globalHealthLoss();
             isDead = true;
             this.gameObject.SetActive(false);
-            //this.transform.position = respawnPos;
+            this.transform.position = respawnPos;
             Invoke("Respawn", 3.0f);
 
         }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PitCheck : MonoBehaviour
 {
+        private GameManager gameManager;
+
         public GameObject torchPrefab;
 
         public Transform torchRespawn;
@@ -13,7 +15,7 @@ public class PitCheck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player_layer = LayerMask.NameToLayer("PlayerBody");
+        player_layer = LayerMask.NameToLayer("PlayerBody1");
         player2_layer = LayerMask.NameToLayer("PlayerBody2");
         grab_layer = LayerMask.NameToLayer("HandObjectGrab");
     }
@@ -23,6 +25,7 @@ public class PitCheck : MonoBehaviour
     {
         if ((col.gameObject.layer == player_layer) || (col.gameObject.layer == player2_layer)){
             if (col.gameObject.GetComponent<PlayerManager>() != null){
+                
                 col.gameObject.GetComponent<PlayerManager>().Respawn();
             }
         } else  if (col.gameObject.layer == grab_layer){
