@@ -28,10 +28,7 @@ public class SelectorScript : MonoBehaviour {
     private List<PlayerData.ControlDevice> deviceList = new List<PlayerData.ControlDevice>(new PlayerData.ControlDevice[] 
     {
         PlayerData.ControlDevice.KEYBOARD,
-        PlayerData.ControlDevice.CONTROLLER_1,
-        PlayerData.ControlDevice.CONTROLLER_2,
-        PlayerData.ControlDevice.CONTROLLER_3,
-        PlayerData.ControlDevice.CONTROLLER_4
+        PlayerData.ControlDevice.CONTROLLER
     });
     private int characterIndex = 0;
     private int deviceIndex = 0;
@@ -107,7 +104,7 @@ public class SelectorScript : MonoBehaviour {
     //pass in variables
     public void selectButton(){
 		if(changeTextCounter == 0){
-            FindObjectOfType<AudioManager>().Play("tick");
+            //FindObjectOfType<AudioManager>().Play("tick");
             displayKeyboard();
             //playerSelectBool = false;
             // playerDataDicTemp = GameManager.Instance.getPlayerDic();
@@ -124,7 +121,7 @@ public class SelectorScript : MonoBehaviour {
 		}
 		else if (changeTextCounter == 1)
 		{
-            FindObjectOfType<AudioManager>().Play("tick");
+            //FindObjectOfType<AudioManager>().Play("tick");
             //GameManager.Instance.player1ControlDevice = 
 
             //displayBru();
@@ -146,7 +143,7 @@ public class SelectorScript : MonoBehaviour {
 		}
 		else if (changeTextCounter == 2)
 		{
-            FindObjectOfType<AudioManager>().Play("tick");
+            //FindObjectOfType<AudioManager>().Play("tick");
             //displayKeyboard();
             //playerSelectBool = false;
             // playerDataDicTemp = GameManager.Instance.getPlayerDic();
@@ -162,8 +159,8 @@ public class SelectorScript : MonoBehaviour {
 		}
         else if(changeTextCounter == 3)
         {
-            FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
-            FindObjectOfType<AudioManager>().Play("playAgain");
+            //FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
+            //FindObjectOfType<AudioManager>().Play("playAgain");
             Debug.Log("Player 2 addingDevice: " + currentDevice);
             Debug.Log("Player 2 addingCharacter: " + currentCharacter);
             PlayerData playerData = new PlayerData(currentDevice, currentCharacter);

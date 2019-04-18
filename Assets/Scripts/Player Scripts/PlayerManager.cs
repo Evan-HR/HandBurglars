@@ -197,25 +197,24 @@ public class PlayerManager : MonoBehaviour {
 
         // death
         respawnPos = GameObject.Find("Respawn").transform.position;
-	}
 
-    void Awake(){
         gameManager = GameManager.Instance;
         if (GameManager.playerDataDict.Count == 0)
         {
             Debug.Log("PlayerManager playerDataDic.Count == 0");
             GameManager.playerDataDict.Add(1, new PlayerData(PlayerData.ControlDevice.KEYBOARD, "Bru"));
-            GameManager.playerDataDict.Add(2, new PlayerData(PlayerData.ControlDevice.CONTROLLER_1, "Jotun"));
+            GameManager.playerDataDict.Add(2, new PlayerData(PlayerData.ControlDevice.CONTROLLER, "Jotun"));
         }
         Debug.Log("size of dic PlayerManager: " + GameManager.playerDataDict.Count);
-        
+
 
 
         if (GameManager.playerDataDict[1].characterName.Equals("Bru"))
         {
             player1Data = GameManager.playerDataDict[1];
             player2Data = GameManager.playerDataDict[2];
-        } else
+        }
+        else
         {
             player1Data = GameManager.playerDataDict[2];
             player2Data = GameManager.playerDataDict[1];
@@ -226,35 +225,44 @@ public class PlayerManager : MonoBehaviour {
         Debug.Log("devices count:" + InputManager.Devices.Count);
         Debug.Log("current gameobject tag:" + this.gameObject.tag);
 
-        if (this.gameObject.tag == "Player1"){
+        if (this.gameObject.tag == "Player1")
+        {
             switch (player1Data.controlDevice)
-                {
-                    case PlayerData.ControlDevice.KEYBOARD:
-                        isController = false;
-                        break;
-                    default:
-                        isController = true;
-                        indexDevice = 0;
-                        break;
-                }
+            {
+                case PlayerData.ControlDevice.KEYBOARD:
+                    isController = false;
+                    break;
+                default:
+                    isController = true;
+                    indexDevice = 0;
+                    break;
             }
-        else if (this.gameObject.tag == "Player2"){
+        }
+        else if (this.gameObject.tag == "Player2")
+        {
             switch (player2Data.controlDevice)
-                {
-                    case PlayerData.ControlDevice.KEYBOARD:
-                        isController = false;
-                        break;
-                    default:
-                        isController = true;
-                        if (player1Data.controlDevice == PlayerData.ControlDevice.KEYBOARD){
-                            indexDevice = 0;
-                        }else{
-                            indexDevice = 1;
-                        }
-                        
-                        break;
-                }
+            {
+                case PlayerData.ControlDevice.KEYBOARD:
+                    isController = false;
+                    break;
+                default:
+                    isController = true;
+                    if (player1Data.controlDevice == PlayerData.ControlDevice.KEYBOARD)
+                    {
+                        indexDevice = 0;
+                    }
+                    else
+                    {
+                        indexDevice = 1;
+                    }
+
+                    break;
             }
+        }
+    }
+
+    void Awake(){
+
         //more else case if more than two players
     }
 

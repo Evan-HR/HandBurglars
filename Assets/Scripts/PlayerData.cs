@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
+    //public enum ControlDevice
+    //{
+    //    NONE,
+    //    KEYBOARD,
+    //    CONTROLLER_1,
+    //    CONTROLLER_2,
+    //    CONTROLLER_3,
+    //    CONTROLLER_4
+    //}
+
     public enum ControlDevice
     {
         NONE,
         KEYBOARD,
-        CONTROLLER_1,
-        CONTROLLER_2,
-        CONTROLLER_3,
-        CONTROLLER_4
+        CONTROLLER
     }
 
     public ControlDevice controlDevice { get; set; }
