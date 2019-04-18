@@ -61,6 +61,8 @@ public class BossFollow : MonoBehaviour {
     private Vector2 rightEndVector2;
     private bool isMoveLeft;
 
+    private GameObject bossSceneManager;
+
 
     //private bool isHandAttacking = false;
 
@@ -83,6 +85,7 @@ public class BossFollow : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        bossSceneManager = GameObject.FindGameObjectWithTag("LevelManager");
         bossBodyScaleOriginalVector3 = transform.localScale;
         bossBodyYScaleOriginal = transform.localScale.y;
         bossBodyYScale = bossBodyYScaleOriginal;
@@ -151,6 +154,7 @@ public class BossFollow : MonoBehaviour {
         {
             this.GetComponent<CircleCollider2D>().enabled = true;
             bossFollowSpriteRender.sprite = BossMouthOpenSprite;
+
 
             switch (bossHealth)
             {
@@ -224,11 +228,12 @@ public class BossFollow : MonoBehaviour {
         string colliderName = col.gameObject.name;
         Debug.Log("BossFollow colliderName " + colliderName);
 
-        if (colliderName == "throwableBomb" && bossState != BossState.DEAD)
+        if (colliderName == "throwableBomb" && bossState != BossState.DEAD && bossSceneManager.GetComponent<SceneManagerBoss>().bombLit)
         {
-           
+           bossSceneManager.SendMessage("explodeBomb");
             FindObjectOfType<AudioManager>().Play("monsterCannonHurt");
             FindObjectOfType<AudioManager>().Play("monsterBallHurt");
+
 
             //Destroy(other.gameObject);
             Debug.Log("BossFollow bossHealth " + bossHealth);

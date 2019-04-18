@@ -420,6 +420,11 @@ public class PlayerManager : MonoBehaviour {
         }
 
         if (isDead){
+
+            isHolding = false;
+            toGrabObject = null;
+            heldObject = null;
+
             Vector2 tempPos = this.transform.position;
             this.gameObject.SetActive(false);
             //spawn a tombstone at current location
@@ -518,11 +523,11 @@ public class PlayerManager : MonoBehaviour {
                 heldObject = toGrabObject;
                 // if it is a handGrab Object it must be ungrabbed (lock system)
                 if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectGrab")){
-                   // if (heldObject.CompareTag("ungrabbed")) {
+                   if (heldObject.CompareTag("ungrabbed")) {
                          handGrabJoint.enabled = true;
                         handGrabJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
-                        //heldObject.tag = "grabbed";
-                   // }
+                        heldObject.tag = "grabbed";
+                   }
                 
                 // draggable can be lifted with friend
                 } else if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectDrag(Works)")){

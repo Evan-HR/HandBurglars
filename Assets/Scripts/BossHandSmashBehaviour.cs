@@ -317,7 +317,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         GameObject other = col.gameObject;
-        if (other.tag == "torchFlame" && handState == HandState.SIT)
+        if (other.tag == "TorchFlame" && handState == HandState.SIT)
         {
             tempBurnTimer = burnTimer;
 

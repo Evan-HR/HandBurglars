@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour {
         }
         else if (scene.name == "Level1")
         {
+            FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
             FindObjectOfType<AudioManager>().Play("caveAmbience");
             FindObjectOfType<AudioManager>().Play("level1and2Music");
 
@@ -83,9 +84,16 @@ public class GameManager : MonoBehaviour {
             FindObjectOfType<AudioManager>().Play("caveAmbience");
             FindObjectOfType<AudioManager>().Play("level1and2Music");
         }
+
+        else if(scene.name=="POC_Boss"){
+            FindObjectOfType<AudioManager>().Stop("level1and2Music");
+            FindObjectOfType<AudioManager>().Stop("caveAmbience");
+            FindObjectOfType<AudioManager>().Play("bossBattle");
+        }
         else if (scene.name == "Victory")
         {
             FindObjectOfType<AudioManager>().Stop("caveAmbience");
+            FindObjectOfType<AudioManager>().Stop("level1and2Music");
             FindObjectOfType<AudioManager>().Play("victory");
         }
     }
@@ -94,7 +102,7 @@ public class GameManager : MonoBehaviour {
     public static void GameOver()
     {
 
-        //FindObjectOfType<AudioManager>().Stop("bossBattle");
+        FindObjectOfType<AudioManager>().Stop("bossBattle");
         FindObjectOfType<AudioManager>().Stop("caveAmbience");
         FindObjectOfType<AudioManager>().Stop("level1and2Music");
         //losing music
