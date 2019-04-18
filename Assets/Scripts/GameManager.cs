@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
     public static void globalHealthLoss()
     {
         globalLives -= 1;
+        FindObjectOfType<AudioManager>().Play("lostLife");
     }
 
     public static void globalHealthReset()
@@ -73,11 +74,14 @@ public class GameManager : MonoBehaviour {
         else if (scene.name == "Level1")
         {
             FindObjectOfType<AudioManager>().Play("caveAmbience");
+            FindObjectOfType<AudioManager>().Play("level1and2Music");
+
         }
 
         else if (scene.name == "Level2")
         {
             FindObjectOfType<AudioManager>().Play("caveAmbience");
+            FindObjectOfType<AudioManager>().Play("level1and2Music");
         }
         else if (scene.name == "Victory")
         {
@@ -91,11 +95,12 @@ public class GameManager : MonoBehaviour {
     {
 
         //FindObjectOfType<AudioManager>().Stop("bossBattle");
-    
+        FindObjectOfType<AudioManager>().Stop("caveAmbience");
+        FindObjectOfType<AudioManager>().Stop("level1and2Music");
         //losing music
-        FindObjectOfType<AudioManager>().Play("defeat");
+        //FindObjectOfType<AudioManager>().Play("defeat");
         //death condition
-        Initiate.Fade("GameOver", Color.black, 0.6f);
+        Initiate.Fade("GameOver", Color.black, 0.9f);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -115,8 +120,8 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
-            FindObjectOfType<AudioManager>().Play("playAgain");
-            Initiate.Fade("POC_Boss", Color.white, 0.6f);
+            FindObjectOfType<AudioManager>().Play("lostHealth");
+            Initiate.Fade("Level1", Color.white, 0.9f);
         }
 
 

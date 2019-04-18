@@ -29,9 +29,7 @@ public class HealthUI : MonoBehaviour
 
     private void Update()
     {
-        //test
-        print("player health is: " + playerManager1.health);
-        print("global health is: " + GameManager.globalLives);
+
         HeartUIPlayer1.sprite = HeartSprites[playerManager1.health];
         HeartUIPlayer2.sprite = HeartSprites[playerManager2.health];
         HeartUIGlobal.sprite = HeartSprites[GameManager.globalLives];

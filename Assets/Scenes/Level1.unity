@@ -6215,11 +6215,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 922784616, guid: 6dae8a475bb872f42a4a27f9113ef76c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40.18
+      value: -26.8
       objectReference: {fileID: 0}
     - target: {fileID: 922784616, guid: 6dae8a475bb872f42a4a27f9113ef76c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 922784616, guid: 6dae8a475bb872f42a4a27f9113ef76c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6366,11 +6366,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.2
+      value: 11.4
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8
+      value: 10.7
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6696,7 +6696,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: lostHealth
     clip: {fileID: 8300000, guid: 73f04bd708bb5854dae2572ea2b176f6, type: 3}
-    volume: 0.632
+    volume: 0.74
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -6732,7 +6732,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: defeat
     clip: {fileID: 8300000, guid: b8ef03321b83f49418e3382654fd2338, type: 3}
-    volume: 0.872
+    volume: 0.661
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -6793,9 +6793,9 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: playerHurt
-    clip: {fileID: 8300000, guid: aeaeea9be1ee8264a9d84ee3c09509b7, type: 3}
-    volume: 0.532
+  - name: lostLife
+    clip: {fileID: 8300000, guid: 4ce209289a69a41478ef1d4097a79c6c, type: 3}
+    volume: 0.65
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -6890,6 +6890,24 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: caveAmbience
+    clip: {fileID: 8300000, guid: ed5318f2520184044b4cfd73c4a698ba, type: 3}
+    volume: 0.271
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: level1and2Music
+    clip: {fileID: 8300000, guid: d2b8da5fe96f0fa43bf57127adb2972d, type: 3}
+    volume: 0.423
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: caveAmbience
@@ -7616,6 +7634,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 199683134778296034, guid: c7f165963d3ec114fa6a2347d4c81e9d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 198321240265554202, guid: c7f165963d3ec114fa6a2347d4c81e9d,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
@@ -7625,11 +7648,6 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 3.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 199683134778296034, guid: c7f165963d3ec114fa6a2347d4c81e9d,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f165963d3ec114fa6a2347d4c81e9d, type: 3}

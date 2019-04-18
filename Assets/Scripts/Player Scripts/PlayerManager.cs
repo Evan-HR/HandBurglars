@@ -421,8 +421,6 @@ public class PlayerManager : MonoBehaviour {
             Invoke("Respawn", 3.0f);
             //decrement global health
             GameManager.globalHealthLoss();
-            //health loss sound effect
-            FindObjectOfType<AudioManager>().Play("discovery");
             
 
 
@@ -763,6 +761,7 @@ public class PlayerManager : MonoBehaviour {
             isDead = false;
         // if you fall off an edge
         } else {
+            health -= 3;
             GameManager.globalHealthLoss();
             isDead = true;
             this.gameObject.SetActive(false);
