@@ -333,8 +333,8 @@ public class PlayerManager : MonoBehaviour {
             jumpInput = Input.GetKeyDown(KeyCode.Space);
             jumpHoldInput = Input.GetKey(KeyCode.Space);
         }else{
-            jumpInput = InputManager.Devices[indexDevice].LeftTrigger.WasPressed;
-            jumpHoldInput = InputManager.Devices[indexDevice].LeftTrigger.IsPressed;
+            jumpInput = InputManager.Devices[indexDevice].RightTrigger.WasPressed;
+            jumpHoldInput = InputManager.Devices[indexDevice].RightTrigger.IsPressed;
         }
         
         if ((onGround || on1WayGround || isClimbing || onFist )) {
@@ -424,6 +424,9 @@ public class PlayerManager : MonoBehaviour {
             isHolding = false;
             toGrabObject = null;
             heldObject = null;
+            handGrabJoint.connectedBody = null;
+            handGrabJoint.enabled = false;
+            //heldObject.tag = "ungrabbed";
 
             Vector2 tempPos = this.transform.position;
             this.gameObject.SetActive(false);
@@ -509,7 +512,7 @@ public class PlayerManager : MonoBehaviour {
             grabInput = Input.GetMouseButtonDown(0);
             releaseInput = Input.GetMouseButtonUp(0);
         }else {
-            grabHoldInput = InputManager.Devices[indexDevice].RightTrigger.IsPressed;
+            grabHoldInput = InputManager.Devices[indexDevice].LeftTrigger.IsPressed;
             grabInput = grabHoldInput;
             releaseInput = !grabInput;
         }
