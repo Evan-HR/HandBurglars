@@ -211,13 +211,13 @@ public class PlayerManager : MonoBehaviour {
 
         if (GameManager.playerDataDict[1].characterName.Equals("Bru"))
         {
-            player1Data = GameManager.playerDataDict[1];
-            player2Data = GameManager.playerDataDict[2];
+            player1Data = GameManager.playerDataDict[2];
+            player2Data = GameManager.playerDataDict[1];
         }
         else
         {
-            player1Data = GameManager.playerDataDict[2];
-            player2Data = GameManager.playerDataDict[1];
+            player1Data = GameManager.playerDataDict[1];
+            player2Data = GameManager.playerDataDict[2];
         }
 
         Debug.Log("player1 controller type:" + player1Data.controlDevice);
