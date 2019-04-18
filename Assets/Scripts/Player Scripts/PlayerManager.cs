@@ -325,8 +325,8 @@ public class PlayerManager : MonoBehaviour {
             jumpInput = Input.GetKeyDown(KeyCode.Space);
             jumpHoldInput = Input.GetKey(KeyCode.Space);
         }else{
-            jumpInput = InputManager.Devices[indexDevice].RightBumper.WasPressed;
-            jumpHoldInput = InputManager.Devices[indexDevice].RightBumper.IsPressed;
+            jumpInput = InputManager.Devices[indexDevice].LeftTrigger.WasPressed;
+            jumpHoldInput = InputManager.Devices[indexDevice].LeftTrigger.IsPressed;
         }
         
         if ((onGround || on1WayGround || isClimbing || onFist )) {
@@ -505,14 +505,19 @@ public class PlayerManager : MonoBehaviour {
 
         //if click and hand is free:
         if (grabInput && !isHolding){
+            // if there is something to grab
             if (toGrabObject != null){
                 heldObject = toGrabObject;
+                // if it is a handGrab Object it must be ungrabbed (lock system)
                 if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectGrab")){
-                    handGrabJoint.enabled = true;
-                    handGrabJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
-                    heldObject.tag = "grabbed";
+                   // if (heldObject.CompareTag("ungrabbed")) {
+                         handGrabJoint.enabled = true;
+                        handGrabJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
+                        //heldObject.tag = "grabbed";
+                   // }
+                
+                // draggable can be lifted with friend
                 } else if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectDrag(Works)")){
-
                     // Drag Hinge Joint formation
                     handDragHingeJoint.enabled = true;
                     handDragHingeJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
@@ -528,12 +533,10 @@ public class PlayerManager : MonoBehaviour {
                         HandState = HANDSTATE.Dragging;
                     }
                 }
-                
-                
 
                 isHolding = true;
             }
-                    
+            // if there is nothing to grab, hand input is down, nothing held
             else {
                 isFist = true;
             }
@@ -690,11 +693,9 @@ public class PlayerManager : MonoBehaviour {
 
     public void HandTriggerEnter2D(Collider2D other){
         if (toGrabObject == null){
-            toGrabObject = other.gameObject;
-            toGrabDist = other.gameObject.transform.position - handTransform.position;
-
-        } 
-        else {
+                toGrabObject = other.gameObject;
+                toGrabDist = other.gameObject.transform.position - handTransform.position;
+        } else {
             tempDist = other.gameObject.transform.position - handTransform.position;
             if (tempDist.magnitude < toGrabDist.magnitude){
                 toGrabObject = other.gameObject;
@@ -742,6 +743,10 @@ public class PlayerManager : MonoBehaviour {
         Invoke("resetCooldown", damage_coolDown);
         m_spriteRenderer.color = new Color32(255,0,0,255);
         Invoke("resetColor", 0.25f);
+    }
+
+        public bool getHide(){
+            return isHiding;
     }
 
     public void resetCooldown(){

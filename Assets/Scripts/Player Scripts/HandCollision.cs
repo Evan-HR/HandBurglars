@@ -22,9 +22,8 @@ public class HandCollision : MonoBehaviour
     {
         int layer = other.gameObject.layer;
         if (handObjLayer == (handObjLayer | (1 << layer)) && other.gameObject.GetComponent<Rigidbody2D>() != null){
-            if (other.gameObject.tag == "ungrabbed"){
                 PlayerManager.HandTriggerEnter2D(other);
-            }
+            //}
         }
     }
 
@@ -32,9 +31,9 @@ public class HandCollision : MonoBehaviour
     {
         int layer = other.gameObject.layer;
         if (handObjLayer == (handObjLayer | (1 << layer)) && other.gameObject.GetComponent<Rigidbody2D>() != null){
-            if (other.gameObject.tag == "ungrabbed"){
+            //if (other.gameObject.tag == "ungrabbed"){
                 PlayerManager.HandTriggerStay2D(other);
-            }
+            //}
         }
         
     }
@@ -42,9 +41,9 @@ public class HandCollision : MonoBehaviour
     {
         int layer = other.gameObject.layer;
         if (handObjLayer == (handObjLayer | (1 << layer)) && other.gameObject.GetComponent<Rigidbody2D>() != null){
-            if (other.gameObject.tag == "ungrabbed"){
+            //if (other.gameObject.tag == "ungrabbed"){
                 PlayerManager.HandTriggerExit2D(other);
-            }
+            //}
         }
         
     }

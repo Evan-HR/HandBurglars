@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_11;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;NET_LEGACY;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_11;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;NET_LEGACY;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -69,12 +69,6 @@
      <Compile Include="Assets\Auto Letterbox\Demos\Multi-Cam Demo\Scripts\MenuSpin.cs" />
      <Compile Include="Assets\Auto Letterbox\Demos\Util.cs" />
      <Compile Include="Assets\Auto Letterbox\ForceCameraRatio.cs" />
-     <Compile Include="Assets\BombScript.cs" />
-     <Compile Include="Assets\BoulderBreak.cs" />
-     <Compile Include="Assets\boulderPlank.cs" />
-     <Compile Include="Assets\boulderScript.cs" />
-     <Compile Include="Assets\CameraRestrictBounds.cs" />
-     <Compile Include="Assets\Damages.cs" />
      <Compile Include="Assets\Game-Eye-2D-master\GameEye2D\Assets\GameEye2D\Core\Behaviours\FixedFollow.cs" />
      <Compile Include="Assets\Game-Eye-2D-master\GameEye2D\Assets\GameEye2D\Core\Behaviours\ScrollZoom.cs" />
      <Compile Include="Assets\Game-Eye-2D-master\GameEye2D\Assets\GameEye2D\Core\Behaviours\Shake.cs" />
@@ -118,75 +112,80 @@
      <Compile Include="Assets\GestureRecognizer\Scripts\GesturePatternDraw.cs" />
      <Compile Include="Assets\GestureRecognizer\Scripts\Recognizer.cs" />
      <Compile Include="Assets\GestureRecognizer\Scripts\UILineRenderer.cs" />
-     <Compile Include="Assets\GroundSound.cs" />
-     <Compile Include="Assets\HealthUI.cs" />
-     <Compile Include="Assets\Oscillate.cs" />
-     <Compile Include="Assets\pauseScript.cs" />
-     <Compile Include="Assets\PitCheck.cs" />
-     <Compile Include="Assets\SceneManagerBoss.cs" />
-     <Compile Include="Assets\SceneManagerLevel2.cs" />
      <Compile Include="Assets\Scripts\AddComponent.cs" />
      <Compile Include="Assets\Scripts\AudioManager.cs" />
-     <Compile Include="Assets\Scripts\BetterJump.cs" />
-     <Compile Include="Assets\Scripts\BetterJump2.cs" />
      <Compile Include="Assets\Scripts\BGSoundScript.cs" />
+     <Compile Include="Assets\Scripts\BombScript.cs" />
      <Compile Include="Assets\Scripts\BossFollow.cs" />
      <Compile Include="Assets\Scripts\BossHandSmashBehaviour.cs" />
-     <Compile Include="Assets\Scripts\BossSpikeScript.cs" />
+     <Compile Include="Assets\Scripts\BoulderBreak.cs" />
+     <Compile Include="Assets\Scripts\boulderPlank.cs" />
+     <Compile Include="Assets\Scripts\boulderScript.cs" />
      <Compile Include="Assets\Scripts\BushFire.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\CameraRestrictBounds.cs" />
      <Compile Include="Assets\Scripts\CameraShake.cs" />
-     <Compile Include="Assets\Scripts\CannonBall.cs" />
      <Compile Include="Assets\Scripts\CannonBallScript.cs" />
      <Compile Include="Assets\Scripts\CannonRotate.cs" />
      <Compile Include="Assets\Scripts\CannonShoot.cs" />
      <Compile Include="Assets\Scripts\Character2Controller2D.cs" />
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\CritterSpriteController.cs" />
-     <Compile Include="Assets\Scripts\Dangerous.cs" />
      <Compile Include="Assets\Scripts\Destroy.cs" />
      <Compile Include="Assets\Scripts\DestroyBlood.cs" />
      <Compile Include="Assets\Scripts\DontDestroy.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GrabCannon.cs" />
      <Compile Include="Assets\Scripts\GroundCheck.cs" />
-     <Compile Include="Assets\Scripts\Hand2Behavior.cs" />
-     <Compile Include="Assets\Scripts\HandBehavior.cs" />
+     <Compile Include="Assets\Scripts\GroundSound.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
+     <Compile Include="Assets\Scripts\HealthUI.cs" />
      <Compile Include="Assets\Scripts\Jump.cs" />
      <Compile Include="Assets\Scripts\Jump2.cs" />
-     <Compile Include="Assets\Scripts\LadderTop.cs" />
      <Compile Include="Assets\Scripts\LevelManagers\LevelManager.cs" />
      <Compile Include="Assets\Scripts\MenuTextEffect.cs" />
      <Compile Include="Assets\Scripts\MouseInput.cs" />
+     <Compile Include="Assets\Scripts\OG PoC Stuff\BossSpikeScript.cs" />
+     <Compile Include="Assets\Scripts\OG PoC Stuff\CannonBall.cs" />
+     <Compile Include="Assets\Scripts\OG PoC Stuff\LadderTop.cs" />
+     <Compile Include="Assets\Scripts\OLD PLAYER\BetterJump.cs" />
+     <Compile Include="Assets\Scripts\OLD PLAYER\BetterJump2.cs" />
+     <Compile Include="Assets\Scripts\OLD PLAYER\Hand2Behavior.cs" />
+     <Compile Include="Assets\Scripts\OLD PLAYER\HandBehavior.cs" />
+     <Compile Include="Assets\Scripts\OLD PLAYER\Player2Movement.cs" />
+     <Compile Include="Assets\Scripts\OLD PLAYER\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\OLD PLAYER\PlayerController2.cs" />
+     <Compile Include="Assets\Scripts\OLD PLAYER\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\OLD PLAYER\PlayerScript.cs" />
+     <Compile Include="Assets\Scripts\Oscillate.cs" />
      <Compile Include="Assets\Scripts\Patrol.cs" />
+     <Compile Include="Assets\Scripts\pauseScript.cs" />
+     <Compile Include="Assets\Scripts\PitCheck.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\ClimbDetection.cs" />
+     <Compile Include="Assets\Scripts\Player Scripts\Damages.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\HandCollision.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerModel.cs" />
-     <Compile Include="Assets\Scripts\Player2Movement.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\PlayerController2.cs" />
      <Compile Include="Assets\Scripts\PlayerData.cs" />
-     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-     <Compile Include="Assets\Scripts\PlayerScript.cs" />
      <Compile Include="Assets\Scripts\RopeScript.cs" />
      <Compile Include="Assets\Scripts\SceneLoader.cs" />
+     <Compile Include="Assets\Scripts\SceneManagerBoss.cs" />
      <Compile Include="Assets\Scripts\SceneManagerLevel1.cs" />
+     <Compile Include="Assets\Scripts\SceneManagerLevel2.cs" />
      <Compile Include="Assets\Scripts\ScriptsBASE\BaseGameController.cs" />
      <Compile Include="Assets\Scripts\ScriptsBASE\BaseInputController.cs" />
      <Compile Include="Assets\Scripts\ScriptsBASE\BasePlayerManager.cs" />
      <Compile Include="Assets\Scripts\ScriptsBASE\BaseUserManager.cs" />
      <Compile Include="Assets\Scripts\ScriptsBASE\ExtendedCustomMonoBehavior.cs" />
      <Compile Include="Assets\Scripts\scrollingMenuBG.cs" />
+     <Compile Include="Assets\Scripts\SelectorScript.cs" />
      <Compile Include="Assets\Scripts\Sound.cs" />
      <Compile Include="Assets\Scripts\soundManagerScript.cs" />
      <Compile Include="Assets\Scripts\ThrowHook.cs" />
-     <Compile Include="Assets\SelectorScript.cs" />
+     <Compile Include="Assets\Scripts\triggerScript.cs" />
+     <Compile Include="Assets\Scripts\winZone.cs" />
      <Compile Include="Assets\Simple Scene Fade Load System\Scripts\Fader.cs" />
      <Compile Include="Assets\Simple Scene Fade Load System\Scripts\Initiate.cs" />
-     <Compile Include="Assets\triggerScript.cs" />
-     <Compile Include="Assets\winZone.cs" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
@@ -209,25 +208,25 @@
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\Fonts\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
  <Reference Include="Cinemachine">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="com.unity.cinemachine.editor">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -431,13 +430,13 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Editor">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
- <HintPath>C:/Users/Dustin/Desktop/Handits/Handits/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+ <HintPath>D:/Home/Handits/Handits/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
