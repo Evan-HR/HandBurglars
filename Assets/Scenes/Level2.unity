@@ -8342,10 +8342,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1523188211}
     m_Modifications:
-    - target: {fileID: 168542, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
-      propertyPath: m_Name
-      value: FX_Fireworks_Blue_Large
-      objectReference: {fileID: 0}
     - target: {fileID: 441502, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.19
@@ -8389,6 +8385,10 @@ PrefabInstance:
     - target: {fileID: 441502, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 168542, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
+      propertyPath: m_Name
+      value: FX_Fireworks_Blue_Large
       objectReference: {fileID: 0}
     - target: {fileID: 19954124, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
       propertyPath: m_SortingOrder
@@ -11302,10 +11302,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 853997682}
     m_Modifications:
-    - target: {fileID: 168542, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
-      propertyPath: m_Name
-      value: FX_Fireworks_Blue_Large
-      objectReference: {fileID: 0}
     - target: {fileID: 441502, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.19
@@ -11349,6 +11345,10 @@ PrefabInstance:
     - target: {fileID: 441502, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 168542, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
+      propertyPath: m_Name
+      value: FX_Fireworks_Blue_Large
       objectReference: {fileID: 0}
     - target: {fileID: 19954124, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
       propertyPath: m_SortingOrder
@@ -12907,6 +12907,15 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: caveAmbience
     clip: {fileID: 8300000, guid: ed5318f2520184044b4cfd73c4a698ba, type: 3}
+    volume: 0.663
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: weebooSound
+    clip: {fileID: 8300000, guid: 955321960737e0d4a8f3c235530d4fb2, type: 3}
     volume: 0.663
     volumeVariance: 0
     pitch: 1

@@ -25,6 +25,8 @@ public class CritterSpriteController : MonoBehaviour
         if (patrol.HasDetected() && !attacking){
             attacking = true;
             FindObjectOfType<AudioManager>().Play("critterShriek");
+            FindObjectOfType<AudioManager>().Play("weebooSound");
+            
             m_SpriteRenderer.sprite = attack;
         }
         if (!patrol.HasDetected() && attacking) {

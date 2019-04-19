@@ -81,8 +81,8 @@ public class GameManager : MonoBehaviour {
 
         else if (scene.name == "Level2")
         {
-            FindObjectOfType<AudioManager>().Play("caveAmbience");
-            FindObjectOfType<AudioManager>().Play("level1and2Music");
+            //FindObjectOfType<AudioManager>().Play("caveAmbience");
+            //FindObjectOfType<AudioManager>().Play("level1and2Music");
         }
 
         else if(scene.name=="POC_Boss"){

@@ -333,8 +333,8 @@ public class PlayerManager : MonoBehaviour {
             jumpInput = Input.GetKeyDown(KeyCode.Space);
             jumpHoldInput = Input.GetKey(KeyCode.Space);
         }else{
-            jumpInput = InputManager.Devices[indexDevice].RightTrigger.WasPressed;
-            jumpHoldInput = InputManager.Devices[indexDevice].RightTrigger.IsPressed;
+            jumpInput = InputManager.Devices[indexDevice].LeftTrigger.WasPressed;
+            jumpHoldInput = InputManager.Devices[indexDevice].LeftTrigger.IsPressed;
         }
         
         if ((onGround || on1WayGround || isClimbing || onFist )) {
@@ -512,7 +512,7 @@ public class PlayerManager : MonoBehaviour {
             grabInput = Input.GetMouseButtonDown(0);
             releaseInput = Input.GetMouseButtonUp(0);
         }else {
-            grabHoldInput = InputManager.Devices[indexDevice].LeftTrigger.IsPressed;
+            grabHoldInput = InputManager.Devices[indexDevice].RightTrigger.IsPressed;
             grabInput = grabHoldInput;
             releaseInput = !grabInput;
         }

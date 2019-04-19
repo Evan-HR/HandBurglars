@@ -58,7 +58,7 @@ public Scene sceneCheck2;
 
             if (player1WinZone && player2WinZone && sceneInfo2.canWin2 == true)
             {
-                Initiate.Fade("Victory", Color.white, 0.8f);
+                Initiate.Fade("POC_BOSS", Color.white, 0.8f);
             }
         }
 
