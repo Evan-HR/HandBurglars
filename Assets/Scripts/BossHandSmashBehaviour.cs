@@ -322,7 +322,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
             tempBurnTimer = burnTimer;
 
             //destroy(other.gameobject);
-            FindObjectOfType<AudioManager>().Play("fireWhoosh");
+            //FindObjectOfType<AudioManager>().Play("fireWhoosh");
             FindObjectOfType<AudioManager>().Play("monsterGrowl");
         }
 
@@ -339,7 +339,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
                 bossFollow.SetCanDuck(BossFollow.BossState.HAND_STUCK);
                 waitTime = stunTimer;
                 handState = HandState.BURNT;
-                FindObjectOfType<AudioManager>().Play("fireWhoosh");
+                //FindObjectOfType<AudioManager>().Play("fireWhoosh");
             }
             
 
