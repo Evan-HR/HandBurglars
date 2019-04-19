@@ -120,8 +120,8 @@ public class GameManager : MonoBehaviour {
     public void CharacterScene()
     {
 
-        FindObjectOfType<AudioManager>().Play("playAgain");
-        Initiate.Fade("SelectCharacter", Color.white, 0.3f);
+        FindObjectOfType<AudioManager>().Play("discovery");
+        Initiate.Fade("SelectCharacter", Color.white, 0.9f);
         //FindObjectOfType<AudioManager>().Play("bossBattle");
     }
 
