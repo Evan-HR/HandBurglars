@@ -173,6 +173,8 @@ public class SelectorScript : MonoBehaviour {
 
             //currentDevice = nextDevice();
 
+            FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
+            FindObjectOfType<AudioManager>().Play("weebooSound");
             Initiate.Fade("Level1", Color.white, 1.5f);
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using GameEye2D.Behaviour;
 
 public class SceneManagerLevel1 : MonoBehaviour{
     public GameObject boulder;
@@ -30,8 +31,13 @@ public GameObject bombExplode;
 public GameObject bomb;
 public GameObject bottomHideout;
 
+
+    //shake effect
+    Shake m_CameraShake;
+
     private void Awake()
     {
+        m_CameraShake = Camera.main.GetComponent<Shake>();
         rampColliderRender = rampColliderRender.GetComponent<SpriteRenderer>();
     
     }
@@ -95,6 +101,7 @@ public bool getWinLevel1(){
 
     void ExplodingRubble(){
         FindObjectOfType<AudioManager>().Play("cannon");
+        m_CameraShake.ShakeCamera(2f);
         bombExplode.SetActive(true);
         bomb.SetActive(false);
         bottomHideout.SetActive(false);

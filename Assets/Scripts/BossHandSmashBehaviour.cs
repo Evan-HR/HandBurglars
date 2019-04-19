@@ -323,7 +323,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
 
             //destroy(other.gameobject);
             FindObjectOfType<AudioManager>().Play("fireWhoosh");
-            //FindObjectOfType<AudioManager>().Play("monstergrowl");
+            FindObjectOfType<AudioManager>().Play("monsterGrowl");
         }
 
     }
@@ -345,7 +345,7 @@ public class BossHandSmashBehaviour : MonoBehaviour
 
             //destroy(other.gameobject);
             
-            //FindObjectOfType<AudioManager>().Play("monstergrowl");
+            FindObjectOfType<AudioManager>().Play("monsterGrowl");
         }
 
     }

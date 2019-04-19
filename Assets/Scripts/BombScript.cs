@@ -5,6 +5,7 @@ using UnityEngine;
 public class BombScript : MonoBehaviour
 {
     private GameObject SceneManager;
+    public bool canTorch = true;
 
     private void Awake()
     {
@@ -14,10 +15,17 @@ public class BombScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
 
-        if (col.gameObject.tag == "TorchFlame")
+        if (col.gameObject.tag == "TorchFlame" && canTorch)
         {
+            canTorch = false;
+            Invoke("canTorchTrue", 3);
             SceneManager.SendMessage("BombTorch");
         }
+    }
+
+    void canTorchTrue()
+    {
+        canTorch = true;
     }
 
     

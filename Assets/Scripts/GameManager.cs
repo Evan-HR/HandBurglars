@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour {
         }
         else if (scene.name == "Level1")
         {
-            FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
             FindObjectOfType<AudioManager>().Play("caveAmbience");
             FindObjectOfType<AudioManager>().Play("level1and2Music");
 
@@ -114,25 +113,8 @@ public class GameManager : MonoBehaviour {
 
     public void StartGame()
     {
-        if (scene.name == "SelectCharacter")
-        {
-            //FindObjectOfType<AudioManager>().Stop("birds");
-            FindObjectOfType<AudioManager>().Stop("mainMenuMusic");
-            FindObjectOfType<AudioManager>().Play("playAgain");
-            Initiate.Fade("POC_Boss", Color.white, 0.6f);
-        }
-        else if(scene.name == "Menu")
-        {
-            Initiate.Fade("SelectCharacter", Color.white, 1.0f);
-
-        }
-        else
-        {
-            FindObjectOfType<AudioManager>().Play("lostHealth");
-            Initiate.Fade("Level1", Color.white, 0.9f);
-        }
-
-
+        FindObjectOfType<AudioManager>().Play("weebooSound");
+        Initiate.Fade("Menu", Color.black, 0.9f);
     }
 
     public void CharacterScene()

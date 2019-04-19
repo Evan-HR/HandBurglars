@@ -22,7 +22,7 @@ public class CannonShoot : MonoBehaviour {
     {
 		cannonTimer -= Time.deltaTime; 
 	}
-
+    /*
     public void ShootCannon()
     {
         if(cannonTimer<=0){
@@ -35,7 +35,7 @@ public class CannonShoot : MonoBehaviour {
         }
         
 
-    }
+    }*/
 
     public GameObject getCannonballGameObject()
     {

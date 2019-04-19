@@ -291,7 +291,7 @@ public class BossFollow : MonoBehaviour {
             transform.position = Vector2.MoveTowards(transform.position, leftEndVector2, speed * Time.deltaTime);
         }
     }
-
+    
     public void Duck()
     {
         if (bossState == BossState.CAN_DUCK)

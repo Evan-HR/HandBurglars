@@ -58,7 +58,8 @@ public Scene sceneCheck2;
 
             if (player1WinZone && player2WinZone && sceneInfo2.canWin2 == true)
             {
-                Initiate.Fade("POC_BOSS", Color.white, 0.8f);
+                FindObjectOfType<AudioManager>().Play("weebooSound");
+                Initiate.Fade("POC_BOSS", Color.black, 0.6f);
             }
         }
 
