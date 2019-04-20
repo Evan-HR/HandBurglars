@@ -211,13 +211,13 @@ public class PlayerManager : MonoBehaviour {
 
         if (GameManager.playerDataDict[1].characterName.Equals("Bru"))
         {
-            player1Data = GameManager.playerDataDict[2];
-            player2Data = GameManager.playerDataDict[1];
+            player1Data = GameManager.playerDataDict[1];
+            player2Data = GameManager.playerDataDict[2];
         }
         else
         {
-            player1Data = GameManager.playerDataDict[1];
-            player2Data = GameManager.playerDataDict[2];
+            player1Data = GameManager.playerDataDict[2];
+            player2Data = GameManager.playerDataDict[1];
         }
 
         Debug.Log("player1 controller type:" + player1Data.controlDevice);
@@ -325,7 +325,9 @@ public class PlayerManager : MonoBehaviour {
         } else {
             on1WayGround = false;
         }
-        if (!m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("Hand1", "Hand2"))) {
+        if (m_CircleCollider.IsTouchingLayers(LayerMask.GetMask("Hand1", "Hand2"))) {
+            onFist = true;
+        } else {
             onFist = false;
         }
 
@@ -420,13 +422,9 @@ public class PlayerManager : MonoBehaviour {
         }
 
         if (isDead){
-
             isHolding = false;
             toGrabObject = null;
             heldObject = null;
-            handGrabJoint.connectedBody = null;
-            handGrabJoint.enabled = false;
-            //heldObject.tag = "ungrabbed";
 
             Vector2 tempPos = this.transform.position;
             this.gameObject.SetActive(false);
@@ -526,11 +524,11 @@ public class PlayerManager : MonoBehaviour {
                 heldObject = toGrabObject;
                 // if it is a handGrab Object it must be ungrabbed (lock system)
                 if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectGrab")){
-                   if (heldObject.CompareTag("ungrabbed")) {
-                         handGrabJoint.enabled = true;
+                    if (heldObject.CompareTag("ungrabbed")) {
+                        handGrabJoint.enabled = true;
                         handGrabJoint.connectedBody = heldObject.GetComponent<Rigidbody2D>();
                         heldObject.tag = "grabbed";
-                   }
+                    }
                 
                 // draggable can be lifted with friend
                 } else if (toGrabObject.layer == LayerMask.NameToLayer("HandObjectDrag(Works)")){

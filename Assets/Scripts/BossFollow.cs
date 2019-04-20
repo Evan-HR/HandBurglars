@@ -7,6 +7,12 @@ public class BossFollow : MonoBehaviour {
     public float speed;
     public float bossDuckSpeed;
 
+    //FACETHINGS
+    public float yOffset;
+
+    public Animator bossFace_animator;
+
+    public float faceDistance;
     private Transform player1Transform;
     private Transform player2Transform;
     private Vector2 player1Vector2X;
@@ -55,13 +61,11 @@ public class BossFollow : MonoBehaviour {
     public float hpStage3Speed;
     private SpriteRenderer bossFollowSpriteRender;
     private SpriteRenderer bossHandSpriteRenderer;
-    public Sprite BossMouthOpenSprite;
-    public Sprite BossMouthCloseSprite;
+    // public Sprite BossMouthOpenSprite;
+    // public Sprite BossMouthCloseSprite;
     private Vector2 leftEndVector2;
     private Vector2 rightEndVector2;
     private bool isMoveLeft;
-
-    private GameObject bossSceneManager;
 
 
     //private bool isHandAttacking = false;
@@ -85,7 +89,6 @@ public class BossFollow : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        bossSceneManager = GameObject.FindGameObjectWithTag("LevelManager");
         bossBodyScaleOriginalVector3 = transform.localScale;
         bossBodyYScaleOriginal = transform.localScale.y;
         bossBodyYScale = bossBodyYScaleOriginal;
@@ -116,7 +119,9 @@ public class BossFollow : MonoBehaviour {
 
         if (bossState == BossState.CAN_MOVE)
         {
-            bossFollowSpriteRender.sprite = BossMouthCloseSprite;
+            //bossFollowSpriteRender.sprite = BossMouthCloseSprite;
+            bossFace_animator.SetBool("isHurt", false);
+
 
             this.GetComponent<CircleCollider2D>().enabled = false;
 
@@ -153,8 +158,8 @@ public class BossFollow : MonoBehaviour {
         else if (bossState == BossState.HAND_STUCK)
         {
             this.GetComponent<CircleCollider2D>().enabled = true;
-            bossFollowSpriteRender.sprite = BossMouthOpenSprite;
-
+            //bossFollowSpriteRender.sprite = BossMouthOpenSprite;
+            bossFace_animator.SetBool("isHurt", true);
 
             switch (bossHealth)
             {
@@ -184,12 +189,14 @@ public class BossFollow : MonoBehaviour {
                 bossMoveVector2 = new Vector2(player2Transform.position.x, bossBodyYPos);
                 transform.position = Vector2.MoveTowards(transform.position, bossMoveVector2, speed * Time.deltaTime);
                 targetPlayerVector2 = new Vector2(player2Transform.position.x, player2Transform.position.y);
+                targetPos = player2Transform.position;
             }
             else
             {
                 bossMoveVector2 = new Vector2(player1Transform.position.x, bossBodyYPos);
                 transform.position = Vector2.MoveTowards(transform.position, bossMoveVector2, speed * Time.deltaTime);
                 targetPlayerVector2 = new Vector2(player1Transform.position.x, player1Transform.position.y);
+                targetPos = player1Transform.position;
             }
         }
 
@@ -220,20 +227,25 @@ public class BossFollow : MonoBehaviour {
             // }
 
 
+        // BOSSFACE
+        Vector2 faceVector = (targetPos - transform.position);
+        faceVector.Normalize();
+        Vector2 facePosition = (Vector2) transform.position + faceVector * faceDistance + new Vector2(0, yOffset);
+        transform.GetChild(0).position = Vector2.MoveTowards(transform.GetChild(0).position, facePosition, 5.0f);
+    Debug.DrawLine(transform.position, (Vector2) transform.position + faceDistance * faceVector, Color.red);
 
     }
-
+    // monster receiving damage
     void OnCollisionStay2D(Collision2D col)
     {
         string colliderName = col.gameObject.name;
         Debug.Log("BossFollow colliderName " + colliderName);
 
-        if (colliderName == "throwableBomb" && bossState != BossState.DEAD && bossSceneManager.GetComponent<SceneManagerBoss>().bombLit)
+        if (colliderName == "throwableBomb" && bossState != BossState.DEAD)
         {
-           bossSceneManager.SendMessage("explodeBomb");
+           
             FindObjectOfType<AudioManager>().Play("monsterCannonHurt");
             FindObjectOfType<AudioManager>().Play("monsterBallHurt");
-
 
             //Destroy(other.gameObject);
             Debug.Log("BossFollow bossHealth " + bossHealth);
@@ -291,7 +303,7 @@ public class BossFollow : MonoBehaviour {
             transform.position = Vector2.MoveTowards(transform.position, leftEndVector2, speed * Time.deltaTime);
         }
     }
-    
+
     public void Duck()
     {
         if (bossState == BossState.CAN_DUCK)
