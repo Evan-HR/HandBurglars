@@ -423,8 +423,30 @@ public class PlayerManager : MonoBehaviour {
 
         if (isDead){
             isHolding = false;
+            isFist = false;
+            isClimbing = false;
             toGrabObject = null;
+            if (heldObject != null){
+                if (heldObject.layer == LayerMask.NameToLayer("HandObjectGrab")){
+                    heldObject.tag = "ungrabbed";
+                    handGrabJoint.connectedBody = null;
+                    handGrabJoint.enabled = false;
+                } else {
+                    handDragHingeJoint.connectedBody = null;
+                    handDragHingeJoint.enabled = false;
+                }
             heldObject = null;
+            hand_animator.SetBool("isGrip", false);
+            }
+            
+
+            // grab hand joints
+            
+            
+            
+            
+
+
 
             Vector2 tempPos = this.transform.position;
             this.gameObject.SetActive(false);
