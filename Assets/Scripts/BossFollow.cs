@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BossFollow : MonoBehaviour {
-
+ private GameObject SceneManager;
     public float speed;
     public float bossDuckSpeed;
 
@@ -90,6 +90,7 @@ public class BossFollow : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        SceneManager = GameObject.FindGameObjectWithTag("LevelManager");
         bossBodyScaleOriginalVector3 = transform.localScale;
         bossBodyYScaleOriginal = transform.localScale.y;
         bossBodyYScale = bossBodyYScaleOriginal;
@@ -168,7 +169,7 @@ public class BossFollow : MonoBehaviour {
                     BossStunMovementControl(hpStage2Speed);
                     break;
                 case 0:
-                    BossStunMovementControl(hpStage3Speed);
+                    BossStunMovementControl(hpStage2Speed);
                     break;
             }
             
@@ -242,9 +243,9 @@ public class BossFollow : MonoBehaviour {
         string colliderName = col.gameObject.name;
         Debug.Log("BossFollow colliderName " + colliderName);
 
-        if (colliderName == "throwableBomb" && bossState != BossState.DEAD)
+        if (colliderName == "throwableBomb" && bossState != BossState.DEAD && SceneManager.GetComponent<SceneManagerBoss>().bombLit)
         {
-           
+            SceneManager.GetComponent<SceneManagerBoss>().BombBoss();
             FindObjectOfType<AudioManager>().Play("monsterCannonHurt");
             FindObjectOfType<AudioManager>().Play("monsterBallHurt");
 
@@ -272,7 +273,7 @@ public class BossFollow : MonoBehaviour {
                 this.GetComponent<CircleCollider2D>().enabled = false;
                 bossHandBehaviourScript.SetHandState(BossHandSmashBehaviour.HandState.DEAD);
                 bossState = BossState.DEAD;
-                FindObjectOfType<AudioManager>().Play("victory");
+                //FindObjectOfType<AudioManager>().Play("victory");
                 Initiate.Fade("Victory", Color.white, 0.6f);
 
             }

@@ -19,12 +19,14 @@ public class SceneManagerBoss : MonoBehaviour{
     {
         m_CameraShake = Camera.main.GetComponent<Shake>();
     }
-    // void BombBoss(){
-    //     Vector2 tempPos = bomb.transform.position;
-    //     bombExplode.transform.position = tempPos;
-    //     bombExplode.SetActive(true);
-    //     bomb.transform.position = bombRespawn.transform.position;
-    // }
+    public void BombBoss(){
+         Vector2 tempPos = bomb.transform.position;
+         m_CameraShake.ShakeCamera(2f);
+         explodeBomb();
+         bombExplode.transform.position = tempPos;
+         bombExplode.SetActive(true);
+         bomb.transform.position = bombRespawn.transform.position;
+     }
 
     void BombTorch(){
         bombLit = true;
@@ -35,6 +37,7 @@ public class SceneManagerBoss : MonoBehaviour{
 
     void explodeBomb(){
         bombLit = false;
+        FindObjectOfType<AudioManager>().Play("cannon");
         m_CameraShake.ShakeCamera(2f);
         //Vector2 tempPos = bomb.transform.position;
         //bombExplode.transform.position = tempPos;

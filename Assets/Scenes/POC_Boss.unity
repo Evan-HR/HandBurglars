@@ -142,12 +142,12 @@ PrefabInstance:
     - target: {fileID: 2955481996599532465, guid: 996bbf7f56ec75e46a131a6c7d88b141,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33.2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2955481996599532465, guid: 996bbf7f56ec75e46a131a6c7d88b141,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17.3
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2955481996599532465, guid: 996bbf7f56ec75e46a131a6c7d88b141,
         type: 3}
@@ -254,7 +254,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 6.09
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ae048417b36b4934bbbe9cd891079d64, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -529,7 +529,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: -6
   m_Sprite: {fileID: 21300000, guid: 7785d8cecc30c75459d419f5f8bc8105, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -595,9 +595,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.22867765, y: 0.24662139}
+  m_Offset: {x: 0.018383868, y: 0.26951554}
   serializedVersion: 2
-  m_Radius: 0.49069005
+  m_Radius: 0.75778633
 --- !u!114 &132383038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,6 +742,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e9bfc04fdd85642a6a001d31f5cbb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scene:
+    m_Handle: 0
   HeartSprites:
   - {fileID: 21300006, guid: 8ebe981dd2502c1499dfc93e7bd55c4e, type: 3}
   - {fileID: 21300004, guid: 8ebe981dd2502c1499dfc93e7bd55c4e, type: 3}
@@ -1015,7 +1017,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 271343601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.7, y: 17.9, z: 0}
+  m_LocalPosition: {x: 22.65, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1034,11 +1036,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -44.35
+      value: -40.5
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.3
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 640210452, guid: 55b313d6ee8f1b84c88d7b7a2d525593, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4481,7 +4483,7 @@ MonoBehaviour:
   shakeSpeed: 64.8
   shakeMagnitude: 0.5
   sitTimer: 2
-  stunTimer: 3
+  stunTimer: 7
   bossHandSpriteRenderer: {fileID: 776128255}
 --- !u!212 &776128255
 SpriteRenderer:
@@ -7025,7 +7027,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -6
+  m_SortingOrder: -8
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 19.965, y: 7.43, z: 0}
   m_MaxChunkCount: 16
@@ -7773,6 +7775,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263575398443943860, guid: ff209b5279704ac4988581f904fbe87f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263575398591935604, guid: ff209b5279704ac4988581f904fbe87f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263575398591935604, guid: ff209b5279704ac4988581f904fbe87f,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.1395626
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263575398591935604, guid: ff209b5279704ac4988581f904fbe87f,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.9026036
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263575398591935604, guid: ff209b5279704ac4988581f904fbe87f,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 1.037936
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263575398591935604, guid: ff209b5279704ac4988581f904fbe87f,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.8581548
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff209b5279704ac4988581f904fbe87f, type: 3}
@@ -9282,7 +9314,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_Sprite: {fileID: 21300000, guid: 6c968fd0487b53b42b85e2e0b98a0eca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

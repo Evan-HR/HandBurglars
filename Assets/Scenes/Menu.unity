@@ -2053,7 +2053,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: victory
     clip: {fileID: 8300000, guid: cbd127d2dab1bbc409822b626fb58257, type: 3}
-    volume: 0.868
+    volume: 0.51
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0

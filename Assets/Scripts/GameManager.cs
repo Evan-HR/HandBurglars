@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour {
         {
             FindObjectOfType<AudioManager>().Stop("caveAmbience");
             FindObjectOfType<AudioManager>().Stop("level1and2Music");
+            FindObjectOfType<AudioManager>().Stop("bossBattle");
             FindObjectOfType<AudioManager>().Play("victory");
         }
     }
