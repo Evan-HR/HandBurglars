@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthUI : MonoBehaviour
 {
+    public Scene scene;
 
     //storing Sprites in sprite array
     public Sprite[] HeartSprites;
@@ -29,9 +31,11 @@ public class HealthUI : MonoBehaviour
 
     private void Update()
     {
-
+        scene = SceneManager.GetActiveScene();
+        if(scene.name != "GameOver"){
         HeartUIPlayer1.sprite = HeartSprites[playerManager1.health];
         HeartUIPlayer2.sprite = HeartSprites[playerManager2.health];
         HeartUIGlobal.sprite = HeartSprites[GameManager.globalLives];
+    }
     }
 }

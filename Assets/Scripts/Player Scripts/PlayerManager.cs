@@ -196,7 +196,9 @@ public class PlayerManager : MonoBehaviour {
         canBeHit = true;
 
         // death
+        if(GameManager.globalLives!=0){
         respawnPos = GameObject.Find("Respawn").transform.position;
+        }
 
         gameManager = GameManager.Instance;
         if (GameManager.playerDataDict.Count == 0)
@@ -794,6 +796,8 @@ public class PlayerManager : MonoBehaviour {
     }
 
     public void Respawn(){
+        //only run respawn if globalLives not 0
+        if(GameManager.globalLives != 0){
         // if health is zero
         if (this.gameObject.activeSelf == false){
             this.gameObject.SetActive(true);
@@ -809,6 +813,7 @@ public class PlayerManager : MonoBehaviour {
             this.transform.position = respawnPos;
             Invoke("Respawn", 3.0f);
 
+        }
         }
     }
 }

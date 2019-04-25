@@ -52,9 +52,12 @@ public class GameManager : MonoBehaviour {
 
     public void Update()
     {
-        if(globalLives == 0)
+        if(globalLives == 0 && scene.name != "GameOver")
         {
+            globalLives += 3;
             GameOver();
+        
+          
         }
     }
 

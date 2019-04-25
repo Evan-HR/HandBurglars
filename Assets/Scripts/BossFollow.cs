@@ -51,7 +51,8 @@ public class BossFollow : MonoBehaviour {
     private float bossBodyXPosOriginal;
     private float bossBodyYPosOriginal;
     private float bossBodyZPosOriginal;
-    private int bossHealth = 2;
+    //CHANGE TO 2 for the public DEMO!, 0 is for capstone purposes
+    private int bossHealth = 0;
     private BossState bossState = BossState.CAN_DUCK;
     public float shakeSpeed;
     public float shakeMagnitude;
