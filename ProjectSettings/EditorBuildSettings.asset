@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: df0081ecd06c8574da18916394f3b079
   - enabled: 1
-    path: Assets/Scenes/POC_Boss.unity
-    guid: 3708941fa287aac4b891a0e3ac439544
+    path: Assets/Scenes/SelectCharacter.unity
+    guid: 818c6512ec6b1204e96f819ed4850b07
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 7a6353778ab0d5d47ad2932c1292e865
@@ -18,14 +18,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Level2.unity
     guid: 786f8c40599ea6e4bbc76a6c97f65d6d
   - enabled: 1
-    path: Assets/Scenes/GameOver.unity
-    guid: 8af945d782ce7134c8d9fa15ab6a10c0
-  - enabled: 1
-    path: Assets/Scenes/SelectCharacter.unity
-    guid: 818c6512ec6b1204e96f819ed4850b07
+    path: Assets/Scenes/POC_Boss.unity
+    guid: 3708941fa287aac4b891a0e3ac439544
   - enabled: 1
     path: Assets/Scenes/Victory.unity
     guid: 0495888a1f99dc74f827bc8cb13cc6c0
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 8af945d782ce7134c8d9fa15ab6a10c0
   - enabled: 0
     path: Assets/Scenes/PlayerTest.unity
     guid: 2c303eeb77456b24bb920ec7b52db4e7

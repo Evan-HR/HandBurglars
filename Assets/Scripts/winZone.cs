@@ -58,8 +58,9 @@ public Scene sceneCheck2;
 
             if (player1WinZone && player2WinZone && sceneInfo2.canWin2 == true)
             {
-                FindObjectOfType<AudioManager>().Play("weebooSound");
-                Initiate.Fade("POC_BOSS", Color.black, 0.6f);
+                //FindObjectOfType<AudioManager>().Play("weebooSound");
+                //FindObjectOfType<AudioManager>().Play("bossBattle");
+                Initiate.Fade("POC_BOSS", Color.black, 0.8f);
             }
         }
 
